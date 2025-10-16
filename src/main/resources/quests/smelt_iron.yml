@@ -1,0 +1,15 @@
+display:
+  name: "Iron Smelting Quest"
+  description: "Smelt iron ingots to complete this quest!"
+quests:
+  type: "smelting"
+  min-amount: 10
+  max-amount: 64
+  min-time: 3
+  max-time: 5
+  materials:
+    - iron_ingot
+rewards:
+  commands:
+    - "give %player% furnace 1"
+    - "eco give %player% 100"

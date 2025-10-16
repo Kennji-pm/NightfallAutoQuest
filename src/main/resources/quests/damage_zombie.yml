@@ -1,0 +1,15 @@
+display:
+  name: "Zombie Damage Quest"
+  description: "Deal damage to zombies to complete this quest!"
+quests:
+  type: "dealdamage"
+  min-amount: 20
+  max-amount: 100
+  min-time: 3
+  max-time: 5
+  entities:
+    - zombie
+rewards:
+  commands:
+    - "give %player% iron_sword 1"
+    - "[~20.5%] eco give %player% 100"

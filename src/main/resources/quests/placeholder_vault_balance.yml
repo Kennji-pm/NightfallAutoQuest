@@ -1,0 +1,17 @@
+display:
+  name: "Vault Balance Quest"
+  description: "Achieve a target balance in your economy account!"
+
+quests:
+  type: "placeholder"
+  placeholders:
+    values:
+      - "vault_eco_balance_fixed"
+  min-amount: 100
+  max-amount: 1000
+  min-time: 5
+  max-time: 10
+
+rewards:
+  commands:
+    - "give %player% diamond 5"

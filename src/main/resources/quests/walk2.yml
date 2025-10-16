@@ -1,0 +1,13 @@
+display:
+  name: "Walking Quest 2"
+  description: "Walk a certain distance to complete this quest!"
+quests:
+  type: "walking"
+  min-amount: 100
+  max-amount: 500
+  min-time: 3
+  max-time: 5
+rewards:
+  commands:
+    - "give %player% leather_boots 1"
+    - "eco give %player% 50"

@@ -1,0 +1,84 @@
+# NightfallAutoQuest Quest Configuration Examples
+
+# This file provides detailed examples and explanations for creating custom quests.
+# Each quest should be defined in its own .yml file within the 'quests' folder (e.g., my_custom_quest.yml).
+
+# --- DETAILED EXAMPLE QUEST CONFIGURATION ---
+# This example is based on 'kill_zombie.yml' and explains each configuration option.
+
+# File: kill_zombie.yml
+display: # (Required) Section for display-related information shown to players.
+  name: "Zombie Killing Quest" # (Required) The display name of the quest, shown in-game.
+  description: "Kill zombies to complete this quest!" # (Required) A brief description of the quest, displayed to players.
+quests: # (Required) The core quest definition.
+  type: "mobkilling" # (Required) The module type this quest belongs to. Determines the event listener.
+                      # See "Available Quest Modules and Tasks" section below for a full list.
+  task: "kill_zombie" # (Required) The specific task for the quest. Format: "module_specific_target".
+                      # For 'mobkilling', this is 'kill_<entity_type>'.
+  min-amount: 5 # (Required) The minimum amount of progress required to complete the quest.
+  max-amount: 20 # (Required) The maximum amount of progress required. A random value between min-amount and max-amount will be chosen.
+  min-time: 3 # (Required) The minimum time limit for the quest in minutes.
+  max-time: 5 # (Required) The maximum time limit. A random value between min-time and max-time will be chosen.
+  entities: # (Optional, specific to 'mobkilling' and 'dealdamage' modules) List of entities to random track.
+    - zombie # Example: Track random entities.
+rewards: # (Required) A section defining rewards for completing the quest.
+  commands: # (Required) A list of commands to be executed when the quest is completed.
+    - "give %player% rotten_flesh 10" # Example: Give 10 rotten flesh to the player.
+                                     # %player% placeholder is replaced with the player's name.
+    - "[~50%] eco give %player% 100" # Example: 50% chance to give the player 100 economy.
+                                    # Use "[~XX%]" prefix for percentage-based rewards.
+
+# --- AVAILABLE QUEST MODULES AND TASKS ---
+# Below is a list of all available quest modules and their corresponding task formats.
+# The 'type' field in your quest configuration must match one of these module names.
+# The 'task' field must follow the specified format for the chosen module.
+
+# 1. Mining Module (type: mining)
+#    Tasks: mine_<material>
+#    Examples: mine_stone, mine_iron_ore, mine_diamond_ore
+#    Description: Track players breaking specific blocks.
+
+# 2. Placing Module (type: placing)
+#    Tasks: place_<material>
+#    Examples: place_cobblestone, place_dirt, place_oak_log
+#    Description: Track players placing specific blocks.
+
+# 3. Crafting Module (type: crafting)
+#    Tasks: craft_<material>
+#    Examples: craft_wooden_pickaxe, craft_bread, craft_diamond_sword
+#    Description: Track players crafting specific items.
+
+# 4. Farming Module (type: farming)
+#    Tasks: farm_<material>
+#    Examples: farm_wheat, farm_carrot, farm_melon
+#    Description: Track players harvesting specific crops.
+
+# 5. Fishing Module (type: fishing)
+#    Tasks: fish_<material>
+#    Examples: fish_cod, fish_salmon, fish_tropical_fish
+#    Description: Track players catching specific fish.
+
+# 6. Deal Damage Module (type: dealdamage)
+#    Tasks: damage_<entity_type>
+#    Examples: damage_zombie, damage_skeleton, damage_creeper
+#    Description: Track players dealing damage to specific entity types.
+
+# 7. Enchanting Module (type: enchanting)
+#    Tasks: enchant_<material>
+#    Examples: enchant_diamond_sword, enchant_book, enchant_bow
+#    Description: Track players enchanting specific items.
+
+# 8. Mob Killing Module (type: mobkilling)
+#    Tasks: kill_<entity_type>
+#    Examples: kill_zombie, kill_skeleton, kill_spider
+#    Description: Track players killing specific entity types.
+
+# 9. Walking Module (type: walking)
+#    Tasks: walk
+#    Examples: walk
+#    Description: Track players walking a certain distance (each block moved counts as 1 progress).
+
+# 10. Smelting Module (type: smelting)
+#     Tasks: smelt_<material>
+#     Examples: smelt_iron_ingot, smelt_gold_ingot, smelt_cooked_beef
+#     Description: Track players smelting specific items in a furnace.

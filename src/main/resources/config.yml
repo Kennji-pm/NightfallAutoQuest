@@ -1,0 +1,98 @@
+# Configuration file for NightfallAutoQuest
+# Plugin version: 1.3.0
+config-version: 1.5
+
+# Plugin prefix displayed in messages
+prefix: "&6&lNightfall&8AutoQuest &7» &r"
+
+# Quest assignment settings
+quest:
+  # Interval in seconds between automatic quest assignments to online players
+  assign-interval: 120
+  # Percentage of online players to assign quests to each interval (0.0-100.0)
+  assign-percentage: 50.0
+  # Warning time in seconds before quest expiry when warning message is sent
+  warning-time-seconds: 60
+
+# World restriction settings - Quests only work in specified worlds
+# Leave empty to allow all worlds, or list specific world names
+allowed_worlds:
+  - world
+  - world_nether
+  - world_the_end
+
+# Cache settings for optimizing database operations
+cache:
+  # Interval in seconds for saving player cache to database
+  save-interval-seconds: 300
+
+# Sound settings for various quest events
+sounds:
+  # Enable or disable all quest sounds
+  enabled: true
+  # Sound played when a quest is assigned
+  assign:
+    sound: "ENTITY_PLAYER_LEVELUP"
+    volume: 1.0
+    pitch: 1.0
+  # Sound played when a quest is completed
+  complete:
+    sound: "ENTITY_EXPERIENCE_ORB_PICKUP"
+    volume: 1.0
+    pitch: 1.0
+  # Sound played when a quest fails or expires
+  fail:
+    sound: "ENTITY_VILLAGER_NO"
+    volume: 1.0
+    pitch: 1.0
+  # Sound played when warning about upcoming quest expiry
+  warning:
+    sound: "BLOCK_NOTE_BLOCK_BELL"
+    volume: 1.0
+    pitch: 1.0
+
+# Database configuration (supports h2 and mysql)
+database:
+  # Database type: "h2" for file-based SQLite, "mysql" for MySQL server
+  type: "h2"
+  # MySQL connection settings (only used if type is "mysql")
+  mysql:
+    host: "localhost"
+    port: 3306
+    database: "dailyquests"
+    username: "root"
+    password: ""
+
+# BossBar visual settings above player HUD
+bossbar:
+  # Enable or disable bossbar display
+  enabled: true
+  # BossBar color: BLUE, GREEN, PINK, PURPLE, RED, WHITE, YELLOW
+  color: "BLUE"
+  # BossBar style: SOLID, SEGMENTED_6, SEGMENTED_10, SEGMENTED_12, SEGMENTED_20
+  style: "SOLID"
+
+# Module settings - Enable/disable specific quest types
+modules:
+  # Enable mining block quests
+  mining: true
+  # Enable placing block quests
+  placing: true
+  # Enable crafting item quests
+  crafting: true
+  # Enable farming crop quests
+  farming: true
+  # Enable fishing quests
+  fishing: true
+  # Enable dealing damage to entities quests
+  dealdamage: true
+  # Enable enchanting items quests
+  enchanting: true
+  # Enable killing mobs quests
+  mobkilling: true
+  # Enable walking/movement quests
+  walking: true
+  # Enable smelting items quests
+  smelting: true
+  # Enable placeholder quests
+  placeholder: true

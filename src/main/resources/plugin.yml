@@ -1,0 +1,21 @@
+name: '${project.name}'
+version: '${project.version}'
+main: org.kennji.nightfallAutoQuest.NightfallAutoQuest
+api-version: '1.21'
+authors: [ _kennji ]
+description: Project Nightfall
+softdepend: [PlaceholderAPI]
+
+libraries:
+  - 'com.zaxxer:HikariCP:5.0.1'
+  - 'com.h2database:h2:2.2.224'
+  - 'net.kyori:adventure-text-minimessage:4.24.0'
+  - 'net.kyori:adventure-text-serializer-plain:4.24.0'
+
+commands:
+  nightfallautoquest:
+    description: Main command for NightfallAutoQuest
+    aliases:
+      - nq
+      - autoquest
+    usage: /<command> [help|reload|stats|top|giveup|module]
