@@ -11,7 +11,7 @@
 
 *Automatic quest management with rich features and soft integration with economy plugins*
 
-[📥 Download](https://github.com/Kennji-pm/releases) • [📚 Wiki](https://github.com/Kennji-pm/wiki) • [🐛 Issues](https://github.com/Kennji-pm/issues) • [💬 Discord](https://discord.gg/paxFuNpXvb)
+[📥 Download](https://github.com/Kennji-pm/releases) • [📚 Wiki](https://github.com/Kennji-pm/wiki) • [🐛 Issues](https://github.com/Kennji-pm/NightfallAutoQuest/issues) • [💬 Discord](https://discord.gg/paxFuNpXvb)
 
 ---
 
