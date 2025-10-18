@@ -48,16 +48,17 @@ public class DatabaseManager {
                 config.setPassword(cfg.getString("database.mysql.password", ""));
                 config.setDriverClassName("com.mysql.cj.jdbc.Driver");
             } else {
+                // Default to SQLite if unknown type
                 try {
-                    Class.forName("org.h2.Driver");
-                    plugin.getPluginLogger().log(Level.INFO, "H2 driver loaded successfully.");
+                    Class.forName("org.sqlite.JDBC");
+                    plugin.getPluginLogger().log(Level.INFO, "SQLite driver loaded successfully.");
                 } catch (ClassNotFoundException e) {
-                    plugin.getPluginLogger().log(Level.SEVERE, "Failed to load H2 driver: " + e.getMessage());
-                    throw new RuntimeException("H2 driver not found", e);
+                    plugin.getPluginLogger().log(Level.SEVERE, "Failed to load SQLite driver: " + e.getMessage());
+                    throw new RuntimeException("SQLite driver not found", e);
                 }
-                String dbPath = plugin.getDataFolder().getAbsolutePath() + "/nightfallautoquest";
-                config.setJdbcUrl("jdbc:h2:file:" + dbPath + ";MODE=MySQL;DB_CLOSE_ON_EXIT=TRUE;DATABASE_TO_UPPER=false;AUTO_RECONNECT=TRUE");
-                config.setDriverClassName("org.h2.Driver");
+                String dbPath = plugin.getDataFolder().getAbsolutePath() + "/nightfallautoquest.db";
+                config.setJdbcUrl("jdbc:sqlite:" + dbPath);
+                config.setDriverClassName("org.sqlite.JDBC");
             }
 
             // HikariCP configuration (updated for 6.0.0)
@@ -140,8 +141,7 @@ public class DatabaseManager {
         try (Connection conn = dataSource.getConnection()) {
             // Save quest completions
             try (PreparedStatement stmt = conn.prepareStatement(
-                    "INSERT INTO quest_completions (player_uuid, quest_type, completions) " +
-                            "VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE completions = ?")) {
+                    "INSERT OR REPLACE INTO quest_completions (player_uuid, quest_type, completions) VALUES (?, ?, ?)")) {
                 stmt.setString(1, playerData.uuid);
                 // Assuming questType is not directly in PlayerData, this needs to be handled differently
                 // For now, I'll just update the total completions. This needs refinement if individual quest completions are tracked.
@@ -150,35 +150,27 @@ public class DatabaseManager {
                 // For this task, I will assume PlayerData.completions is the total completions.
                 stmt.setString(2, "TOTAL"); // Placeholder quest type for total completions
                 stmt.setInt(3, playerData.completions);
-                stmt.setInt(4, playerData.completions);
                 stmt.executeUpdate();
             }
 
             // Save quest failures
             try (PreparedStatement stmt = conn.prepareStatement(
-                    "INSERT INTO quest_failures (player_uuid, quest_type, failures) " +
-                            "VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE failures = ?")) {
+                    "INSERT OR REPLACE INTO quest_failures (player_uuid, quest_type, failures) VALUES (?, ?, ?)")) {
                 stmt.setString(1, playerData.uuid);
                 stmt.setString(2, "TOTAL"); // Placeholder quest type for total failures
                 stmt.setInt(3, playerData.failures);
-                stmt.setInt(4, playerData.failures);
                 stmt.executeUpdate();
             }
 
             // Save active quest
             if (playerData.activeQuest != null) {
                 try (PreparedStatement stmt = conn.prepareStatement(
-                        "INSERT INTO player_quests (player_uuid, quest_name, progress, expiration, placeholder_start_value) " +
-                                "VALUES (?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE quest_name = ?, progress = ?, expiration = ?, placeholder_start_value = ?")) {
+                        "INSERT OR REPLACE INTO player_quests (player_uuid, quest_name, progress, expiration, placeholder_start_value) VALUES (?, ?, ?, ?, ?)")) {
                     stmt.setString(1, playerData.uuid);
                     stmt.setString(2, playerData.activeQuest);
                     stmt.setInt(3, playerData.questProgress);
                     stmt.setLong(4, playerData.questExpiration);
                     stmt.setInt(5, playerData.placeholderStartValue);
-                    stmt.setString(6, playerData.activeQuest);
-                    stmt.setInt(7, playerData.questProgress);
-                    stmt.setLong(8, playerData.questExpiration);
-                    stmt.setInt(9, playerData.placeholderStartValue);
                     stmt.executeUpdate();
                 }
             } else {

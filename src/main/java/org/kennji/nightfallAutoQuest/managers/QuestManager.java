@@ -265,7 +265,7 @@ public class QuestManager {
         PlayerData playerData = plugin.getPlayerCacheManager().getPlayerData(uuid);
 
         // Set placeholder start value when assigning quest
-        if (quest.getType().equals("placeholder") || Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")){
+        if (quest.getTask().startsWith("placeholder_")){
             String placeholder = quest.getTask().substring("placeholder_".length());
             playerData.placeholderStartValue = PlaceholderQuestModule.getPlaceholderValue(player, placeholder);
         } else {

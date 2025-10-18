@@ -1,6 +1,6 @@
 # Configuration file for NightfallAutoQuest
 # Plugin version: 1.3.0
-config-version: 1.5
+config-version: 1.6
 
 # Plugin prefix displayed in messages
 prefix: "&6&lNightfall&8AutoQuest &7» &r"
@@ -53,8 +53,8 @@ sounds:
 
 # Database configuration (supports h2 and mysql)
 database:
-  # Database type: "h2" for file-based SQLite, "mysql" for MySQL server
-  type: "h2"
+  # Database type: "sqlite" for file-based SQLite, "mysql" for MySQL server
+  type: "sqlite"
   # MySQL connection settings (only used if type is "mysql")
   mysql:
     host: "localhost"

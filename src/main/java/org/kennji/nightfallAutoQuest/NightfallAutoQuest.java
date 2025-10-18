@@ -81,7 +81,7 @@ public final class NightfallAutoQuest extends JavaPlugin {
         moduleManager = new ModuleManager(this);
         bossBarManager = new BossBarManager(this);
         commandManager = new CommandManager(this);
-        databaseManager = new DatabaseManager(this, configManager.getConfig().getString("database.type", "h2"));
+        databaseManager = new DatabaseManager(this, configManager.getConfig().getString("database.type", "sqlite"));
         playerCacheManager = new PlayerCacheManager(this, databaseManager, configManager.getConfig().getLong("cache.save-interval-seconds", 300));
 
         // ┌─────────────────────────────────────────────────────┐

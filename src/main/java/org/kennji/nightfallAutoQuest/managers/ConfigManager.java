@@ -14,7 +14,7 @@ public class ConfigManager {
     private FileConfiguration config;
     private FileConfiguration messages;
     private FileConfiguration commands;
-    private static final String CONFIG_VERSION = "1.5";
+    private static final String CONFIG_VERSION = "1.6";
 
     public ConfigManager(NightfallAutoQuest plugin) {
         this.plugin = plugin;
