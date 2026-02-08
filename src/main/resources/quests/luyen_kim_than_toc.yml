@@ -1,0 +1,24 @@
+# ═══════════════════════════════════════════════════════
+# NHIỆM VỤ: Luyện kim Thần tốc
+# Module: smelting
+# ═══════════════════════════════════════════════════════
+display:
+  name: "🔥 Luyện kim Thần tốc"
+  description: "Nấu chảy quặng để lấy những thỏi kim loại quý!"
+
+quests:
+  type: "smelting"
+  min-amount: 15
+  max-amount: 40
+  min-time: 8
+  max-time: 15
+  items:
+    - iron_ingot
+    - gold_ingot
+    - copper_ingot
+
+rewards:
+  commands:
+    - "eco give %player% 220"
+    - "give %player% coal 16"
+    - "give %player% iron_ingot 8"

@@ -1,21 +1,29 @@
-name: '${project.name}'
-version: '${project.version}'
+name: "${project.name}"
+version: "${project.version}"
 main: org.kennji.nightfallAutoQuest.NightfallAutoQuest
-api-version: '1.21'
-authors: [ _kennji ]
-description: Project Nightfall
+api-version: "1.21"
+authors: [_kennji]
+description: Project Nightfall - Automatic Quest System
 softdepend: [PlaceholderAPI]
 
 libraries:
-  - 'com.zaxxer:HikariCP:5.0.1'
-  - 'com.h2database:h2:2.2.224'
-  - 'net.kyori:adventure-text-minimessage:4.24.0'
-  - 'net.kyori:adventure-text-serializer-plain:4.24.0'
+  - "com.zaxxer:HikariCP:5.0.1"
+  - "net.kyori:adventure-text-minimessage:4.24.0"
+  - "net.kyori:adventure-text-serializer-plain:4.24.0"
 
 commands:
   nightfallautoquest:
     description: Main command for NightfallAutoQuest
     aliases:
       - nq
+      - naq
       - autoquest
     usage: /<command> [help|reload|stats|top|giveup|module]
+
+permissions:
+  naq.use:
+    description: Allows use of basic quest commands (quest, stats, top, giveup, help)
+    default: true
+  naq.admin:
+    description: Allows use of admin commands (reload, module, getdata, purge)
+    default: op

@@ -1,0 +1,29 @@
+# ═══════════════════════════════════════════════════════
+# NHIỆM VỤ: Khai thác Quặng
+# Module: mining
+# ═══════════════════════════════════════════════════════
+display:
+  name: "⛏️ Khai thác Quặng"
+  description: "Đào sâu vào lòng đất để tìm kiếm những quặng quý giá!"
+
+quests:
+  type: "mining"
+  min-amount: 20
+  max-amount: 50
+  min-time: 8
+  max-time: 15
+  blocks:
+    - coal_ore
+    - deepslate_coal_ore
+    - iron_ore
+    - deepslate_iron_ore
+    - copper_ore
+    - deepslate_copper_ore
+    - gold_ore
+    - deepslate_gold_ore
+
+rewards:
+  commands:
+    - "eco give %player% 250"
+    - "give %player% iron_ingot 8"
+    - "[~20%] give %player% diamond 2"

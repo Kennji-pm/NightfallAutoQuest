@@ -1,0 +1,25 @@
+# ═══════════════════════════════════════════════════════
+# NHIỆM VỤ: Thợ săn Kinh nghiệm
+# Module: placeholder
+# Yêu cầu: Plugin CMI hoặc tương tự có placeholder exp
+# ═══════════════════════════════════════════════════════
+display:
+  name: "⭐ Thợ săn Kinh nghiệm"
+  description: "Thu thập điểm kinh nghiệm để nâng cấp bản thân!"
+
+quests:
+  type: "placeholder"
+  min-amount: 100
+  max-amount: 500
+  min-time: 10
+  max-time: 20
+  placeholders:
+    values:
+      - "player_exp"
+      - "statistic_xp_collected"
+
+rewards:
+  commands:
+    - "eco give %player% 200"
+    - "give %player% experience_bottle 16"
+    - "[~20%] give %player% enchanted_book 1"

@@ -1,0 +1,20 @@
+# ═══════════════════════════════════════════════════════
+# NHIỆM VỤ: Nhà thám hiểm
+# Module: walking
+# ═══════════════════════════════════════════════════════
+display:
+  name: "🚶 Nhà thám hiểm"
+  description: "Khám phá thế giới bằng cách đi bộ đến những vùng đất mới!"
+
+quests:
+  type: "walking"
+  min-amount: 500
+  max-amount: 1500
+  min-time: 10
+  max-time: 20
+
+rewards:
+  commands:
+    - "eco give %player% 150"
+    - "give %player% cooked_beef 8"
+    - "[~25%] give %player% leather_boots{Enchantments:[{id:unbreaking,lvl:2}]} 1"

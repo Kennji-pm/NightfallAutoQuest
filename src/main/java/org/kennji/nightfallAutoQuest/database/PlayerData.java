@@ -15,7 +15,7 @@ public class PlayerData {
 
     public PlayerData(UUID uuid) {
         this.uuid = uuid.toString();
-        this.playerName = null; // Will be set when loaded or first used
+        this.playerName = null;
         this.completions = 0;
         this.failures = 0;
         this.completionRate = "0.00%";
@@ -23,5 +23,35 @@ public class PlayerData {
         this.questProgress = 0;
         this.questExpiration = 0;
         this.placeholderStartValue = 0;
+    }
+
+    /**
+     * Update the completion rate based on current completions and failures.
+     * Call this after modifying completions or failures.
+     */
+    public void updateCompletionRate() {
+        int total = completions + failures;
+        if (total == 0) {
+            this.completionRate = "0.00%";
+        } else {
+            double rate = (double) completions / total * 100;
+            this.completionRate = String.format("%.2f%%", rate);
+        }
+    }
+
+    /**
+     * Increment completions and auto-update completion rate.
+     */
+    public void addCompletion() {
+        this.completions++;
+        updateCompletionRate();
+    }
+
+    /**
+     * Increment failures and auto-update completion rate.
+     */
+    public void addFailure() {
+        this.failures++;
+        updateCompletionRate();
     }
 }

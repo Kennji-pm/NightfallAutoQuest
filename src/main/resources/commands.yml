@@ -1,70 +1,105 @@
+# ═══════════════════════════════════════════════════════
+#                    COMMANDS CONFIGURATION
+# ═══════════════════════════════════════════════════════
+# Permission: naq.use - Basic commands (quest, stats, top, giveup, help)
+# Permission: naq.admin - Admin commands (reload, module, getdata, purge)
+# ═══════════════════════════════════════════════════════
+
 commands:
+  # ─────────────────────────────────────────────────────
+  # BASIC COMMANDS (naq.use)
+  # ─────────────────────────────────────────────────────
   help:
     description: "Show available commands"
-    permission: "nightfallautoquest.use"
+    permission: "naq.use"
     aliases:
       - h
+      - "?"
+
+  quest:
+    description: "View your current quest"
+    permission: "naq.use"
+    aliases:
+      - q
+      - info
+      - current
+
+  stats:
+    description: "View your quest statistics"
+    permission: "naq.use"
+    aliases:
+      - st
+      - statistics
+      - stat
+
+  top:
+    description: "View top quest completers"
+    permission: "naq.use"
+    aliases:
+      - leaderboard
+      - lb
+      - rank
+      - ranking
+
+  giveup:
+    description: "Give up your current quest"
+    permission: "naq.use"
+    aliases:
+      - abandon
+      - quit
+      - skip
+
+  # ─────────────────────────────────────────────────────
+  # ADMIN COMMANDS (naq.admin)
+  # ─────────────────────────────────────────────────────
   reload:
     description: "Reload plugin configuration"
-    permission: "nightfallautoquest.admin"
+    permission: "naq.admin"
     aliases:
       - rl
+
   reloadquests:
     description: "Reload quests from files"
-    permission: "nightfallautoquest.admin"
+    permission: "naq.admin"
     aliases:
       - rquest
       - reloadq
       - rq
-  quest:
-    description: "View your current quest"
-    permission: "nightfallautoquest.use"
-    aliases:
-      - q
-      - questinfo
-  purge:
-    description: "Purge all quest data"
-    permission: "nightfallautoquest.admin"
-    aliases:
-      - format
-  stats:
-    description: "View your quest statistics"
-    permission: "nightfallautoquest.stats"
-    aliases:
-      - st
-      - statistics
-  top:
-    description: "View top quest completers"
-    permission: "nightfallautoquest.top"
-    aliases:
-      - leaderboard
-      - lb
-  giveup:
-    description: "Give up your current quest"
-    permission: "nightfallautoquest.giveup"
-    aliases:
-      - abandon
-      - quit
-  getdata:
-    description: "Get player's data"
-    permission: "nightfallautoquest.admin"
-    aliases:
-      - data
+
   module:
     description: "Manage quest modules"
-    permission: "nightfallautoquest.admin"
+    permission: "naq.admin"
     aliases:
       - mod
+      - m
     subcommands:
       list:
         description: "List all available modules"
         aliases:
           - ls
+          - l
       enable:
         description: "Enable a specific module"
         aliases:
           - en
+          - on
       disable:
         description: "Disable a specific module"
         aliases:
           - dis
+          - off
+
+  getdata:
+    description: "Get player's quest data"
+    permission: "naq.admin"
+    aliases:
+      - data
+      - player
+      - lookup
+
+  purge:
+    description: "Purge all quest data (dangerous!)"
+    permission: "naq.admin"
+    aliases:
+      - reset
+      - clear

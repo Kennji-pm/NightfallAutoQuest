@@ -1,0 +1,23 @@
+# ═══════════════════════════════════════════════════════
+# NHIỆM VỤ: Thợ mỏ Kim cương
+# Module: mining
+# ═══════════════════════════════════════════════════════
+display:
+  name: "💎 Thợ mỏ Kim cương"
+  description: "Tìm kiếm những viên kim cương quý hiếm trong lòng đất!"
+
+quests:
+  type: "mining"
+  min-amount: 5
+  max-amount: 12
+  min-time: 10
+  max-time: 20
+  blocks:
+    - diamond_ore
+    - deepslate_diamond_ore
+
+rewards:
+  commands:
+    - "eco give %player% 500"
+    - "give %player% diamond 3"
+    - "[~10%] give %player% diamond_pickaxe 1"

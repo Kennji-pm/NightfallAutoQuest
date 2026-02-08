@@ -1,5 +1,6 @@
 package org.kennji.nightfallAutoQuest.utils;
 
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.*;
@@ -16,10 +17,33 @@ public class Logger {
 
     private final JavaPlugin plugin;
     private java.util.logging.Logger logger;
+    private Level configuredLevel;
+    private boolean debugMode;
 
     public Logger(JavaPlugin plugin) {
         this.plugin = plugin;
+        loadConfiguration();
         setupLogging();
+    }
+
+    private void loadConfiguration() {
+        FileConfiguration config = plugin.getConfig();
+        String levelStr = config.getString("logging.level", "INFO").toUpperCase();
+        this.debugMode = config.getBoolean("logging.debug", false);
+
+        this.configuredLevel = switch (levelStr) {
+            case "DEBUG", "FINE", "ALL" -> Level.FINE;
+            case "WARNING", "WARN" -> Level.WARNING;
+            case "SEVERE", "ERROR" -> Level.SEVERE;
+            default -> Level.INFO;
+        };
+    }
+
+    public void reloadConfiguration() {
+        loadConfiguration();
+        if (logger != null) {
+            logger.setLevel(configuredLevel);
+        }
     }
 
     private void setupLogging() {
@@ -35,19 +59,18 @@ public class Logger {
             File zipFile = getUniqueZipFile(logFolder, currentDate);
 
             File latestLog = new File(logFolder, "latest.log");
-            File[] logFiles = logFolder.listFiles((dir, name) ->
-                    name.endsWith(".log.gz") && name.startsWith(currentDate));
+            File[] logFiles = logFolder
+                    .listFiles((dir, name) -> name.endsWith(".log.gz") && name.startsWith(currentDate));
 
             if (latestLog.exists() || (logFiles != null && logFiles.length > 0)) {
                 try (FileOutputStream fos = new FileOutputStream(zipFile, true);
-                     ZipOutputStream zos = new ZipOutputStream(fos)) {
+                        ZipOutputStream zos = new ZipOutputStream(fos)) {
                     if (latestLog.exists()) {
                         String entryName = currentDate + "_latest.log.gz";
                         addFileToZip(latestLog, entryName, zos);
                         if (!latestLog.delete()) {
                             plugin.getLogger().warning("Failed to delete latest.log after archiving.");
                         }
-                        plugin.getLogger().info("Archived latest.log to: " + zipFile.getName());
                     }
 
                     if (logFiles != null) {
@@ -55,9 +78,9 @@ public class Logger {
                             String entryName = logFile.getName();
                             addFileToZip(logFile, entryName, zos);
                             if (!logFile.delete()) {
-                                plugin.getLogger().warning("Failed to delete " + logFile.getName() + " after archiving.");
+                                plugin.getLogger()
+                                        .warning("Failed to delete " + logFile.getName() + " after archiving.");
                             }
-                            plugin.getLogger().info("Archived " + logFile.getName() + " to: " + zipFile.getName());
                         }
                     }
                 } catch (IOException e) {
@@ -68,9 +91,9 @@ public class Logger {
             FileHandler fileHandler = new FileHandler(latestLog.getAbsolutePath(), 1024 * 1024, 10, true);
             fileHandler.setFormatter(new SimpleFormatter());
             logger = java.util.logging.Logger.getLogger("NightfallAutoQuest");
-            logger.setUseParentHandlers(true); // Enable console logging
+            logger.setLevel(configuredLevel);
+            logger.setUseParentHandlers(true);
             logger.addHandler(fileHandler);
-            logger.info("Logging initialized to: " + latestLog.getName() + " (with console output)");
         } catch (IOException e) {
             plugin.getLogger().severe("Failed to setup logging: " + e.getMessage());
         }
@@ -108,23 +131,41 @@ public class Logger {
     }
 
     public void info(String message) {
-        logger.info(message);
+        if (configuredLevel.intValue() <= Level.INFO.intValue()) {
+            logger.info(message);
+        }
     }
 
     public void warning(String message) {
-        logger.warning(message);
+        if (configuredLevel.intValue() <= Level.WARNING.intValue()) {
+            logger.warning(message);
+        }
     }
 
     public void severe(String message) {
         logger.severe(message);
     }
 
+    public void debug(String message) {
+        if (debugMode) {
+            logger.info("[DEBUG] " + message);
+        }
+    }
+
     public void log(Level level, String message) {
-        logger.log(level, message);
+        if (level.intValue() >= configuredLevel.intValue()) {
+            logger.log(level, message);
+        }
     }
 
     public void log(Level level, String message, Object param1) {
-        logger.log(level, message, param1);
+        if (level.intValue() >= configuredLevel.intValue()) {
+            logger.log(level, message, param1);
+        }
+    }
+
+    public boolean isDebugMode() {
+        return debugMode;
     }
 
     public void closeHandlers() {

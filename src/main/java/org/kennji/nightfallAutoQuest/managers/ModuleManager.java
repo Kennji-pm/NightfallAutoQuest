@@ -30,7 +30,7 @@ public class ModuleManager {
         availableModules.put("mobkilling", MobKillingQuestModule.class);
         availableModules.put("walking", WalkingQuestModule.class);
         availableModules.put("smelting", SmeltingQuestModule.class);
-        if (!Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")) {
+        if (Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")) {
             availableModules.put("placeholder", PlaceholderQuestModule.class);
         }
     }
@@ -51,9 +51,6 @@ public class ModuleManager {
                 }
             } catch (Exception e) {
                 plugin.getPluginLogger().warning("Failed to load module " + moduleName + ": " + e.getMessage());
-                plugin.getMessageUtil().sendMessage(null, "module-error",
-                        "%module%", moduleName,
-                        "%error%", e.getMessage());
             }
         }
 

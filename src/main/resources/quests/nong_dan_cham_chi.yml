@@ -1,0 +1,25 @@
+# ═══════════════════════════════════════════════════════
+# NHIỆM VỤ: Nông dân Chăm chỉ
+# Module: farming
+# ═══════════════════════════════════════════════════════
+display:
+  name: "🌾 Nông dân Chăm chỉ"
+  description: "Thu hoạch nông sản để nuôi sống cộng đồng!"
+
+quests:
+  type: "farming"
+  min-amount: 30
+  max-amount: 80
+  min-time: 8
+  max-time: 15
+  blocks:
+    - wheat
+    - carrots
+    - potatoes
+    - beetroots
+
+rewards:
+  commands:
+    - "eco give %player% 180"
+    - "give %player% bread 16"
+    - "give %player% golden_carrot 4"

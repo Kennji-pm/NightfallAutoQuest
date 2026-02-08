@@ -8,7 +8,7 @@ prefix: "&6&lNightfall&8AutoQuest &7» &r"
 # Quest assignment settings
 quest:
   # Interval in seconds between automatic quest assignments to online players
-  assign-interval: 120
+  assign-interval: 500
   # Percentage of online players to assign quests to each interval (0.0-100.0)
   assign-percentage: 50.0
   # Warning time in seconds before quest expiry when warning message is sent
@@ -25,6 +25,13 @@ allowed_worlds:
 cache:
   # Interval in seconds for saving player cache to database
   save-interval-seconds: 300
+
+# Logging configuration
+logging:
+  # Log level: DEBUG, INFO, WARNING, SEVERE (higher levels show less logs)
+  level: "INFO"
+  # Enable debug mode for verbose logging (useful for troubleshooting)
+  debug: false
 
 # Sound settings for various quest events
 sounds:

@@ -1,0 +1,27 @@
+# ═══════════════════════════════════════════════════════
+# NHIỆM VỤ: Pháp sư Phù phép
+# Module: enchanting
+# ═══════════════════════════════════════════════════════
+display:
+  name: "✨ Pháp sư Phù phép"
+  description: "Phù phép các vật phẩm để tăng sức mạnh!"
+
+quests:
+  type: "enchanting"
+  min-amount: 3
+  max-amount: 8
+  min-time: 10
+  max-time: 20
+  items:
+    - diamond_sword
+    - diamond_pickaxe
+    - iron_sword
+    - iron_pickaxe
+    - bow
+    - fishing_rod
+
+rewards:
+  commands:
+    - "eco give %player% 400"
+    - "give %player% experience_bottle 16"
+    - "[~20%] give %player% enchanted_book 1"

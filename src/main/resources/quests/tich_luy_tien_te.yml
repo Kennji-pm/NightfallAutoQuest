@@ -1,0 +1,24 @@
+# ═══════════════════════════════════════════════════════
+# NHIỆM VỤ: Tích lũy Tiền tệ
+# Module: placeholder
+# Yêu cầu: Plugin Vault + Economy (Essentials, CMI, etc.)
+# ═══════════════════════════════════════════════════════
+display:
+  name: "💰 Tích lũy Tiền tệ"
+  description: "Kiếm thêm tiền để tăng số dư tài khoản của bạn!"
+
+quests:
+  type: "placeholder"
+  min-amount: 500
+  max-amount: 2000
+  min-time: 15
+  max-time: 30
+  placeholders:
+    values:
+      - "vault_eco_balance"
+
+rewards:
+  commands:
+    - "eco give %player% 250"
+    - "give %player% gold_ingot 8"
+    - "[~10%] give %player% diamond 3"

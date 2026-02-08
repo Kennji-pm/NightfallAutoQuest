@@ -1,0 +1,29 @@
+# ═══════════════════════════════════════════════════════
+# NHIỆM VỤ: Thợ rèn Tài ba
+# Module: crafting
+# ═══════════════════════════════════════════════════════
+display:
+  name: "⚒️ Thợ rèn Tài ba"
+  description: "Chế tạo các công cụ và vũ khí để trang bị cho bản thân!"
+
+quests:
+  type: "crafting"
+  min-amount: 5
+  max-amount: 15
+  min-time: 8
+  max-time: 12
+  items:
+    - iron_sword
+    - iron_pickaxe
+    - iron_axe
+    - iron_shovel
+    - iron_helmet
+    - iron_chestplate
+    - iron_leggings
+    - iron_boots
+
+rewards:
+  commands:
+    - "eco give %player% 300"
+    - "give %player% iron_ingot 16"
+    - "[~15%] give %player% diamond_sword 1"

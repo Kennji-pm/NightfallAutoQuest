@@ -1,0 +1,25 @@
+# ═══════════════════════════════════════════════════════
+# NHIỆM VỤ: Ngư dân Lão luyện
+# Module: fishing
+# ═══════════════════════════════════════════════════════
+display:
+  name: "🎣 Ngư dân Lão luyện"
+  description: "Câu cá để kiếm thức ăn và những vật phẩm quý!"
+
+quests:
+  type: "fishing"
+  min-amount: 10
+  max-amount: 25
+  min-time: 8
+  max-time: 15
+  items:
+    - cod
+    - salmon
+    - tropical_fish
+    - pufferfish
+
+rewards:
+  commands:
+    - "eco give %player% 200"
+    - "give %player% cooked_cod 12"
+    - "[~30%] give %player% fishing_rod{Enchantments:[{id:lure,lvl:2}]} 1"

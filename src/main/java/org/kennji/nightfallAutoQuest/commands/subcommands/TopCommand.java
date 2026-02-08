@@ -3,6 +3,7 @@ package org.kennji.nightfallAutoQuest.commands.subcommands;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.kennji.nightfallAutoQuest.NightfallAutoQuest;
+import org.kennji.nightfallAutoQuest.database.PlayerData;
 import org.kennji.nightfallAutoQuest.utils.ColorUtils;
 import org.kennji.nightfallAutoQuest.utils.Util;
 
@@ -94,11 +95,14 @@ public class TopCommand extends SubCommand {
                 "%total_players%", String.valueOf(totalPlayers));
 
         if (sender instanceof Player player) {
-            Integer playerCompletions = plugin.getDatabaseManager().getCompletions(player.getUniqueId());
+            // Use cache for player's own stats (leaderboard still uses database for
+            // accuracy)
+            PlayerData playerData = plugin.getPlayerCacheManager().getPlayerData(player.getUniqueId());
+            int playerCompletions = playerData.completions;
             if (playerCompletions > 0) {
                 int playerRank = plugin.getDatabaseManager().getPlayerRank(player.getUniqueId());
                 String playerName = player.getName();
-                Integer playerFailures = plugin.getDatabaseManager().getFailures(player.getUniqueId());
+                int playerFailures = playerData.failures;
                 String playerCompletionRate = Util.calculateCompletionRate(playerCompletions, playerFailures);
                 String rankPrefix = switch (playerRank) {
                     case 1 -> ColorUtils.colorize("&6&l");

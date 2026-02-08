@@ -61,7 +61,17 @@ public class QuestManager {
         }
 
         // Copy default quest files from resources if they don't exist
-        String[] defaultQuests = {"example_quest.txt", "damage_zombie.yml", "enchant_sword.yml", "fish_rod.yml", "kill_zombie.yml", "smelt_iron.yml", "walk.yml", "walk2.yml"};
+        String[] defaultQuests = {
+                // Mobkilling quests
+                "tieu_diet_zombie.yml", "san_skeleton.yml", "diet_tru_creeper.yml", "chien_binh_nhen.yml",
+                // Mining quests
+                "khai_thac_quang.yml", "tho_mo_kim_cuong.yml",
+                // Other quests
+                "nong_dan_cham_chi.yml", "ngu_dan_lao_luyen.yml", "tho_ren_tai_ba.yml",
+                "luyen_kim_than_toc.yml", "kien_truc_su.yml", "phap_su_phu_phep.yml", "nha_tham_hiem.yml",
+                // Placeholder quests
+                "tich_luy_tien_te.yml", "tho_san_kinh_nghiem.yml"
+        };
         for (String questFileName : defaultQuests) {
             File file = new File(questsFolder, questFileName);
             if (!file.exists()) {
@@ -77,10 +87,8 @@ public class QuestManager {
                 questName = file.getName().replace(".yml", "");
 
                 if (questSection == null) {
-                    plugin.getMessageUtil().sendMessage(null, "quest-error",
-                            "%quest%", questName,
-                            "%file%", file.getName(),
-                            "%error%", "Missing quests section");
+                    logger.log(Level.SEVERE, "Failed to load quest " + questName + " from " + file.getName()
+                            + ": Missing quests section");
                     failedQuestCount++;
                     continue;
                 }
@@ -88,10 +96,8 @@ public class QuestManager {
                 String type = questSection.getString("type");
                 QuestModule module = plugin.getModuleManager().getModules().get(type);
                 if (module == null || !plugin.getConfigManager().getConfig().getBoolean("modules." + type, true)) {
-                    plugin.getMessageUtil().sendMessage(null, "quest-error",
-                            "%quest%", questName,
-                            "%file%", file.getName(),
-                            "%error%", "Invalid or disabled module: " + type);
+                    logger.log(Level.SEVERE, "Failed to load quest " + questName + " from " + file.getName()
+                            + ": Invalid or disabled module: " + type);
                     failedQuestCount++;
                     continue;
                 }
@@ -99,19 +105,20 @@ public class QuestManager {
                 Quest quest = module.generateQuest(config);
                 availableQuests.put(questName, quest);
             } catch (Exception e) {
-                plugin.getMessageUtil().sendMessage(null, "quest-error",
-                        "%quest%", questName,
-                        "%file%", file.getName(),
-                        "%error%", e.getMessage());
+                logger.log(Level.SEVERE,
+                        "Failed to load quest " + questName + " from " + file.getName() + ": " + e.getMessage());
                 failedQuestCount++;
             }
         }
     }
 
     public void loadActiveQuests() {
-        // This method should load active quests from the database and populate the cache.
-        // The PlayerCacheManager.getPlayerData(UUID) method will handle loading from DB if not in cache.
-        // However, for initial loading of *all* active quests, we still need to query the DB directly.
+        // This method should load active quests from the database and populate the
+        // cache.
+        // The PlayerCacheManager.getPlayerData(UUID) method will handle loading from DB
+        // if not in cache.
+        // However, for initial loading of *all* active quests, we still need to query
+        // the DB directly.
         // This is a special case for plugin startup.
         try (ResultSet rs = plugin.getDatabaseManager().getActiveQuests()) {
             while (rs.next()) {
@@ -122,7 +129,8 @@ public class QuestManager {
                 int placeholderStartValue = rs.getInt("placeholder_start_value");
                 Quest quest = availableQuests.get(questName);
 
-                PlayerData playerData = plugin.getPlayerCacheManager().getPlayerData(playerUUID); // Ensure player data is in cache
+                PlayerData playerData = plugin.getPlayerCacheManager().getPlayerData(playerUUID); // Ensure player data
+                                                                                                  // is in cache
 
                 if (quest != null && System.currentTimeMillis() < expiration) {
                     quest.setProgress(progress);
@@ -146,7 +154,8 @@ public class QuestManager {
                     playerData.placeholderStartValue = 0;
                     plugin.getPlayerCacheManager().updatePlayerData(playerUUID, playerData);
                     // The PlayerCacheManager will handle flushing this change to the database.
-                    logger.log(Level.INFO, "Removed expired or invalid active quest for UUID: " + playerUUID + " from cache.");
+                    logger.log(Level.INFO,
+                            "Removed expired or invalid active quest for UUID: " + playerUUID + " from cache.");
                 }
             }
         } catch (SQLException e) {
@@ -184,7 +193,7 @@ public class QuestManager {
         playerData.questProgress = 0;
         playerData.questExpiration = 0;
         playerData.placeholderStartValue = 0;
-        playerData.completions++; // Increment total completions
+        playerData.addCompletion(); // Increment completions and auto-update rate
         plugin.getPlayerCacheManager().updatePlayerData(uuid, playerData);
 
         plugin.getBossBarManager().showCompletionMessage(player, quest.getName());
@@ -198,12 +207,14 @@ public class QuestManager {
                     String percentage = command.substring(2, command.indexOf("%"));
                     chance = Double.parseDouble(percentage);
                     if (chance < 0 || chance > 100) {
-                        logger.log(Level.WARNING, "Invalid percentage value in reward for quest " + quest.getName() + ": " + command);
+                        logger.log(Level.WARNING,
+                                "Invalid percentage value in reward for quest " + quest.getName() + ": " + command);
                         continue;
                     }
                     actualCommand = command.substring(command.indexOf("]") + 1).trim();
                 } catch (NumberFormatException e) {
-                    logger.log(Level.WARNING, "Invalid percentage format in reward for quest " + quest.getName() + ": " + command);
+                    logger.log(Level.WARNING,
+                            "Invalid percentage format in reward for quest " + quest.getName() + ": " + command);
                     continue;
                 }
             }
@@ -226,13 +237,13 @@ public class QuestManager {
             activeQuests.remove(uuid);
             activeQuestExpirations.remove(uuid);
 
-        PlayerData playerData = plugin.getPlayerCacheManager().getPlayerData(uuid);
-        playerData.activeQuest = null;
-        playerData.questProgress = 0;
-        playerData.questExpiration = 0;
-        playerData.placeholderStartValue = 0;
-        playerData.failures++; // Increment total failures
-        plugin.getPlayerCacheManager().updatePlayerData(uuid, playerData);
+            PlayerData playerData = plugin.getPlayerCacheManager().getPlayerData(uuid);
+            playerData.activeQuest = null;
+            playerData.questProgress = 0;
+            playerData.questExpiration = 0;
+            playerData.placeholderStartValue = 0;
+            playerData.addFailure(); // Increment failures and auto-update rate
+            plugin.getPlayerCacheManager().updatePlayerData(uuid, playerData);
 
             // Show failure message on BossBar
             plugin.getBossBarManager().showFailureMessage(player, quest.getName());
@@ -247,7 +258,8 @@ public class QuestManager {
 
     public void assignRandomQuest(Player player) {
         List<Quest> available = new ArrayList<>(availableQuests.values());
-        if (available.isEmpty()) return;
+        if (available.isEmpty())
+            return;
 
         // Check if player's world is allowed
         java.util.List<String> allowedWorlds = plugin.getConfigManager().getConfig().getStringList("allowed_worlds");
@@ -265,7 +277,7 @@ public class QuestManager {
         PlayerData playerData = plugin.getPlayerCacheManager().getPlayerData(uuid);
 
         // Set placeholder start value when assigning quest
-        if (quest.getTask().startsWith("placeholder_")){
+        if (quest.getTask().startsWith("placeholder_")) {
             String placeholder = quest.getTask().substring("placeholder_".length());
             playerData.placeholderStartValue = PlaceholderQuestModule.getPlaceholderValue(player, placeholder);
         } else {
@@ -327,7 +339,7 @@ public class QuestManager {
             playerData.questProgress = 0;
             playerData.questExpiration = 0;
             playerData.placeholderStartValue = 0;
-            playerData.failures++; // Increment total failures
+            playerData.addFailure(); // Increment failures and auto-update rate
             plugin.getPlayerCacheManager().updatePlayerData(uuid, playerData);
 
             plugin.getBossBarManager().showGiveUpMessage(player);

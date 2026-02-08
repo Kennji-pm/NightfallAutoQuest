@@ -1,0 +1,22 @@
+# ═══════════════════════════════════════════════════════
+# NHIỆM VỤ: Diệt trừ Creeper
+# Module: mobkilling
+# ═══════════════════════════════════════════════════════
+display:
+  name: "💥 Diệt trừ Creeper"
+  description: "Tiêu diệt những kẻ nổ tung nguy hiểm - cẩn thận đừng để chúng nổ!"
+
+quests:
+  type: "mobkilling"
+  min-amount: 5
+  max-amount: 15
+  min-time: 5
+  max-time: 8
+  entities:
+    - creeper
+
+rewards:
+  commands:
+    - "eco give %player% 300"
+    - "give %player% gunpowder 20"
+    - "[~15%] give %player% tnt 5"

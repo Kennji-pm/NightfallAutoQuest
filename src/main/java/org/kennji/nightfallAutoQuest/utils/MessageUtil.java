@@ -5,8 +5,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.kennji.nightfallAutoQuest.NightfallAutoQuest;
 
-import java.util.Objects;
-
 public class MessageUtil {
     private final NightfallAutoQuest plugin;
     private final YamlConfiguration messages;

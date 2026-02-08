@@ -11,7 +11,9 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.kennji.nightfallAutoQuest.utils.ColorUtils;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
@@ -19,11 +21,13 @@ public class BossBarManager {
     private final NightfallAutoQuest plugin;
     private final Map<UUID, BossBar> playerBossBars;
     private final Map<UUID, BukkitRunnable> updateTasks;
+    private final Set<UUID> warnedPlayers; // Track players who already received warning
 
     public BossBarManager(NightfallAutoQuest plugin) {
         this.plugin = plugin;
         this.playerBossBars = new HashMap<>();
         this.updateTasks = new HashMap<>();
+        this.warnedPlayers = new HashSet<>();
     }
 
     public void updateBossBar(Player player, Quest quest, long expiration) {
@@ -33,13 +37,15 @@ public class BossBarManager {
 
         // Check if player's world is allowed for bossbar display
         java.util.List<String> allowedWorlds = plugin.getConfigManager().getConfig().getStringList("allowed_worlds");
-        if (!allowedWorlds.isEmpty() && !org.kennji.nightfallAutoQuest.utils.Util.isWorldAllowed(player.getWorld().getName(), allowedWorlds)) {
+        if (!allowedWorlds.isEmpty() && !org.kennji.nightfallAutoQuest.utils.Util
+                .isWorldAllowed(player.getWorld().getName(), allowedWorlds)) {
             removeBossBar(player); // Remove bossbar if world is not allowed
             return;
         }
 
         UUID uuid = player.getUniqueId();
         cancelUpdateTask(uuid);
+        warnedPlayers.remove(uuid); // Reset warning flag for new quest
 
         BossBar bar = playerBossBars.computeIfAbsent(uuid, k -> {
             String color = plugin.getConfigManager().getConfig().getString("bossbar.color", "BLUE");
@@ -68,8 +74,10 @@ public class BossBarManager {
                 bar.setProgress(progress);
                 bar.addPlayer(player);
 
-                long warningTime = plugin.getConfigManager().getConfig().getLong("quest.warning-time-seconds", 60) * 1000;
-                if (timeLeft <= warningTime && timeLeft > warningTime - 1000) {
+                long warningTime = plugin.getConfigManager().getConfig().getLong("quest.warning-time-seconds", 60)
+                        * 1000;
+                if (timeLeft <= warningTime && !warnedPlayers.contains(uuid)) {
+                    warnedPlayers.add(uuid); // Mark as warned
                     plugin.getMessageUtil().sendMessage(player, "quest-warning",
                             "%time%", formatTime(timeLeft));
                     plugin.getSoundUtil().playSound(player, "warning");
@@ -94,7 +102,8 @@ public class BossBarManager {
             return Bukkit.createBossBar("", BarColor.valueOf(color), BarStyle.valueOf(style));
         });
 
-        String message = ColorUtils.colorize(plugin.getMessageUtil().getMessage("quest-completed", "%quest_name%", questName));
+        String message = ColorUtils
+                .colorize(plugin.getMessageUtil().getMessage("quest-completed", "%quest_name%", questName));
         bar.setTitle(message);
         bar.setProgress(1.0);
         bar.addPlayer(player);
@@ -119,7 +128,8 @@ public class BossBarManager {
             return Bukkit.createBossBar("", BarColor.valueOf(color), BarStyle.valueOf(style));
         });
 
-        String message = ColorUtils.colorize(plugin.getMessageUtil().getMessage("quest-failed", "%quest_name%", questName));
+        String message = ColorUtils
+                .colorize(plugin.getMessageUtil().getMessage("quest-failed", "%quest_name%", questName));
         bar.setTitle(message);
         bar.setProgress(0.0);
         bar.addPlayer(player);

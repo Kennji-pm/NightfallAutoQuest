@@ -201,8 +201,10 @@ public final class NightfallAutoQuest extends JavaPlugin {
             Collections.shuffle(onlinePlayers, random);
             List<Player> selectedPlayers = onlinePlayers.subList(0, Math.min(playersToAssign, onlinePlayers.size()));
 
+            int processedCount = 0;
             int assignedCount = 0;
             for (Player player : selectedPlayers) {
+                processedCount++;
                 Quest quest = questManager.getActiveQuest(player.getUniqueId());
                 Long expiration = questManager.getActiveQuestExpiration(player.getUniqueId());
                 boolean shouldAssign = quest == null || !quest.isPresent() || (expiration != null && System.currentTimeMillis() >= expiration);
@@ -215,8 +217,8 @@ public final class NightfallAutoQuest extends JavaPlugin {
 
             pluginLogger.log(Level.INFO, "════════════════════════════════════════════════════");
             pluginLogger.log(Level.INFO, "🎯 Quest Assignment Report:");
-            pluginLogger.log(Level.INFO, "   • Assigned: " + assignedCount + "/" + selectedPlayers.size() + " selected players");
-            pluginLogger.log(Level.INFO, "   • Online: " + onlinePlayers.size() + " total players");
+            pluginLogger.log(Level.INFO, "   • Processed: " + processedCount + "/" + onlinePlayers.size() + " total online players");
+            pluginLogger.log(Level.INFO, "   • Assigned: " + assignedCount + " new quests");
             pluginLogger.log(Level.INFO, "   • Selection Rate: " + finalAssignPercentage + "%");
             pluginLogger.log(Level.INFO, "════════════════════════════════════════════════════");
         }, interval, interval);

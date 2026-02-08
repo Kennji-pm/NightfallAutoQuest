@@ -1,0 +1,28 @@
+# ═══════════════════════════════════════════════════════
+# NHIỆM VỤ: Kiến trúc sư
+# Module: placing
+# ═══════════════════════════════════════════════════════
+display:
+  name: "🏗️ Kiến trúc sư"
+  description: "Đặt các khối để xây dựng công trình của bạn!"
+
+quests:
+  type: "placing"
+  min-amount: 50
+  max-amount: 150
+  min-time: 10
+  max-time: 20
+  blocks:
+    - cobblestone
+    - stone
+    - stone_bricks
+    - oak_planks
+    - spruce_planks
+    - birch_planks
+    - dark_oak_planks
+
+rewards:
+  commands:
+    - "eco give %player% 180"
+    - "give %player% oak_log 32"
+    - "give %player% cobblestone 64"
