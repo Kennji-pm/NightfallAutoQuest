@@ -12,42 +12,31 @@ commands:
   help:
     description: "Show available commands"
     permission: "naq.use"
-    aliases:
-      - h
-      - "?"
+    aliases: []
 
   quest:
     description: "View your current quest"
     permission: "naq.use"
     aliases:
-      - q
-      - info
       - current
 
   stats:
     description: "View your quest statistics"
     permission: "naq.use"
     aliases:
-      - st
-      - statistics
       - stat
 
   top:
     description: "View top quest completers"
     permission: "naq.use"
     aliases:
-      - leaderboard
       - lb
-      - rank
-      - ranking
 
   giveup:
     description: "Give up your current quest"
     permission: "naq.use"
     aliases:
       - abandon
-      - quit
-      - skip
 
   # ─────────────────────────────────────────────────────
   # ADMIN COMMANDS (naq.admin)
@@ -58,43 +47,10 @@ commands:
     aliases:
       - rl
 
-  reloadquests:
-    description: "Reload quests from files"
-    permission: "naq.admin"
-    aliases:
-      - rquest
-      - reloadq
-      - rq
-
-  module:
-    description: "Manage quest modules"
-    permission: "naq.admin"
-    aliases:
-      - mod
-      - m
-    subcommands:
-      list:
-        description: "List all available modules"
-        aliases:
-          - ls
-          - l
-      enable:
-        description: "Enable a specific module"
-        aliases:
-          - en
-          - on
-      disable:
-        description: "Disable a specific module"
-        aliases:
-          - dis
-          - off
-
   getdata:
     description: "Get player's quest data"
     permission: "naq.admin"
     aliases:
-      - data
-      - player
       - lookup
 
   purge:
@@ -102,4 +58,3 @@ commands:
     permission: "naq.admin"
     aliases:
       - reset
-      - clear
