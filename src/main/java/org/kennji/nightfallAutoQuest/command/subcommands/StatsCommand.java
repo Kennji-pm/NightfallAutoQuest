@@ -9,7 +9,7 @@ import org.kennji.nightfallAutoQuest.model.PlayerData;
 
 public final class StatsCommand extends AbstractCommand {
     public StatsCommand(@NotNull NightfallAutoQuest plugin) {
-        super(plugin, "stats", "nightfallautoquest.player");
+        super(plugin, "stats", "naq.use");
     }
 
     @Override
@@ -20,7 +20,7 @@ public final class StatsCommand extends AbstractCommand {
         }
 
         PlayerData data = plugin.getPlayerManager().getPlayerData(player.getUniqueId());
-        
+
         for (String line : plugin.getConfigManager().getMessages().getStringList("stats")) {
             plugin.getMessageUtil().sendRawMessage(sender, line
                     .replace("%completions%", String.valueOf(data.completions()))

@@ -8,7 +8,7 @@ import org.kennji.nightfallAutoQuest.command.base.AbstractCommand;
 
 public final class GiveUpCommand extends AbstractCommand {
     public GiveUpCommand(@NotNull NightfallAutoQuest plugin) {
-        super(plugin, "giveup", "nightfallautoquest.player");
+        super(plugin, "giveup", "naq.use");
     }
 
     @Override

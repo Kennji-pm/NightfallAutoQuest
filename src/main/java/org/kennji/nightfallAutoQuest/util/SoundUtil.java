@@ -17,14 +17,33 @@ public final class SoundUtil {
             return;
         }
 
-        String soundName = plugin.getConfigManager().getConfig().getString("sounds." + type);
-        if (soundName == null) return;
+        var config = plugin.getConfigManager().getConfig();
+        String path = "sounds." + type;
+
+        String soundName;
+        float volume;
+        float pitch;
+
+        if (config.isConfigurationSection(path)) {
+            soundName = config.getString(path + ".sound");
+            volume = (float) config.getDouble(path + ".volume", 1.0);
+            pitch = (float) config.getDouble(path + ".pitch", 1.0);
+        } else {
+            soundName = config.getString(path);
+            volume = (float) config.getDouble("sounds.volume", 1.0);
+            pitch = (float) config.getDouble("sounds.pitch", 1.0);
+        }
+
+        if (soundName == null || soundName.isBlank()) {
+            return;
+        }
 
         try {
-            Sound sound = Sound.valueOf(soundName.toUpperCase());
-            float volume = (float) plugin.getConfigManager().getConfig().getDouble("sounds.volume", 1.0);
-            float pitch = (float) plugin.getConfigManager().getConfig().getDouble("sounds.pitch", 1.0);
+            Sound sound = Sound.valueOf(soundName.toUpperCase().trim());
             player.playSound(player.getLocation(), sound, volume, pitch);
-        } catch (IllegalArgumentException ignored) {}
+        } catch (Exception e) {
+            plugin.getPluginLogger()
+                    .warn("Could not play sound '" + soundName + "' for type '" + type + "': " + e.getMessage());
+        }
     }
 }

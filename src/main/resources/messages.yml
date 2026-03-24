@@ -1,28 +1,36 @@
 # ═══════════════════════════════════════════════════════
 #                    SYSTEM & ERRORS
 # ═══════════════════════════════════════════════════════
-no-permission: "<red>Bạn không có quyền sử dụng lệnh này!"
-invalid-subcommand: "<red>Lệnh phụ không hợp lệ!"
-player-only: "<red>Lệnh này chỉ dành cho người chơi!"
+command:
+  no-permission: "<red>Bạn không có quyền sử dụng lệnh này!"
+  invalid-subcommand: "<red>Lệnh phụ không hợp lệ!"
+  player-only: "<red>Lệnh này chỉ dành cho người chơi!"
+  unknown: "<red>Lệnh không tồn tại. Dùng <yellow>/naq help <red>để xem trợ giúp."
+  help:
+    header: "<gradient:#5e4fa2:#f7941d><bold>NIGHTFALL AUTOQUEST HELP</bold></gradient>"
+    footer: "<gradient:#f7941d:#5e4fa2>──────────────────────────</gradient>"
+
 no-data-available: "<dark_red>Không tìm thấy dữ liệu người chơi!"
 player-not-found: "<red>Không tìm thấy người chơi <yellow>%player% <red>đang hoạt động!"
 
 # ═══════════════════════════════════════════════════════
 #                    QUESTS
 # ═══════════════════════════════════════════════════════
-no-active-quest: "<gray>Bạn hiện không có nhiệm vụ nào đang hoạt động."
-quest-assigned:
-  - "<gradient:#5e4fa2:#f7941d><bold>NHIỆM VỤ MỚI</bold></gradient>"
-  - "<gray>Tên: <white>%name%"
-  - "<gray>Mục tiêu: <green>%amount% %task%"
-  - "<gray>Thời gian: <red>%time% phút"
-quest-completed: "<green><bold>HOÀN THÀNH!</bold> <white>Bạn đã hoàn thành nhiệm vụ <yellow>%name%<white>."
-quest-failed: "<red><bold>THẤT BẠI!</bold> <gray>Nhiệm vụ <white>%name% <gray>đã kết thúc."
-quest-giveup: "<yellow>Bạn đã từ bỏ nhiệm vụ hiện tại."
-quest-warning: "<red><bold>CẢNH BÁO!</bold> <gray>Nhiệm vụ sắp hết hạn trong <yellow>%time%<gray>."
-quest-streak-lost: "<red><bold>PHÁ VỠ CHUỖI!</bold> <gray>Bạn đã mất chuỗi <yellow>%streak% <gray>nhiệm vụ liên tiếp."
-quest-streak-milestone: "<gradient:#f7941d:#5e4fa2><bold>CHUỖI NHIỆM VỤ!</bold></gradient> <gray>Bạn đã đạt chuỗi <aqua>%streak% <gray>nhiệm vụ. Thưởng thêm: <green>+%bonus%%"
 quest:
+  no-active: "<gray>Bạn hiện không có nhiệm vụ nào đang hoạt động."
+  invalid: "<red>Dữ liệu nhiệm vụ không hợp lệ."
+  assigned:
+    - "<gradient:#5e4fa2:#f7941d><bold>NHIỆM VỤ MỚI</bold></gradient>"
+    - "<gray>Tên: <white>%name%"
+    - "<gray>Mục tiêu: <green>%amount% %task%"
+    - "<gray>Thời gian: <red>%time% phút"
+  completed: "<green><bold>HOÀN THÀNH!</bold> <white>Bạn đã hoàn thành nhiệm vụ <yellow>%name%<white>."
+  failed: "<red><bold>THẤT BẠI!</bold> <gray>Nhiệm vụ <white>%name% <gray>đã kết thúc."
+  giveup: "<yellow>Bạn đã từ bỏ nhiệm vụ hiện tại."
+  warning: "<red><bold>CẢNH BÁO!</bold> <gray>Nhiệm vụ sắp hết hạn trong <yellow>%time%<gray>."
+  streak:
+    lost: "<red><bold>PHÁ VỠ CHUỖI!</bold> <gray>Bạn đã mất chuỗi <yellow>%streak% <gray>nhiệm vụ liên tiếp."
+    milestone: "<gradient:#f7941d:#5e4fa2><bold>CHUỖI NHIỆM VỤ!</bold></gradient> <gray>Bạn đã đạt chuỗi <aqua>%streak% <gray>nhiệm vụ. Thưởng thêm: <green>+%bonus%%"
   info:
     header: "<gradient:#5e4fa2:#f7941d><bold>THÔNG TIN NHIỆM VỤ</bold></gradient>"
     format:
@@ -32,8 +40,6 @@ quest:
       - "<gray>Chuỗi hiện tại: <yellow>%streak%"
       - "<gray>Thời gian còn lại: <red>%time%"
     footer: "<gradient:#f7941d:#5e4fa2>──────────────────────────</gradient>"
-  no-active: "<gray>Bạn hiện không có nhiệm vụ nào đang hoạt động."
-  invalid: "<red>Dữ liệu nhiệm vụ không hợp lệ."
 
 # ═══════════════════════════════════════════════════════
 #                    BOSSBAR
@@ -60,7 +66,6 @@ top:
 # ═══════════════════════════════════════════════════════
 reload-success: "<green>Cấu hình đã được tải lại thành công!"
 purge-success: "<red>Toàn bộ dữ liệu đã được xóa sạch."
-unknown-command: "<red>Lệnh không tồn tại. Dùng <yellow>/nautoquest help <red>để xem trợ giúp."
 
 help:
   header: "<gradient:#5e4fa2:#f7941d><bold>NIGHTFALL AUTOQUEST HELP</bold></gradient>"
@@ -82,3 +87,9 @@ tasks:
   mobkilling: "Tiêu diệt"
   walking: "Di chuyển"
   fishing: "Câu cá"
+  smelting: "Nấu nung"
+  crafting: "Chế tạo"
+  farming: "Nông nghiệp"
+  dealdamage: "Gây sát thương"
+  enchanting: "Phù phép"
+  placeholder: "Placeholder"

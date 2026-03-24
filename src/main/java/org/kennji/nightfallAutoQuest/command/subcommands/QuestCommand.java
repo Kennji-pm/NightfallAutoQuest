@@ -10,7 +10,7 @@ import org.kennji.nightfallAutoQuest.model.Quest;
 
 public final class QuestCommand extends AbstractCommand {
     public QuestCommand(@NotNull NightfallAutoQuest plugin) {
-        super(plugin, "quest", "nightfallautoquest.player");
+        super(plugin, "quest", "naq.use");
     }
 
     @Override
@@ -33,9 +33,11 @@ public final class QuestCommand extends AbstractCommand {
         }
 
         String formattedTask = org.kennji.nightfallAutoQuest.util.StringUtil.formatEnumName(data.activeTask());
-        String timeLeft = org.kennji.nightfallAutoQuest.util.StringUtil.formatTime(data.questExpiration() - System.currentTimeMillis());
+        String timeLeft = org.kennji.nightfallAutoQuest.util.StringUtil
+                .formatTime(data.questExpiration() - System.currentTimeMillis());
 
-        plugin.getMessageUtil().sendRawMessage(player, plugin.getConfigManager().getMessages().getString("quest.info.header", ""));
+        plugin.getMessageUtil().sendRawMessage(player,
+                plugin.getConfigManager().getMessages().getString("quest.info.header", ""));
         for (String line : plugin.getConfigManager().getMessages().getStringList("quest.info.format")) {
             if (line.contains("%description%")) {
                 for (String descLine : quest.description()) {
@@ -53,6 +55,7 @@ public final class QuestCommand extends AbstractCommand {
                     .replace("%streak%", String.valueOf(data.questStreak()))
                     .replace("%time%", timeLeft));
         }
-        plugin.getMessageUtil().sendRawMessage(player, plugin.getConfigManager().getMessages().getString("quest.info.footer", ""));
+        plugin.getMessageUtil().sendRawMessage(player,
+                plugin.getConfigManager().getMessages().getString("quest.info.footer", ""));
     }
 }

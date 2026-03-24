@@ -3,7 +3,6 @@ display-name: "Đá Núi Lửa"
 type: "mining"
 tasks:
   - "BASALT"
-  - "POLISHED_BASALT"
 amount: "128-256"
 description:
   - "<gray>Thu thập đá bazan từ các cột đá khổng lồ."

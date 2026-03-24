@@ -106,8 +106,8 @@ public final class DatabaseManager {
 
     public int getTotalPlayers() {
         try (Connection conn = getConnection();
-                java.sql.PreparedStatement stmt = conn.prepareStatement("SELECT COUNT(*) FROM player_stats")) {
-            java.sql.ResultSet rs = stmt.executeQuery();
+                PreparedStatement stmt = conn.prepareStatement("SELECT COUNT(*) FROM player_stats")) {
+            ResultSet rs = stmt.executeQuery();
             return rs.next() ? rs.getInt(1) : 0;
         } catch (SQLException e) {
             plugin.getPluginLogger().error("Failed to get total players", e);
@@ -118,11 +118,11 @@ public final class DatabaseManager {
     public @NotNull List<PlayerData> getTopPlayers(int page, int size) {
         List<PlayerData> top = new ArrayList<>();
         try (Connection conn = getConnection();
-                java.sql.PreparedStatement stmt = conn.prepareStatement(
+                PreparedStatement stmt = conn.prepareStatement(
                         "SELECT uuid, completions, failures FROM player_stats ORDER BY completions DESC LIMIT ? OFFSET ?")) {
             stmt.setInt(1, size);
             stmt.setInt(2, (page - 1) * size);
-            java.sql.ResultSet rs = stmt.executeQuery();
+            ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 top.add(new PlayerData(
                         UUID.fromString(rs.getString("uuid")),
@@ -151,7 +151,8 @@ public final class DatabaseManager {
             while (rs.next()) {
                 UUID uuid = UUID.fromString(rs.getString("uuid"));
                 players.add(
-                        new PlayerData(uuid, rs.getInt("completions"), rs.getInt("failures"), rs.getInt("quest_streak"), null, null, 0, 0, 0, 0));
+                        new PlayerData(uuid, rs.getInt("completions"), rs.getInt("failures"), rs.getInt("quest_streak"),
+                                null, null, 0, 0, 0, 0));
             }
         } catch (SQLException e) {
             plugin.getPluginLogger().error("Failed to fetch top rate players", e);

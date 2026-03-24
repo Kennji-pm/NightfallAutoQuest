@@ -3,12 +3,11 @@ display-name: "Hắc Diện Thạch"
 type: "mining"
 tasks:
   - "OBSIDIAN"
-  - "CRYING_OBSIDIAN"
-amount: "256-512"
+amount: "64-128"
 description:
   - "<gray>Đào khối đá cứng nhất thế giới."
   - "<gray>Mục tiêu: <white>%amount% %task%"
-time-limit: 150
+time-limit: 120
 rewards:
   - "credits give %player% 6000"
   - "give %player% obsidian 64"

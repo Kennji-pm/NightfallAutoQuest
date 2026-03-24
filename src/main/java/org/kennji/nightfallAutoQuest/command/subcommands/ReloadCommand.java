@@ -8,7 +8,7 @@ import org.kennji.nightfallAutoQuest.manager.QuestLoader;
 
 public final class ReloadCommand extends AbstractCommand {
     public ReloadCommand(@NotNull NightfallAutoQuest plugin) {
-        super(plugin, "reload", "nightfallautoquest.admin");
+        super(plugin, "reload", "naq.admin");
     }
 
     @Override

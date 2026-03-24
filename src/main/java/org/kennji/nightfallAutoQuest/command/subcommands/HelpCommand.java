@@ -7,7 +7,7 @@ import org.kennji.nightfallAutoQuest.command.base.AbstractCommand;
 
 public final class HelpCommand extends AbstractCommand {
     public HelpCommand(@NotNull NightfallAutoQuest plugin) {
-        super(plugin, "help", "nightfallautoquest.use");
+        super(plugin, "help", "naq.use");
     }
 
     @Override
