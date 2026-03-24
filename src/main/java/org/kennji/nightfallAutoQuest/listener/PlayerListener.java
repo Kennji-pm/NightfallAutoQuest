@@ -8,6 +8,7 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
+import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.enchantment.EnchantItemEvent;
 import org.bukkit.event.inventory.CraftItemEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -15,6 +16,8 @@ import org.bukkit.event.player.PlayerFishEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.world.ChunkUnloadEvent;
+import org.bukkit.metadata.FixedMetadataValue;
 import org.jetbrains.annotations.NotNull;
 import org.kennji.nightfallAutoQuest.NightfallAutoQuest;
 
@@ -43,7 +46,21 @@ public final class PlayerListener implements Listener {
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onPlace(@NotNull BlockPlaceEvent event) {
+        plugin.getBlockDataManager().markAsPlaced(event.getBlock());
         plugin.getQuestService().handleEvent(event.getPlayer(), event);
+    }
+
+    @EventHandler(priority = EventPriority.MONITOR)
+    public void onChunkUnload(@NotNull ChunkUnloadEvent event) {
+        // Purge data for unloaded chunks to prevent memory leaks
+        plugin.getBlockDataManager().clearChunk(((long) event.getChunk().getX() << 32) | (event.getChunk().getZ() & 0xFFFFFFFFL));
+    }
+
+    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+    public void onSpawn(@NotNull CreatureSpawnEvent event) {
+        if (event.getSpawnReason() == CreatureSpawnEvent.SpawnReason.SPAWNER) {
+            event.getEntity().setMetadata("naq-spawner", new FixedMetadataValue(plugin, true));
+        }
     }
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)

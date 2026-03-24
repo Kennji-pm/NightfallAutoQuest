@@ -26,6 +26,7 @@ public final class NightfallAutoQuest extends JavaPlugin {
     private LeaderboardManager leaderboardManager;
     private QuestScheduler questScheduler;
     private QuestService questService;
+    private BlockDataManager blockDataManager;
 
     @Override
     public void onEnable() {
@@ -40,6 +41,7 @@ public final class NightfallAutoQuest extends JavaPlugin {
         PlayerRepository playerRepository = new PlayerRepository(this);
         this.playerManager = new PlayerManager(playerRepository);
         this.questManager = new QuestManager(this);
+        this.blockDataManager = new BlockDataManager(this);
         new QuestLoader(this).loadAll();
         this.questService = new QuestService(this);
 
@@ -138,5 +140,9 @@ public final class NightfallAutoQuest extends JavaPlugin {
 
     public QuestService getQuestService() {
         return questService;
+    }
+
+    public BlockDataManager getBlockDataManager() {
+        return blockDataManager;
     }
 }

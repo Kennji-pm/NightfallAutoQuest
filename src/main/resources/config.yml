@@ -117,3 +117,12 @@ modules:
   smelting: true
   # Enable placeholder quests
   placeholder: true
+
+# Anti-Abuse settings to prevent quest exploitation
+anti-abuse:
+  # Prevent player-placed blocks from counting towards mining quests
+  prevent-placed-blocks: true
+  # Ignore mobs spawned from spawners for mobkilling quests
+  ignore-spawner-mobs: true
+  # Maximum walking speed (blocks per tick) to prevent teleportation/flying exploits
+  max-walking-speed: 1.5

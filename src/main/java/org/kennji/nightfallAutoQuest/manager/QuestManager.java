@@ -24,15 +24,15 @@ public final class QuestManager {
     }
 
     private void registerAllModules() {
-        registerIfEnabled(new MiningModule());
+        registerIfEnabled(new MiningModule(plugin));
         registerIfEnabled(new PlacingModule());
-        registerIfEnabled(new MobKillingModule());
+        registerIfEnabled(new MobKillingModule(plugin));
         registerIfEnabled(new CraftingModule());
         registerIfEnabled(new FarmingModule());
         registerIfEnabled(new FishingModule());
         registerIfEnabled(new DealDamageModule());
         registerIfEnabled(new EnchantingModule());
-        registerIfEnabled(new WalkingModule());
+        registerIfEnabled(new WalkingModule(plugin));
         registerIfEnabled(new SmeltingModule());
         registerIfEnabled(new PlaceholderModule());
     }
