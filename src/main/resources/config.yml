@@ -3,7 +3,7 @@
 config-version: 1.6
 
 # Plugin prefix displayed in messages
-prefix: "&6&lNightfall&8AutoQuest &7» &r"
+prefix: "<gradient:#5e4fa2:#f7941d>NightfallAutoQuest</gradient> <gray>»</gray> "
 
 # Quest assignment settings
 quest:

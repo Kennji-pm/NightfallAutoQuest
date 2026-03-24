@@ -1,0 +1,17 @@
+id: ngu_phu_nghe_nghiep
+type: fishing
+display-name: "<gradient:#4facfe:#00f2fe>Ngư Phủ Nghề Nghiệp</gradient>"
+description:
+  - "<gray>Hãy câu loại cá được yêu cầu nhé."
+  - ""
+  - "<gray>Mục tiêu: <white>%amount% %task%"
+tasks:
+  - COD
+  - SALMON
+  - TROPICAL_FISH
+  - PUFFERFISH
+amount: "10-20"
+time-limit: "30-60"
+rewards:
+  - "give %player% cooked_cod 16"
+  - "eco give %player% 750"

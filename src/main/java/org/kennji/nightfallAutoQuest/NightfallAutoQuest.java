@@ -1,232 +1,104 @@
 package org.kennji.nightfallAutoQuest;
 
-import org.bukkit.Bukkit;
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.kennji.nightfallAutoQuest.commands.AutoQuestCommand;
-import org.kennji.nightfallAutoQuest.database.DatabaseManager;
+import org.kennji.nightfallAutoQuest.command.subcommands.*;
 import org.kennji.nightfallAutoQuest.expansion.NightfallAutoQuestExpansion;
-import org.kennji.nightfallAutoQuest.listeners.QuestListener;
-import org.kennji.nightfallAutoQuest.managers.*;
-import org.kennji.nightfallAutoQuest.modules.Quest;
-import org.kennji.nightfallAutoQuest.utils.*;
+import org.kennji.nightfallAutoQuest.listener.PlayerListener;
+import org.kennji.nightfallAutoQuest.manager.*;
+import org.kennji.nightfallAutoQuest.repository.PlayerRepository;
+import org.kennji.nightfallAutoQuest.service.QuestService;
+import org.kennji.nightfallAutoQuest.util.MessageUtil;
+import org.kennji.nightfallAutoQuest.util.PluginLogger;
+import org.kennji.nightfallAutoQuest.util.SoundUtil;
 
-import java.util.Random;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Collections;
-import org.kennji.nightfallAutoQuest.database.PlayerCacheManager;
+import java.util.concurrent.TimeUnit;
 
-import java.util.logging.Level;
-
-/**
- * ╔═══════════════════════════════════════════════════════════╗
- * ║           NIGHTFALL AUTO QUEST PLUGIN                     ║
- * ║         Automatic Quest System for Minecraft              ║
- * ╠═══════════════════════════════════════════════════════════╣
- * ║  Author: _kennji                                          ║
- * ║  Description: Advanced quest management system            ║
- * ╚═══════════════════════════════════════════════════════════╝
- */
 public final class NightfallAutoQuest extends JavaPlugin {
-
-    // ═══════════════════════════════════════════════════════════
-    //                    MANAGER INSTANCES
-    // ═══════════════════════════════════════════════════════════
-    
+    private PluginLogger pluginLogger;
     private ConfigManager configManager;
     private MessageUtil messageUtil;
     private SoundUtil soundUtil;
-    private QuestManager questManager;
+    private PlayerManager playerManager;
     private DatabaseManager databaseManager;
-    private PlayerCacheManager playerCacheManager;
-    private ModuleManager moduleManager;
+    private QuestManager questManager;
     private BossBarManager bossBarManager;
     private CommandManager commandManager;
-    private Logger pluginLogger;
-
-    private final Random random = new Random();
-
-    // ═══════════════════════════════════════════════════════════
-    //                    PLUGIN LIFECYCLE
-    // ═══════════════════════════════════════════════════════════
+    private LeaderboardManager leaderboardManager;
+    private QuestScheduler questScheduler;
+    private QuestService questService;
 
     @Override
     public void onEnable() {
-        long start = System.currentTimeMillis();
-        // ┌─────────────────────────────────────────────────────┐
-        // │              PLUGIN STARTUP BANNER                   │
-        // └─────────────────────────────────────────────────────┘
+        // 1. Initialize Logging & Config
+        this.pluginLogger = new PluginLogger(this);
+        this.configManager = new ConfigManager(this);
+        this.configManager.initialize();
 
-        pluginLogger = new Logger(this);
-        
-        pluginLogger.log(Level.INFO, "════════════════════════════════════════════════════");
-        pluginLogger.log(Level.INFO, "");
-        pluginLogger.log(Level.INFO, "      🌙 NIGHTFALL AUTO QUEST 🌙");
-        pluginLogger.log(Level.INFO, "          Starting up...");
-        pluginLogger.log(Level.INFO, "");
-        pluginLogger.log(Level.INFO, "════════════════════════════════════════════════════");
-        pluginLogger.log(Level.INFO, "  👤 Author: _kennji");
-        pluginLogger.log(Level.INFO, "  📦 Version: " + getDescription().getVersion());
-        pluginLogger.log(Level.INFO, "════════════════════════════════════════════════════");
-
-        // ┌─────────────────────────────────────────────────────┐
-        // │           INITIALIZE CORE MANAGERS                   │
-        // └─────────────────────────────────────────────────────┘
-        configManager = new ConfigManager(this);
-        messageUtil = new MessageUtil(this);
-        soundUtil = new SoundUtil(this);
-        questManager = new QuestManager(this);
-        moduleManager = new ModuleManager(this);
-        bossBarManager = new BossBarManager(this);
-        commandManager = new CommandManager(this);
-        databaseManager = new DatabaseManager(this, configManager.getConfig().getString("database.type", "sqlite"));
-        playerCacheManager = new PlayerCacheManager(this, databaseManager, configManager.getConfig().getLong("cache.save-interval-seconds", 300));
-
-        // ┌─────────────────────────────────────────────────────┐
-        // │            LOAD MODULES AND QUESTS                   │
-        // └─────────────────────────────────────────────────────┘
-        try {
-            moduleManager.loadModules();
-            questManager.loadQuests();
-            pluginLogger.log(Level.INFO, "✓ Loaded " + questManager.getQuestCount() + " quests successfully");
-            if (questManager.getFailedQuestCount() > 0) {
-                pluginLogger.log(Level.WARNING, "⚠ " + questManager.getFailedQuestCount() + " quests failed to load");
-            }
-        } catch (Exception e) {
-            pluginLogger.log(Level.SEVERE, "✗ CRITICAL: Failed to load modules or quests - " + e.getMessage());
-            getServer().getPluginManager().disablePlugin(this);
-            return;
-        }
-
-        // ┌─────────────────────────────────────────────────────┐
-        // │          SETUP DATABASE CONNECTION                   │
-        // └─────────────────────────────────────────────────────┘
+        // 2. Initialize Data Layer
+        this.databaseManager = new DatabaseManager(this);
         databaseManager.initialize();
+        PlayerRepository playerRepository = new PlayerRepository(this);
+        this.playerManager = new PlayerManager(playerRepository);
+        this.questManager = new QuestManager(this);
+        new QuestLoader(this).loadAll();
+        this.questService = new QuestService(this);
 
-        // ┌─────────────────────────────────────────────────────┐
-        // │         LOAD ACTIVE QUESTS FROM DATABASE             │
-        // └─────────────────────────────────────────────────────┘
-        questManager.loadActiveQuests();
+        // 3. Initialize Utils
+        this.messageUtil = new MessageUtil(this);
+        this.soundUtil = new SoundUtil(this);
+        this.bossBarManager = new BossBarManager(this);
+        this.leaderboardManager = new LeaderboardManager(this);
+        this.questScheduler = new QuestScheduler(this);
 
-        // ┌─────────────────────────────────────────────────────┐
-        // │       REGISTER COMMANDS AND LISTENERS                │
-        // └─────────────────────────────────────────────────────┘
-        getCommand("nightfallautoquest").setExecutor(new AutoQuestCommand(this));
-        getServer().getPluginManager().registerEvents(new QuestListener(this), this);
+        // 4. Register Commands & Listeners
+        this.commandManager = new CommandManager(this);
+        this.commandManager.register(new HelpCommand(this));
+        this.commandManager.register(new ReloadCommand(this));
+        this.commandManager.register(new StatsCommand(this));
+        this.commandManager.register(new QuestCommand(this));
+        this.commandManager.register(new GiveUpCommand(this));
+        this.commandManager.register(new PurgeCommand(this));
+        this.commandManager.register(new TopCommand(this));
 
-        // ┌─────────────────────────────────────────────────────┐
-        // │         PLACEHOLDERAPI INTEGRATION                   │
-        // └─────────────────────────────────────────────────────┘
+        getCommand("nightfallautoquest").setExecutor(commandManager);
+        getCommand("nightfallautoquest").setTabCompleter(commandManager);
+
+        getServer().getPluginManager().registerEvents(new PlayerListener(this), this);
+
         if (getServer().getPluginManager().isPluginEnabled("PlaceholderAPI")) {
             new NightfallAutoQuestExpansion(this).register();
-            pluginLogger.log(Level.INFO, "✓ PlaceholderAPI hooked successfully");
-        } else {
-            pluginLogger.log(Level.WARNING, "⚠ PlaceholderAPI not found - Placeholders disabled");
         }
 
-        // ┌─────────────────────────────────────────────────────┐
-        // │        SCHEDULE AUTOMATIC QUEST ASSIGNMENT           │
-        // └─────────────────────────────────────────────────────┘
-        scheduleQuestAssignment();
+        // 5. Start Background Tasks
+        long saveInterval = configManager.getConfig().getLong("cache.save-interval-seconds", 300);
+        getServer().getAsyncScheduler().runAtFixedRate(this, (task) -> {
+            playerManager.saveAll();
+        }, 1, saveInterval, TimeUnit.SECONDS);
+        
+        // Start Scheduler
+        this.questScheduler.start();
 
-        // ┌─────────────────────────────────────────────────────┐
-        // │              STARTUP COMPLETE                        │
-        // └─────────────────────────────────────────────────────┘
-        pluginLogger.log(Level.INFO, "════════════════════════════════════════════════════");
-        pluginLogger.log(Level.INFO, "  ✓ Plugin enabled successfully!");
-        pluginLogger.log(Level.INFO, "  ⏱ Startup time: " + (System.currentTimeMillis() - start) + "ms");
-        pluginLogger.log(Level.INFO, "════════════════════════════════════════════════════");
+        pluginLogger.info("<green>Plugin enabled successfully!");
     }
 
     @Override
     public void onDisable() {
-        pluginLogger.log(Level.INFO, "════════════════════════════════════════════════════");
-        pluginLogger.log(Level.INFO, "     🌙 NIGHTFALL AUTO QUEST 🌙");
-        pluginLogger.log(Level.INFO, "        Shutting down...");
-        pluginLogger.log(Level.INFO, "════════════════════════════════════════════════════");
-
-        if (playerCacheManager != null) {
-            playerCacheManager.shutdown();
-            pluginLogger.log(Level.INFO, "✓ Player cache flushed and saved");
+        if (playerManager != null) {
+            playerManager.saveAll();
         }
-        if (databaseManager != null) {
-            databaseManager.close();
-            pluginLogger.log(Level.INFO, "✓ Database connection closed");
+        if (bossBarManager != null) {
+            bossBarManager.removeAll();
         }
-        if (pluginLogger != null) {
-            pluginLogger.log(Level.INFO, "✓ NightfallAutoQuest disabled successfully");
-        }
+        pluginLogger.info("<red>Plugin disabled.");
     }
 
-    // ═══════════════════════════════════════════════════════════
-    //                 QUEST ASSIGNMENT SCHEDULER
-    // ═══════════════════════════════════════════════════════════
-
-    private void scheduleQuestAssignment() {
-        FileConfiguration config = configManager.getConfig();
-        long interval = config.getLong("quest.assign-interval", 3600) * 20L;
-        double assignPercentage;
-
-        try {
-            assignPercentage = config.getDouble("quest.assign-percentage", 50.0);
-            if (assignPercentage < 0 || assignPercentage > 100) {
-                pluginLogger.log(Level.WARNING, "⚠ Invalid assign-percentage (" + assignPercentage + "%) - Defaulting to 50%");
-                assignPercentage = 50.0;
-            }
-        } catch (Exception e) {
-            pluginLogger.log(Level.WARNING, "⚠ Error parsing assign-percentage - Defaulting to 50%: " + e.getMessage());
-            assignPercentage = 50.0;
-        }
-
-        if (interval <= 0) {
-            pluginLogger.log(Level.WARNING, "⚠ Invalid assign-interval (" + interval + ") - Defaulting to 3600s");
-            interval = 3600 * 20L;
-        }
-
-        final double finalAssignPercentage = assignPercentage;
-        Bukkit.getScheduler().runTaskTimer(this, () -> {
-            List<Player> onlinePlayers = new ArrayList<>(Bukkit.getOnlinePlayers());
-            if (onlinePlayers.isEmpty()) {
-                return;
-            }
-
-            if (questManager.getQuestCount() == 0) {
-                pluginLogger.log(Level.WARNING, "⚠ No quests available to assign");
-                return;
-            }
-
-            int playersToAssign = (int) Math.ceil(onlinePlayers.size() * (finalAssignPercentage / 100.0));
-            Collections.shuffle(onlinePlayers, random);
-            List<Player> selectedPlayers = onlinePlayers.subList(0, Math.min(playersToAssign, onlinePlayers.size()));
-
-            int processedCount = 0;
-            int assignedCount = 0;
-            for (Player player : selectedPlayers) {
-                processedCount++;
-                Quest quest = questManager.getActiveQuest(player.getUniqueId());
-                Long expiration = questManager.getActiveQuestExpiration(player.getUniqueId());
-                boolean shouldAssign = quest == null || !quest.isPresent() || (expiration != null && System.currentTimeMillis() >= expiration);
-
-                if (shouldAssign) {
-                    questManager.assignRandomQuest(player);
-                    assignedCount++;
-                }
-            }
-
-            pluginLogger.log(Level.INFO, "════════════════════════════════════════════════════");
-            pluginLogger.log(Level.INFO, "🎯 Quest Assignment Report:");
-            pluginLogger.log(Level.INFO, "   • Processed: " + processedCount + "/" + onlinePlayers.size() + " total online players");
-            pluginLogger.log(Level.INFO, "   • Assigned: " + assignedCount + " new quests");
-            pluginLogger.log(Level.INFO, "   • Selection Rate: " + finalAssignPercentage + "%");
-            pluginLogger.log(Level.INFO, "════════════════════════════════════════════════════");
-        }, interval, interval);
+    public PluginLogger getPluginLogger() {
+        return pluginLogger;
     }
 
-    // ═══════════════════════════════════════════════════════════
-    //                    GETTER METHODS
-    // ═══════════════════════════════════════════════════════════
+    public DatabaseManager getDatabaseManager() {
+        return databaseManager;
+    }
 
     public ConfigManager getConfigManager() {
         return configManager;
@@ -236,35 +108,35 @@ public final class NightfallAutoQuest extends JavaPlugin {
         return messageUtil;
     }
 
+    public SoundUtil getSoundUtil() {
+        return soundUtil;
+    }
+
+    public PlayerManager getPlayerManager() {
+        return playerManager;
+    }
+
     public QuestManager getQuestManager() {
         return questManager;
-    }
-
-    public DatabaseManager getDatabaseManager() {
-        return databaseManager;
-    }
-
-    public ModuleManager getModuleManager() {
-        return moduleManager;
     }
 
     public BossBarManager getBossBarManager() {
         return bossBarManager;
     }
 
-    public SoundUtil getSoundUtil() {
-        return soundUtil;
+    public LeaderboardManager getLeaderboardManager() {
+        return leaderboardManager;
     }
 
-    public Logger getPluginLogger() {
-        return pluginLogger;
-    }
-
-    public PlayerCacheManager getPlayerCacheManager() {
-        return playerCacheManager;
+    public QuestScheduler getQuestScheduler() {
+        return questScheduler;
     }
 
     public CommandManager getCommandManager() {
         return commandManager;
+    }
+
+    public QuestService getQuestService() {
+        return questService;
     }
 }

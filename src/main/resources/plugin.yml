@@ -7,7 +7,7 @@ description: Project Nightfall - Automatic Quest System
 softdepend: [PlaceholderAPI]
 
 libraries:
-  - "com.zaxxer:HikariCP:5.0.1"
+  - "com.zaxxer:HikariCP:6.2.1"
   - "net.kyori:adventure-text-minimessage:4.24.0"
   - "net.kyori:adventure-text-serializer-plain:4.24.0"
 

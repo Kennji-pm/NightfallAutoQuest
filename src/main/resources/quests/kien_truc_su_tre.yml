@@ -1,0 +1,17 @@
+id: kien_truc_su_hoan_my
+type: placing
+display-name: "<gradient:#fa709a:#fee140>Kiến Trúc Sư Hoàn Mỹ</gradient>"
+description:
+  - "<gray>Hãy sử dụng các loại khối sau để xây dựng."
+  - ""
+  - "<gray>Mục tiêu: <white>%amount% %task%"
+tasks:
+  - STONE_BRICKS
+  - SMOOTH_STONE
+  - QUARTZ_BLOCK
+  - GLASS
+amount: 100
+time-limit: 30
+rewards:
+  - "give %player% gold_ingot 16"
+  - "eco give %player% 1200"

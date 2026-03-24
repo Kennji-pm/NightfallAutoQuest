@@ -1,0 +1,18 @@
+id: tho_dao_tap_su
+type: mining
+display-name: "<gradient:#ff9a9e:#fad0c4>Thợ Đào Tập Sự</gradient>"
+description:
+  - "<gray>Hãy khai thác một trong các loại tài nguyên sau."
+  - ""
+  - "<gray>Mục tiêu: <white>%amount% %task%"
+tasks:
+  - COAL_ORE
+  - DEEPSLATE_COAL_ORE
+  - IRON_ORE
+  - DEEPSLATE_IRON_ORE
+  - STONE
+amount: 64
+time-limit: 30
+rewards:
+  - "give %player% iron_ingot 16"
+  - "eco give %player% 500"

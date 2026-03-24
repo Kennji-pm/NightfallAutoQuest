@@ -1,53 +1,47 @@
 # 🌙 NightfallAutoQuest
 
-Chào mừng bạn đến với **NightfallAutoQuest**! Đây là một hệ thống giao nhiệm vụ tự động cực kỳ thông minh và linh hoạt dành cho các server Minecraft (Spigot/Paper). Plugin này được thiết kế để giúp server của bạn luôn nhộn nhịp, khiến người chơi luôn có mục tiêu để phấn đấu mà không cảm thấy nhàm chán.
+**NightfallAutoQuest** là một hệ thống giao nhiệm vụ tự động (Quest) chuyên nghiệp và tối ưu cho các server Minecraft (Spigot/Paper). Plugin được xây dựng với kiến trúc hiện đại, tập trung vào hiệu suất và trải nghiệm người chơi.
 
-## ✨ Điểm nổi bật là gì?
+## ✨ Tính năng nổi bật
 
-*   **⚡ Tự động hoàn toàn:** Hệ thống sẽ tự chọn ngẫu nhiên người chơi để giao nhiệm vụ theo chu kỳ. Bạn không cần phải tốn công setup thủ công từng tý một.
-*   **📊 Theo dõi tiến độ trực quan:** Có thanh BossBar hiện ngay trên đầu để người chơi biết mình đã làm được bao nhiêu rồi.
-*   **🎮 Đa dạng loại Quest:** Từ đào mỏ, săn quái, câu cá cho đến việc... đi bộ, cái gì cũng có thể biến thành nhiệm vụ.
-*   **💾 Lưu trữ chắc chắn:** Hỗ trợ cả SQLite (mặc định cho gọn) và MySQL (cho các server lớn, ổn định hơn).
-*   **🔗 Kết nối rộng rãi:** Tích hợp với PlaceholderAPI để bạn tha hồ hiển thị thông tin nhiệm vụ ở khắp mọi nơi (Scoreboard, Tab, vv).
+- **⚡ Tự động hoàn toàn (Async):** Hệ thống scheduler chạy ngầm tự động chọn người chơi để giao nhiệm vụ theo chu kỳ cấu hình sẵn.
+- **🌍 Giới hạn thế giới (World Restriction):** Dễ dàng giới hạn các world được phép gán và làm nhiệm vụ (`allowed_worlds`).
+- **🧩 Hệ thống Module linh hoạt:** Bật/tắt các loại nhiệm vụ (`mining`, `farming`, `mobkilling`, v.v.) ngay trong `config.yml`.
+- **📊 Theo dõi tiến trình (BossBar):** Thanh BossBar hiển thị thời gian thực tiến độ, tên nhiệm vụ và thời gian còn lại.
+- **✨ Placeholder động & Thông minh:** 
+  - `%amount%`: Tự động thay thế bằng số lượng đã random (Hỗ trợ định dạng range `10-20`).
+  - `%task%`: Tự động định dạng tên vật phẩm/mục tiêu (VD: `DIAMOND_ORE` -> `Diamond Ore`).
+- **💾 Lưu trữ hiệu suất cao:** Sử dụng **HikariCP** cho kết nối Database (Hỗ trợ SQLite & MySQL).
+- **🔗 Tích hợp PlaceholderAPI:** Cung cấp hàng loạt placeholder để hiển thị thông tin ở Scoreboard, Tab, vv.
 
-## 🛠️ Các loại nhiệm vụ có sẵn
+## 🛠️ Các loại nhiệm vụ (Modules)
 
-Plugin mang đến rất nhiều "thử thách" thú vị cho người chơi:
-
-1.  **⛏️ Khai thác (Mining):** Đào các loại quặng hoặc đá theo yêu cầu.
-2.  **🤺 Săn quái (Mob Killing):** Tiêu diệt các loại quái vật cụ thể.
-3.  **🎣 Câu cá (Fishing):** Trở thành một ngư dân thực thụ.
-4.  **🌾 Nông dân (Farming):** Thu hoạch mùa màng.
-5.  **⚒️ Chế tạo (Crafting):** Làm ra những vật phẩm hữu ích.
-6.  **🔥 Nung nấu (Smelting):** Nấu quặng hoặc thức ăn.
-7.  **✨ Phù phép (Enchanting):** Nâng cấp trang bị.
-8.  **🚶 Đi bộ (Walking):** Đơn giản là khám phá thế giới.
-9.  **🏗️ Xây dựng (Placing):** Đặt các khối block vào vị trí.
-10. **⚔️ Gây sát thương (Deal Damage):** Cho những chiến binh thích bạo lực.
+Plugin hỗ trợ đa dạng các loại hành động để biến thành nhiệm vụ:
+- **Mining** (Khai thác), **Placing** (Đặt khối), **Crafting** (Chế tạo)
+- **Mob Killing** (Săn quái), **Farming** (Thu hoạch), **Fishing** (Câu cá)
+- **Walking** (Di chuyển), **Smelting** (Nấu đồ), **Enchanting** (Phù phép)
+- **Deal Damage** (Gây sát thương), **Placeholder** (Dựa trên PAPI)
 
 ## ⌨️ Lệnh và Quyền hạn
 
-### Dành cho Người chơi (`naq.use`)
-*   `/naq quest` (hoặc `/q`): Xem nhiệm vụ hiện tại bạn đang làm.
-*   `/naq stats`: Xem "thành tích" cá nhân của bạn.
-*   `/naq top`: Xem bảng xếp hạng những "thánh cày" quest.
-*   `/naq giveup`: Nếu nhiệm vụ khó quá, bạn có thể bỏ qua (nhưng sẽ mất công sức đấy nhé!).
-*   `/naq help`: Hiện ra danh sách các lệnh để bạn không bị bỡ ngỡ.
+### Lệnh dành cho Người chơi (`nightfallautoquest.player`)
+- `/naq quest` (hoặc `/q`): Xem chi tiết nhiệm vụ hiện tại, tiến độ và thời gian.
+- `/naq stats`: Xem thống kê cá nhân (Số quest hoàn thành, thất bại, tỷ lệ).
+- `/naq top`: Xem bảng xếp hạng những người chơi chăm chỉ nhất.
+- `/naq giveup`: Từ bỏ nhiệm vụ hiện tại.
+- `/naq help`: Xem danh sách trợ giúp.
 
-### Dành cho Admin (`naq.admin`)
-*   `/naq reload`: Tải lại cấu hình plugin (không cần khởi động lại server).
-*   `/naq reloadquests`: Tải lại danh sách các file nhiệm vụ.
-*   `/naq module`: Bật/tắt các loại nhiệm vụ ngay lập tức.
-*   `/naq getdata <tên>`: Kiểm tra xem một người chơi đang làm gì.
-*   `/naq purge`: Xóa sạch dữ liệu (hãy cẩn thận với lệnh này!).
+### Lệnh dành cho Admin (`nightfallautoquest.admin`)
+- `/naq reload`: Tải lại toàn bộ cấu hình, module và các file nhiệm vụ (`quests/`).
+- `/naq purge`: Xóa sạch toàn bộ dữ liệu người chơi (Cẩn thận!).
 
-## 🚀 Cài đặt thế nào?
+## 🚀 Cài đặt
 
-1.  Tải file `.jar` về và bỏ vào thư mục `plugins` của server.
-2.  Khởi động server để plugin tạo ra các file cấu hình.
-3.  Vào `plugins/NightfallAutoQuest/config.yml` để chỉnh sửa theo ý muốn (thời gian giao quest, tỷ lệ người chơi nhận quest...).
-4.  Chỉnh sửa hoặc thêm mới các nhiệm vụ trong thư mục `quests/`.
-5.  Dùng lệnh `/naq reload` và tận hưởng!
+1. Tải file `.jar` và bỏ vào thư mục `plugins/`.
+2. Khởi động server để tạo các file cấu hình mặc định.
+3. Chỉnh sửa `config.yml` để cấu hình thế giới, module và thời gian.
+4. Tùy chỉnh hoặc thêm mới quest trong thư mục `quests/`.
+5. Sử dụng `/naq reload` để áp dụng mọi thay đổi.
 
 ---
-*Phát triển bởi **_kennji**!*
+*Phát triển với ❤️ bởi **Nightfall Team & _kennji***!*

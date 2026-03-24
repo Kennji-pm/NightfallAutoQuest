@@ -1,94 +1,80 @@
 # ═══════════════════════════════════════════════════════
-#                    LỖI & THÔNG BÁO HỆ THỐNG
+#                    SYSTEM & ERRORS
 # ═══════════════════════════════════════════════════════
-no-permission: "&c❌ Bạn không có quyền sử dụng lệnh này!"
-invalid-subcommand: "&c⚠️ Lệnh phụ không hợp lệ!"
-player-only: "&c👤 Lệnh này chỉ dành cho người chơi!"
-no-data-available: "&c❓ Không tìm thấy dữ liệu người chơi!"
-invalid-page: "&c📖 Số trang không hợp lệ! Vui lòng nhập số nguyên dương."
-page-exceeds: "&c📖 Trang &e%current_page% &cvượt quá giới hạn &7(&e%total_pages%&c)!"
-player-not-found: "&c❌ Không tìm thấy người chơi &e%player% &c(có thể offline hoặc không tồn tại)!"
+no-permission: "<red>Bạn không có quyền sử dụng lệnh này!"
+invalid-subcommand: "<red>Lệnh phụ không hợp lệ!"
+player-only: "<red>Lệnh này chỉ dành cho người chơi!"
+no-data-available: "<dark_red>Không tìm thấy dữ liệu người chơi!"
+player-not-found: "<red>Không tìm thấy người chơi <yellow>%player% <red>đang hoạt động!"
 
 # ═══════════════════════════════════════════════════════
-#                    MODULE
+#                    QUESTS
 # ═══════════════════════════════════════════════════════
-invalid-module: "&c📦 Module không hợp lệ: &e%module%"
-module-error: "&c❌ Không thể tải module &e%module%&c: &7%error%"
-module-enabled: "&a✅ Module &e%module% &ađã được &2BẬT&a!"
-module-disabled: "&c🚫 Module &e%module% &cđã bị &4TẮT&c!"
-module-already-enabled: "&6⚠️ Module &e%module% &6đã được bật sẵn!"
-module-already-disabled: "&6⚠️ Module &e%module% &6đã bị tắt sẵn!"
-module-list: "&3🌟 CÁC MODULE CÓ SẴN:\n&f%modules%"
-module-usage: "&c💡 Cách dùng: &e/naq module <list|enable|disable> [module]"
+no-active-quest: "<gray>Bạn hiện không có nhiệm vụ nào đang hoạt động."
+quest-assigned:
+  - "<gradient:#5e4fa2:#f7941d><bold>NHIỆM VỤ MỚI</bold></gradient>"
+  - "<gray>Tên: <white>%name%"
+  - "<gray>Mục tiêu: <green>%amount% %task%"
+  - "<gray>Thời gian: <red>%time% phút"
+quest-completed: "<green><bold>HOÀN THÀNH!</bold> <white>Bạn đã hoàn thành nhiệm vụ <yellow>%name%<white>."
+quest-failed: "<red><bold>THẤT BẠI!</bold> <gray>Nhiệm vụ <white>%name% <gray>đã kết thúc."
+quest-giveup: "<yellow>Bạn đã từ bỏ nhiệm vụ hiện tại."
+quest-warning: "<red><bold>CẢNH BÁO!</bold> <gray>Nhiệm vụ sắp hết hạn trong <yellow>%time%<gray>."
+quest:
+  info:
+    header: "<gradient:#5e4fa2:#f7941d><bold>THÔNG TIN NHIỆM VỤ</bold></gradient>"
+    format:
+      - "<gray>Tên: <white>%name%"
+      - "%description%"
+      - "<gray>Tiến trình: <green>%progress%/%amount% <dark_gray>(<white>%task%<dark_gray>)"
+      - "<gray>Thời gian còn lại: <red>%time%"
+    footer: "<gradient:#f7941d:#5e4fa2>──────────────────────────</gradient>"
+  no-active: "<gray>Bạn hiện không có nhiệm vụ nào đang hoạt động."
+  invalid: "<red>Dữ liệu nhiệm vụ không hợp lệ."
 
 # ═══════════════════════════════════════════════════════
-#                    NHIỆM VỤ
+#                    BOSSBAR
 # ═══════════════════════════════════════════════════════
-no-active-quest: "&c📋 Bạn hiện không có nhiệm vụ nào đang hoạt động!"
-quest-error: "&c❌ Không thể tải nhiệm vụ &e%quest% &ctừ &7%file%: &c%error%"
-quest-assigned: "&6🎯 NHIỆM VỤ MỚI ĐƯỢC GIAO!\n\n&b🏆 Tên nhiệm vụ: &e%quest_name%\n&7📝 Mô tả: &f%description%\n\n&3🎯 Yêu cầu: &a%task% &fx&6%amount%\n&7⏰ Thời hạn: &e%time% &fphút\n\n&c⚠️ Hãy hoàn thành trước khi hết thời gian!"
-quest-completed: "&a🎉 CHÚC MỪNG! &e%quest_name% &a✅ HOÀN THÀNH!"
-quest-failed: "&c💥 NHIỆM VỤ THẤT BẠI: &e%quest_name% &c❌"
-quest-failed-module-disabled: "&c🚫 Nhiệm vụ &e%quest_name% &cthất bại - &7Module &c%module% &7đã tắt!"
-quest-giveup: "&6🏳️ Bạn đã từ bỏ nhiệm vụ hiện tại!"
-quest-info: "&3📋 THÔNG TIN NHIỆM VỤ\n\n&b🏆 Tên: &e%quest_name%\n&7📝 Mô tả: &f%description%\n\n&3🎯 Nhiệm vụ: &a%task%\n&7📊 Tiến độ: &e%progress%\n&7⏰ Thời gian còn: &c%time%"
-quest-warning: "&c⏰ CẢNH BÁO! &6Nhiệm vụ sắp hết hạn!\n&7Thời gian còn lại: &e%time%"
-bossbar_title: "&3🏆 %quest_name% &7┃ &a📊 %progress%&7/%amount% &7┃ &e⏰ %time%"
+bossbar:
+  title: "<gradient:#5e4fa2:#f7941d>%name%</gradient> <gray>┃ <white>%progress%/%amount% <gray>┃ <red>%time%"
 
 # ═══════════════════════════════════════════════════════
-#                    THỐNG KÊ & XẾP HẠNG
+#                    STATS & TOP
 # ═══════════════════════════════════════════════════════
-stats: "&2📊 THỐNG KÊ NHIỆM VỤ CỦA BẠN\n\n&a✅ Hoàn thành: &f%completions%\n&c❌ Thất bại: &f%failures%\n&6📈 Tỷ lệ thành công: &f%completion_rate%"
-top-header: "&6🏆 ══════════════════\n&6🏆    BXH NHIỆM VỤ\n&6🏆 ══════════════════\n&eTrang &f%current_page%&7/&f%total_pages%"
-top-player: "&f%rank% &7🏅 &a%player%&f: &e%completions% &7✅ &f| &6%completion_rate%"
-top-footer: "&6🏆 ══════════════════\n&7👥 Tổng người chơi: &f%total_players%\n&6🏆 ══════════════════"
-player-rank: "&6🏅 Hạng của bạn: &e#%rank% &7| &a%player%&f: &e%completions% &7✅ &8| &6%completion_rate%"
+stats:
+  - "<gradient:#5e4fa2:#f7941d><bold>THÔNG TIN CỦA BẠN</bold></gradient>"
+  - "<gray>Hoàn thành: <green>%completions%"
+  - "<gray>Thất bại: <red>%failures%"
+  - "<gray>Tỷ lệ: <aqua>%rate%"
+top:
+  header: "<gradient:#5e4fa2:#f7941d><bold>BẢNG XẾP HẠNG</bold></gradient> <gray>(Trang %page%/%total%)"
+  format: "<gray>%rank%. <white>%player% <gray>» <green>%completions% <gray>(<aqua>%rate%<gray>)"
+  footer: "<gray>Tổng số người chơi: <white>%total%"
 
 # ═══════════════════════════════════════════════════════
-#                    QUẢN TRỊ
+#                    COMMANDS & ADMIN
 # ═══════════════════════════════════════════════════════
-reload-success: "&a✅ Plugin đã tải lại thành công!\n&7📋 Đã tải: &e%quest_count% &anhiệm vụ &7(&c%failed_count% &7thất bại)"
-quests-reloaded: "&a🔄 Đã tải lại nhiệm vụ!\n&7📋 Đã tải: &e%quest_count% &anhiệm vụ &7(&c%failed_count% &7thất bại)"
-purge-confirm: "&c💀 CẢNH BÁO NGUY HIỂM!\n&c🚫 Thao tác này sẽ xóa HOÀN TOÀN tất cả dữ liệu nhiệm vụ!\n\n&7💡 Để xác nhận: &e/naq purge confirm"
-purge-success: "&a🗑️ Đã xóa thành công tất cả dữ liệu nhiệm vụ!"
-getdata-usage: "&c📋 Cách dùng: &e/naq getdata <player>"
-getdata-header: "&6🔍 ═══════════════════════════════\n&6🔍     DỮ LIỆU NGƯỜI CHƠI\n&6🔍 ═══════════════════════════════\n&a👤 Người chơi: &f%player%"
+reload-success: "<green>Cấu hình đã được tải lại thành công!"
+purge-success: "<red>Toàn bộ dữ liệu đã được xóa sạch."
+unknown-command: "<red>Lệnh không tồn tại. Dùng <yellow>/nautoquest help <red>để xem trợ giúp."
 
-# ═══════════════════════════════════════════════════════
-#                    TRỢ GIÚP
-# ═══════════════════════════════════════════════════════
 help:
-  - "&6🌙 ══════════════════════════"
-  - "&6🌙    NIGHTFALL AUTOQUEST"
-  - "&6🌙 ══════════════════════════"
-  - ""
-  - "&e🎮 LỆNH NGƯỜI CHƠI:"
-  - "&a/naq quest &7- &f📋 Xem nhiệm vụ hiện tại"
-  - "&a/naq stats &7- &f📊 Thống kê của bạn"
-  - "&a/naq top [page] &7- &f🏆 Bảng xếp hạng"
-  - "&a/naq giveup &7- &f🏳️ Từ bỏ nhiệm vụ"
-  - ""
-  - "&c⚙️ LỆNH QUẢN TRỊ:"
-  - "&c/naq reload &7- &f🔄 Tải lại plugin"
-  - "&c/naq reloadquests &7- &f📚 Tải lại nhiệm vụ"
-  - "&c/naq module &7- &f⚙️ Quản lý module"
-  - "&c/naq getdata <player> &7- &f🔍 Dữ liệu người chơi"
-  - "&c/naq purge confirm &7- &f🗑️ Xóa dữ liệu"
-  - ""
-  - "&7💡 Bí danh: /nq, /naq, /autoquest"
+  header: "<gradient:#5e4fa2:#f7941d><bold>NIGHTFALL AUTOQUEST HELP</bold></gradient>"
+  player:
+    - "<green>/naq quest <gray>» Xem nhiệm vụ hiện tại"
+    - "<green>/naq stats <gray>» Xem thống kê cá nhân"
+    - "<green>/naq top <gray>» Xem bảng xếp hạng"
+    - "<green>/naq giveup <gray>» Từ bỏ nhiệm vụ"
+  admin:
+    - "<red>/naq reload <gray>» Tải lại cấu hình"
+    - "<red>/naq purge <gray>» Xóa dữ liệu (nguy hiểm)"
 
 # ═══════════════════════════════════════════════════════
-#                    LOẠI NHIỆM VỤ
+#                    TASKS
 # ═══════════════════════════════════════════════════════
-quests_task:
-  mining: "⛏️ Khai thác"
-  placing: "🧱 Đặt khối"
-  crafting: "⚒️ Chế tạo"
-  farming: "🌾 Trồng trọt"
-  fishing: "🎣 Câu cá"
-  dealdamage: "⚔️ Gây sát thương"
-  enchanting: "✨ Phù phép"
-  mobkilling: "🗡️ Giết quái vật"
-  walking: "🚶 Đi bộ"
-  smelting: "🔥 Nấu chảy"
-  placeholder: "📊 Placeholder"
+tasks:
+  mining: "Khai thác"
+  placing: "Đặt khối"
+  mobkilling: "Tiêu diệt"
+  walking: "Di chuyển"
+  fishing: "Câu cá"

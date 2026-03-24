@@ -1,0 +1,14 @@
+id: nong_dan_thanh_thi
+type: farming
+display-name: "<gradient:#43e97b:#38f9d7>Nông Dân Thành Thị</gradient>"
+description:
+  - "<gray>Mùa màng đã đến lúc thu hoạch."
+  - "<gray>Hãy giúp dân làng thu thập lúa mì nhé."
+  - ""
+  - "<gray>Mục tiêu: <white>%amount% %task%"
+task: WHEAT
+amount: 32
+time-limit: 40
+rewards:
+  - "give %player% bread 10"
+  - "eco give %player% 600"
