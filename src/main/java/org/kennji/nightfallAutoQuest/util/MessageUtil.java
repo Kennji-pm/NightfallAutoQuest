@@ -19,21 +19,34 @@ public final class MessageUtil {
 
     public void sendMessage(@NotNull CommandSender sender, @NotNull String key,
             @NotNull Map<String, String> placeholders) {
-        String message = plugin.getConfigManager().getMessages().getString(key);
-        if (message == null || message.isEmpty()) {
+        Object value = plugin.getConfigManager().getMessages().get(key);
+        if (value == null) {
             plugin.getPluginLogger().warn("Missing message key: " + key);
             return;
         }
 
         String prefix = plugin.getConfigManager().getConfig().getString("prefix",
                 "<gradient:#5e4fa2:#f7941d>Nightfall</gradient> <gray>»</gray> ");
-        String finalMessage = prefix + message;
 
-        for (Map.Entry<String, String> entry : placeholders.entrySet()) {
-            finalMessage = finalMessage.replace(entry.getKey(), entry.getValue());
+        if (value instanceof java.util.List<?> list) {
+            for (Object line : list) {
+                String finalLine = prefix + line.toString();
+                for (Map.Entry<String, String> entry : placeholders.entrySet()) {
+                    finalLine = finalLine.replace(entry.getKey(), entry.getValue());
+                }
+                sender.sendMessage(ColorUtil.parse(finalLine));
+            }
+        } else {
+            String finalMessage = prefix + value.toString();
+            for (Map.Entry<String, String> entry : placeholders.entrySet()) {
+                finalMessage = finalMessage.replace(entry.getKey(), entry.getValue());
+            }
+            sender.sendMessage(ColorUtil.parse(finalMessage));
         }
+    }
 
-        sender.sendMessage(ColorUtil.parse(finalMessage));
+    public @NotNull String translateTask(@NotNull String type) {
+        return plugin.getConfigManager().getMessages().getString("tasks." + type.toLowerCase(), type);
     }
 
     public void sendRawMessage(@NotNull CommandSender sender, @NotNull String message) {

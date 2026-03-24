@@ -61,6 +61,7 @@ public final class NightfallAutoQuest extends JavaPlugin {
         this.commandManager.register(new GiveUpCommand(this));
         this.commandManager.register(new PurgeCommand(this));
         this.commandManager.register(new TopCommand(this));
+        this.commandManager.register(new GetDataCommand(this));
 
         getCommand("nightfallautoquest").setExecutor(commandManager);
         getCommand("nightfallautoquest").setTabCompleter(commandManager);

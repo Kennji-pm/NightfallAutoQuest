@@ -49,10 +49,14 @@ public final class QuestService {
         PlayerData data = plugin.getPlayerManager().getPlayerData(player.getUniqueId());
         plugin.getPlayerManager().updatePlayerData(player.getUniqueId(), data.withNewQuest(quest.id(), task, expiration, startValue, targetAmount));
         
+        plugin.getQuestManager().getQuest(quest.id()).ifPresent(q -> 
+            plugin.getBossBarManager().update(player, q, 0, expiration));
+        
         plugin.getMessageUtil().sendMessage(player, "quest.assigned", java.util.Map.of(
             "%name%", quest.displayName(),
             "%amount%", String.valueOf(targetAmount),
-            "%task%", org.kennji.nightfallAutoQuest.util.StringUtil.formatEnumName(task)
+            "%task%", plugin.getMessageUtil().translateTask(task),
+            "%time%", String.valueOf(timeLimit)
         ));
         plugin.getSoundUtil().playSound(player, "assign");
     }
@@ -97,7 +101,9 @@ public final class QuestService {
         int oldStreak = data.questStreak();
         PlayerData newData = data.withCompletion();
         plugin.getPlayerManager().updatePlayerData(player.getUniqueId(), newData);
-        plugin.getBossBarManager().remove(player);
+        String statusTitle = plugin.getConfigManager().getMessages().getString("bossbar.status.complete", "Completed!")
+                .replace("%name%", quest.displayName());
+        plugin.getBossBarManager().showStatus(player, statusTitle, org.bukkit.boss.BarColor.GREEN, 5);
 
         double multiplier = plugin.getConfigManager().getStreakMultiplier(newData.questStreak());
 
@@ -151,7 +157,11 @@ public final class QuestService {
             
             PlayerData newData = reset ? data.withFailure() : data.withFailureStatsOnly();
             plugin.getPlayerManager().updatePlayerData(uuid, newData);
-            plugin.getBossBarManager().remove(player);
+            String statusKey = isGiveUp ? "bossbar.status.giveup" : "bossbar.status.failed";
+            String statusTitle = plugin.getConfigManager().getMessages().getString(statusKey, "Finished")
+                    .replace("%name%", plugin.getQuestManager().getQuest(data.activeQuestId()).map(Quest::displayName).orElse("Unknown"));
+            org.bukkit.boss.BarColor color = isGiveUp ? org.bukkit.boss.BarColor.YELLOW : org.bukkit.boss.BarColor.RED;
+            plugin.getBossBarManager().showStatus(player, statusTitle, color, 5);
             
             plugin.getMessageUtil().sendMessage(player, isGiveUp ? "quest.giveup" : "quest.failed", java.util.Map.of(
                 "%name%", plugin.getQuestManager().getQuest(data.activeQuestId()).map(Quest::displayName).orElse("Unknown")

@@ -20,6 +20,7 @@ import org.bukkit.event.world.ChunkUnloadEvent;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.jetbrains.annotations.NotNull;
 import org.kennji.nightfallAutoQuest.NightfallAutoQuest;
+import org.kennji.nightfallAutoQuest.model.PlayerData;
 
 public final class PlayerListener implements Listener {
     private final NightfallAutoQuest plugin;
@@ -30,7 +31,15 @@ public final class PlayerListener implements Listener {
 
     @EventHandler(priority = EventPriority.MONITOR)
     public void onJoin(@NotNull PlayerJoinEvent event) {
-        plugin.getPlayerManager().loadPlayer(event.getPlayer().getUniqueId());
+        Player player = event.getPlayer();
+        plugin.getPlayerManager().loadPlayer(player.getUniqueId());
+
+        // Show BossBar on join if they have an active quest
+        PlayerData data = plugin.getPlayerManager().getPlayerData(player.getUniqueId());
+        if (data.hasActiveQuest()) {
+            plugin.getQuestManager().getQuest(data.activeQuestId()).ifPresent(quest -> plugin.getBossBarManager()
+                    .update(player, quest, data.questProgress(), data.questExpiration()));
+        }
     }
 
     @EventHandler(priority = EventPriority.MONITOR)
@@ -53,7 +62,8 @@ public final class PlayerListener implements Listener {
     @EventHandler(priority = EventPriority.MONITOR)
     public void onChunkUnload(@NotNull ChunkUnloadEvent event) {
         // Purge data for unloaded chunks to prevent memory leaks
-        plugin.getBlockDataManager().clearChunk(((long) event.getChunk().getX() << 32) | (event.getChunk().getZ() & 0xFFFFFFFFL));
+        plugin.getBlockDataManager()
+                .clearChunk(((long) event.getChunk().getX() << 32) | (event.getChunk().getZ() & 0xFFFFFFFFL));
     }
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
@@ -104,8 +114,8 @@ public final class PlayerListener implements Listener {
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onMove(@NotNull PlayerMoveEvent event) {
-        if (event.getFrom().getBlockX() != event.getTo().getBlockX() || 
-            event.getFrom().getBlockZ() != event.getTo().getBlockZ()) {
+        if (event.getFrom().getBlockX() != event.getTo().getBlockX() ||
+                event.getFrom().getBlockZ() != event.getTo().getBlockZ()) {
             plugin.getQuestService().handleEvent(event.getPlayer(), event);
         }
     }

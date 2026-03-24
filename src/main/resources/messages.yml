@@ -62,6 +62,33 @@ top:
   footer: "<gray>Tổng số người chơi: <white>%total%"
 
 # ═══════════════════════════════════════════════════════
+#                    ADMIN DATA
+# ═══════════════════════════════════════════════════════
+getdata:
+  header: "<gray>§m────────────────────────────────────────"
+  title: "<gradient:#5e4fa2:#f7941d><bold>DỮ LIỆU NGƯỜI CHƠI:</bold></gradient> <yellow>%player%"
+  uuid: "<gray>» UUID: <white>%uuid%"
+  completions: "<gray>» Hoàn thành: <green>%completions%"
+  failures: "<gray>» Thất bại: <red>%failures%"
+  streak: "<gray>» Chuỗi: <yellow>%streak%"
+  active: "<gray>» Nhiệm vụ: <white>%active%"
+  task: "    <gray>» Loại: <white>%task%"
+  progress: "    <gray>» Tiến trình: <green>%progress%<gray>/<white>%amount%"
+  time: "    <gray>» Hết hạn sau: <red>%time%"
+  no-active: "§8Không có"
+  footer: "<gray>§m────────────────────────────────────────"
+
+# ═══════════════════════════════════════════════════════
+#                    BOSSBAR UPGRADE
+# ═══════════════════════════════════════════════════════
+bossbar:
+  title: "<gradient:#5e4fa2:#f7941d>%name%</gradient> <gray>┃ <white>%progress%/%amount% <gray>┃ <red>%time%"
+  status:
+    complete: "<green><bold>HOÀN THÀNH!</bold> <white>+%name%"
+    failed: "<red><bold>THẤT BẠI!</bold> <gray>%name%"
+    giveup: "<yellow><bold>HỦY BỎ!</bold> <gray>%name%"
+
+# ═══════════════════════════════════════════════════════
 #                    COMMANDS & ADMIN
 # ═══════════════════════════════════════════════════════
 reload-success: "<green>Cấu hình đã được tải lại thành công!"
