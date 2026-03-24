@@ -84,7 +84,7 @@ getdata:
 bossbar:
   title: "<gradient:#5e4fa2:#f7941d>%name%</gradient> <gray>┃ <white>%progress%/%amount% <gray>┃ <red>%time%"
   status:
-    complete: "<green><bold>HOÀN THÀNH!</bold> <white>+%name%"
+    complete: "<green><bold>HOÀN THÀNH!</bold> <white>%name%"
     failed: "<red><bold>THẤT BẠI!</bold> <gray>%name%"
     giveup: "<yellow><bold>HỦY BỎ!</bold> <gray>%name%"
 
@@ -95,7 +95,7 @@ reload-success: "<green>Cấu hình đã được tải lại thành công!"
 purge-success: "<red>Toàn bộ dữ liệu đã được xóa sạch."
 
 help:
-  header: "<gradient:#5e4fa2:#f7941d><bold>NIGHTFALL AUTOQUEST HELP</bold></gradient>"
+  header: "<gradient:#5e4fa2:#f7941d><bold>NIGHTFALLAUTOQUEST HELP</bold></gradient>"
   player:
     - "<green>/naq quest <gray>» Xem nhiệm vụ hiện tại"
     - "<green>/naq stats <gray>» Xem thống kê cá nhân"
