@@ -26,11 +26,12 @@ public final class QuestScheduler {
     }
 
     public void start() {
-        if (running) return;
+        if (running)
+            return;
         running = true;
 
         long assignInterval = plugin.getConfigManager().getConfig().getLong("quest.assign-interval", 500);
-        
+
         // Scheduler for automatic assignment
         Bukkit.getAsyncScheduler().runAtFixedRate(plugin, (task) -> {
             if (!running) {
@@ -40,15 +41,15 @@ public final class QuestScheduler {
             assignQuests();
         }, assignInterval, assignInterval, TimeUnit.SECONDS);
 
-        // Scheduler for warnings (every second)
+        // Scheduler for check (every second)
         Bukkit.getAsyncScheduler().runAtFixedRate(plugin, (task) -> {
             if (!running) {
                 task.cancel();
                 return;
             }
-            checkWarnings();
+            check();
         }, 1, 1, TimeUnit.SECONDS);
-        
+
         plugin.getPluginLogger().info("Quest Scheduler started (Assign: " + assignInterval + "s).");
     }
 
@@ -64,38 +65,40 @@ public final class QuestScheduler {
     private void assignQuests() {
         double percentage = plugin.getConfigManager().getConfig().getDouble("quest.assign-percentage", 50.0);
         List<Player> onlinePlayers = new ArrayList<>(Bukkit.getOnlinePlayers());
-        if (onlinePlayers.isEmpty()) return;
+        if (onlinePlayers.isEmpty())
+            return;
 
         int targetCount = (int) Math.ceil(onlinePlayers.size() * (percentage / 100.0));
-        
+
         List<Player> withQuests = onlinePlayers.stream()
                 .filter(p -> plugin.getPlayerManager().getPlayerData(p.getUniqueId()).hasActiveQuest())
                 .collect(Collectors.toList());
-        
+
         int currentCount = withQuests.size();
         int needs = targetCount - currentCount;
 
-        if (needs <= 0) return;
+        if (needs <= 0)
+            return;
 
         List<Player> eligible = onlinePlayers.stream()
                 .filter(p -> !plugin.getPlayerManager().getPlayerData(p.getUniqueId()).hasActiveQuest())
                 .collect(Collectors.toList());
-        
+
         Collections.shuffle(eligible);
-        
+
         int toAssignCount = Math.min(needs, eligible.size());
         for (int i = 0; i < toAssignCount; i++) {
             Player p = eligible.get(i);
             // Run assignment on main thread since it might trigger events/sounds/messages
             Bukkit.getGlobalRegionScheduler().run(plugin, (t) -> plugin.getQuestService().assignRandomQuest(p));
         }
-        
+
         if (toAssignCount > 0) {
             plugin.getPluginLogger().info("Auto-assigned quests to " + toAssignCount + " players.");
         }
     }
 
-    private void checkWarnings() {
+    private void check() {
         long warningSeconds = plugin.getConfigManager().getConfig().getLong("quest.warning-time-seconds", 60);
         long now = System.currentTimeMillis();
 
@@ -107,15 +110,23 @@ public final class QuestScheduler {
             }
 
             long timeLeft = (data.questExpiration() - now) / 1000;
-            
+
+            // Real-time BossBar update
+            plugin.getQuestManager().getQuest(data.activeQuestId()).ifPresent(quest -> {
+                // Using update method directly which handles title and progress
+                // Run on main thread to be safe with Folia/Paper and ensure consistency
+                player.getScheduler().run(plugin, (t) -> {
+                    plugin.getBossBarManager().update(player, quest, data.questProgress(), data.questExpiration());
+                }, null);
+            });
+
             // Check if within warning window and not already warned for this quest
             if (timeLeft <= warningSeconds && timeLeft > 0 && !warnedPlayers.contains(player.getUniqueId())) {
                 warnedPlayers.add(player.getUniqueId());
-                
+
                 Bukkit.getGlobalRegionScheduler().run(plugin, (t) -> {
                     plugin.getMessageUtil().sendMessage(player, "quest-warning", Map.of(
-                        "%time%", String.valueOf(timeLeft) + "s"
-                    ));
+                            "%time%", String.valueOf(timeLeft) + "s"));
                     plugin.getSoundUtil().playSound(player, "warning");
                 });
             }

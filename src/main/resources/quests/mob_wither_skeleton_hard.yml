@@ -6,7 +6,7 @@ tasks:
 amount: "20-40"
 description:
   - "<gray>Thử thách kỹ năng chiến đấu trong bóng tối."
-  - "<gray>Mục tiêu: <white>%amount% %task%"
+  - "<gray>Mục tiêu: <white>%type% %amount% %task%"
 time-limit: 60
 rewards:
   - "credits give %player% 5000"

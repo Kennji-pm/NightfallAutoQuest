@@ -6,7 +6,7 @@ tasks:
 amount: "10-20"
 description:
   - "<gray>Săn lùng Shulker để thu thập vỏ."
-  - "<gray>Mục tiêu: <white>%amount% %task%"
+  - "<gray>Mục tiêu: <white>%type% %amount% %task%"
 time-limit: "60-120"
 rewards:
   - "credits give %player% 6000"

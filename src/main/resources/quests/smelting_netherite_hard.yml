@@ -6,7 +6,7 @@ tasks:
 amount: "8-16"
 description:
   - "<gray>Smelt ancient debris into netherite scrap."
-  - "<gray>Mục tiêu: <white>%amount% %task%"
+  - "<gray>Mục tiêu: <white>%type% %amount% %task%"
 time-limit: 120
 rewards:
   - "credits give %player% 10000"

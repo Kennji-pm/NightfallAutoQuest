@@ -6,7 +6,7 @@ tasks:
 amount: "1-2"
 description:
   - "<gray>Rèn nên bộ giáp mạnh mẽ nhất."
-  - "<gray>Mục tiêu: <white>%amount% %task%"
+  - "<gray>Mục tiêu: <white>%type% %amount% %task%"
 time-limit: 180
 rewards:
   - "credits give %player% 15000"

@@ -27,7 +27,8 @@ public final class QuestCommand extends AbstractCommand {
         }
 
         plugin.getQuestManager().getQuest(data.activeQuestId()).ifPresent(quest -> {
-            String formattedTask = plugin.getMessageUtil().translateTask(data.activeTask());
+            String taskType = plugin.getMessageUtil().translateTask(quest.type());
+            String formattedTask = org.kennji.nightfallAutoQuest.util.StringUtil.formatEnumName(data.activeTask());
 
             plugin.getMessageUtil().sendMessage(player, "quest.info.header");
             for (String line : plugin.getConfigManager().getMessages().getStringList("quest.info.format")) {
@@ -35,6 +36,7 @@ public final class QuestCommand extends AbstractCommand {
                     for (String descLine : quest.description()) {
                         plugin.getMessageUtil().sendRawMessage(player, descLine
                                 .replace("%amount%", String.valueOf(data.targetAmount()))
+                                .replace("%type%", taskType)
                                 .replace("%task%", formattedTask));
                     }
                     continue;
@@ -44,6 +46,7 @@ public final class QuestCommand extends AbstractCommand {
                         .replace("%name%", quest.displayName())
                         .replace("%progress%", String.valueOf(data.questProgress()))
                         .replace("%amount%", String.valueOf(data.targetAmount()))
+                        .replace("%type%", taskType)
                         .replace("%task%", formattedTask)
                         .replace("%streak%", String.valueOf(data.questStreak()))
                         .replace("%time%", StringUtil.formatTime(data.questExpiration() - System.currentTimeMillis()));

@@ -22,7 +22,7 @@ quest:
   assigned:
     - "<gradient:#5e4fa2:#f7941d><bold>NHIỆM VỤ MỚI</bold></gradient>"
     - "<gray>Tên: <white>%name%"
-    - "<gray>Mục tiêu: <green>%amount% %task%"
+    - "<gray>Mục tiêu: <green>%type% %amount% %task%"
     - "<gray>Thời gian: <red>%time% phút"
   completed: "<green><bold>HOÀN THÀNH!</bold> <white>Bạn đã hoàn thành nhiệm vụ <yellow>%name%<white>."
   failed: "<red><bold>THẤT BẠI!</bold> <gray>Nhiệm vụ <white>%name% <gray>đã kết thúc."
@@ -36,7 +36,7 @@ quest:
     format:
       - "<gray>Tên: <white>%name%"
       - "%description%"
-      - "<gray>Tiến trình: <green>%progress%/%amount% <dark_gray>(<white>%task%<dark_gray>)"
+      - "<gray>Tiến trình: <green>%progress%/%amount% <dark_gray>(<white>%type% %task%<dark_gray>)"
       - "<gray>Chuỗi hiện tại: <yellow>%streak%"
       - "<gray>Thời gian còn lại: <red>%time%"
     footer: "<gradient:#f7941d:#5e4fa2>──────────────────────────</gradient>"

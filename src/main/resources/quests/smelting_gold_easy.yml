@@ -6,7 +6,7 @@ tasks:
 amount: "16-32"
 description:
   - "<gray>Luyện những thỏi vàng lấp lánh."
-  - "<gray>Mục tiêu: <white>%amount% %task%"
+  - "<gray>Mục tiêu: <white>%type% %amount% %task%"
 time-limit: 20
 rewards:
   - "credits give %player% 600"

@@ -7,7 +7,7 @@ tasks:
 amount: "10-20"
 description:
   - "<gray>Tiêu diệt những kẻ canh giữ đền thờ dưới nước."
-  - "<gray>Mục tiêu: <white>%amount% %task%"
+  - "<gray>Mục tiêu: <white>%type% %amount% %task%"
 time-limit: "60-120"
 rewards:
   - "credits give %player% 5000"

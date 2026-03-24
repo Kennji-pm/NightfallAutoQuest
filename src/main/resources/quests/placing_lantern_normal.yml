@@ -7,7 +7,7 @@ tasks:
 amount: "16-32"
 description:
   - "<gray>Thắp sáng căn cứ bằng đèn lồng."
-  - "<gray>Mục tiêu: <white>%amount% %task%"
+  - "<gray>Mục tiêu: <white>%type% %amount% %task%"
 time-limit: "20-40"
 rewards:
   - "credits give %player% 1500"

@@ -6,7 +6,7 @@ tasks:
 amount: "15-30"
 description:
   - "<gray>Tiêu diệt quỷ lửa trong pháo đài."
-  - "<gray>Mục tiêu: <white>%amount% %task%"
+  - "<gray>Mục tiêu: <white>%type% %amount% %task%"
 time-limit: 45
 rewards:
   - "credits give %player% 2800"

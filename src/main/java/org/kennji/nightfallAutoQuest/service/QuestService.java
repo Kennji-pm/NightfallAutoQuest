@@ -8,6 +8,7 @@ import org.jetbrains.annotations.NotNull;
 import org.kennji.nightfallAutoQuest.NightfallAutoQuest;
 import org.kennji.nightfallAutoQuest.model.PlayerData;
 import org.kennji.nightfallAutoQuest.model.Quest;
+import org.kennji.nightfallAutoQuest.util.StringUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,52 +24,60 @@ public final class QuestService {
     }
 
     public void assignRandomQuest(@NotNull Player player) {
-        if (!plugin.getConfigManager().isWorldAllowed(player.getWorld().getName())) return;
+        if (!plugin.getConfigManager().isWorldAllowed(player.getWorld().getName()))
+            return;
 
         List<Quest> available = new ArrayList<>(plugin.getQuestManager().getQuests().values());
-        if (available.isEmpty()) return;
+        if (available.isEmpty())
+            return;
 
         PlayerData existingData = plugin.getPlayerManager().getPlayerData(player.getUniqueId());
-        if (existingData.hasActiveQuest()) return;
+        if (existingData.hasActiveQuest())
+            return;
 
         Quest quest = available.get(random.nextInt(available.size()));
         String task = quest.tasks().get(random.nextInt(quest.tasks().size()));
-        
+
         int targetAmount = parseRange(quest.amount());
         int timeLimit = parseRange(quest.timeLimitMinutes());
         long expiration = System.currentTimeMillis() + (long) timeLimit * 60 * 1000;
-        
+
         int startValue = 0;
-        if (quest.type().equalsIgnoreCase("placeholder") && Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")) {
+        if (quest.type().equalsIgnoreCase("placeholder")
+                && Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")) {
             try {
                 String value = PlaceholderAPI.setPlaceholders(player, task);
                 startValue = (int) Double.parseDouble(value);
-            } catch (Exception ignored) {}
+            } catch (Exception ignored) {
+            }
         }
 
         PlayerData data = plugin.getPlayerManager().getPlayerData(player.getUniqueId());
-        plugin.getPlayerManager().updatePlayerData(player.getUniqueId(), data.withNewQuest(quest.id(), task, expiration, startValue, targetAmount));
-        
-        plugin.getQuestManager().getQuest(quest.id()).ifPresent(q -> 
-            plugin.getBossBarManager().update(player, q, 0, expiration));
-        
+        plugin.getPlayerManager().updatePlayerData(player.getUniqueId(),
+                data.withNewQuest(quest.id(), task, expiration, startValue, targetAmount));
+
+        plugin.getQuestManager().getQuest(quest.id())
+                .ifPresent(q -> plugin.getBossBarManager().update(player, q, 0, expiration));
+
         plugin.getMessageUtil().sendMessage(player, "quest.assigned", java.util.Map.of(
-            "%name%", quest.displayName(),
-            "%amount%", String.valueOf(targetAmount),
-            "%task%", plugin.getMessageUtil().translateTask(task),
-            "%time%", String.valueOf(timeLimit)
-        ));
+                "%name%", quest.displayName(),
+                "%amount%", String.valueOf(targetAmount),
+                "%type%", plugin.getMessageUtil().translateTask(quest.type()),
+                "%task%", StringUtil.formatEnumName(task),
+                "%time%", String.valueOf(timeLimit)));
         plugin.getSoundUtil().playSound(player, "assign");
     }
 
     public void handleEvent(@NotNull Player player, @NotNull Event event) {
-        if (!plugin.getConfigManager().isWorldAllowed(player.getWorld().getName())) return;
+        if (!plugin.getConfigManager().isWorldAllowed(player.getWorld().getName()))
+            return;
 
         UUID uuid = player.getUniqueId();
         PlayerData data = plugin.getPlayerManager().getPlayerData(uuid);
-        
-        if (!data.hasActiveQuest()) return;
-        
+
+        if (!data.hasActiveQuest())
+            return;
+
         // Check expiration
         if (System.currentTimeMillis() > data.questExpiration()) {
             failQuest(player, false);
@@ -85,7 +94,8 @@ public final class QuestService {
         });
     }
 
-    private void processProgress(@NotNull Player player, @NotNull Quest quest, @NotNull PlayerData data, int increment) {
+    private void processProgress(@NotNull Player player, @NotNull Quest quest, @NotNull PlayerData data,
+            int increment) {
         int newProgress = data.questProgress() + increment;
         UUID uuid = player.getUniqueId();
 
@@ -110,14 +120,12 @@ public final class QuestService {
         plugin.getMessageUtil().sendMessage(player, "quest.completed", java.util.Map.of(
                 "%name%", quest.displayName(),
                 "%amount%", String.valueOf(data.targetAmount()),
-                "%streak%", String.valueOf(newData.questStreak())
-        ));
+                "%streak%", String.valueOf(newData.questStreak())));
 
         if (multiplier > 1.0 && newData.questStreak() > oldStreak) {
             plugin.getMessageUtil().sendMessage(player, "quest.streak.milestone", java.util.Map.of(
                     "%streak%", String.valueOf(newData.questStreak()),
-                    "%bonus%", String.valueOf((int) ((multiplier - 1.0) * 100))
-            ));
+                    "%bonus%", String.valueOf((int) ((multiplier - 1.0) * 100))));
         }
 
         plugin.getSoundUtil().playSound(player, "complete");
@@ -130,7 +138,8 @@ public final class QuestService {
     }
 
     private String multiplyReward(String reward, double multiplier) {
-        if (multiplier <= 1.0) return reward;
+        if (multiplier <= 1.0)
+            return reward;
         String[] parts = reward.split(" ");
         for (int i = 0; i < parts.length; i++) {
             try {
@@ -153,26 +162,27 @@ public final class QuestService {
 
         if (data.activeQuestId() != null) {
             int oldStreak = data.questStreak();
-            boolean reset = isGiveUp ? plugin.getConfigManager().streakResetOnGiveup() : plugin.getConfigManager().streakResetOnFail();
-            
+            boolean reset = isGiveUp ? plugin.getConfigManager().streakResetOnGiveup()
+                    : plugin.getConfigManager().streakResetOnFail();
+
             PlayerData newData = reset ? data.withFailure() : data.withFailureStatsOnly();
             plugin.getPlayerManager().updatePlayerData(uuid, newData);
             String statusKey = isGiveUp ? "bossbar.status.giveup" : "bossbar.status.failed";
             String statusTitle = plugin.getConfigManager().getMessages().getString(statusKey, "Finished")
-                    .replace("%name%", plugin.getQuestManager().getQuest(data.activeQuestId()).map(Quest::displayName).orElse("Unknown"));
+                    .replace("%name%", plugin.getQuestManager().getQuest(data.activeQuestId()).map(Quest::displayName)
+                            .orElse("Unknown"));
             org.bukkit.boss.BarColor color = isGiveUp ? org.bukkit.boss.BarColor.YELLOW : org.bukkit.boss.BarColor.RED;
             plugin.getBossBarManager().showStatus(player, statusTitle, color, 5);
-            
+
             plugin.getMessageUtil().sendMessage(player, isGiveUp ? "quest.giveup" : "quest.failed", java.util.Map.of(
-                "%name%", plugin.getQuestManager().getQuest(data.activeQuestId()).map(Quest::displayName).orElse("Unknown")
-            ));
-            
+                    "%name%",
+                    plugin.getQuestManager().getQuest(data.activeQuestId()).map(Quest::displayName).orElse("Unknown")));
+
             if (reset && oldStreak > 0) {
                 plugin.getMessageUtil().sendMessage(player, "quest.streak.lost", java.util.Map.of(
-                    "%streak%", String.valueOf(oldStreak)
-                ));
+                        "%streak%", String.valueOf(oldStreak)));
             }
-            
+
             plugin.getSoundUtil().playSound(player, "fail");
         }
     }
@@ -186,11 +196,13 @@ public final class QuestService {
             }
         }
         String[] parts = value.split("-");
-        if (parts.length < 2) return 0;
+        if (parts.length < 2)
+            return 0;
         try {
             int min = Integer.parseInt(parts[0].trim());
             int max = Integer.parseInt(parts[1].trim());
-            if (min >= max) return min;
+            if (min >= max)
+                return min;
             return min + random.nextInt(max - min + 1);
         } catch (NumberFormatException e) {
             return 0;

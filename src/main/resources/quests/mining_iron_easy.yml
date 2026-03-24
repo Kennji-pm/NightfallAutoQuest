@@ -7,7 +7,7 @@ tasks:
 amount: "12-24"
 description:
   - "<gray>Tìm kiếm quặng sắt quý giá."
-  - "<gray>Mục tiêu: <white>%amount% %task%"
+  - "<gray>Mục tiêu: <white>%type% %amount% %task%"
 time-limit: 25
 rewards:
   - "credits give %player% 500"

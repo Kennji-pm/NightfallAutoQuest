@@ -6,7 +6,7 @@ tasks:
 amount: "128-256"
 description:
   - "<gray>Thu hoạch hạt ca cao từ những cây cổ thụ."
-  - "<gray>Mục tiêu: <white>%amount% %task%"
+  - "<gray>Mục tiêu: <white>%type% %amount% %task%"
 time-limit: 60
 rewards:
   - "credits give %player% 3500"

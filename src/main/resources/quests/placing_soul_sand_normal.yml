@@ -7,7 +7,7 @@ tasks:
 amount: "64-128"
 description:
   - "<gray>Tạo ra những con đường linh hồn."
-  - "<gray>Mục tiêu: <white>%amount% %task%"
+  - "<gray>Mục tiêu: <white>%type% %amount% %task%"
 time-limit: "30-60"
 rewards:
   - "credits give %player% 1200"

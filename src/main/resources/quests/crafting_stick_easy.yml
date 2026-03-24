@@ -6,7 +6,7 @@ tasks:
 amount: "128-256"
 description:
   - "<gray>Nguyên liệu quan trọng cho mọi công cụ."
-  - "<gray>Mục tiêu: <white>%amount% %task%"
+  - "<gray>Mục tiêu: <white>%type% %amount% %task%"
 time-limit: 20
 rewards:
   - "credits give %player% 300"

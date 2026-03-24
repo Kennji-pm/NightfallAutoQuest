@@ -6,7 +6,7 @@ tasks:
 amount: "128-256"
 description:
   - "<gray>Thu hoạch tre trong rừng rậm."
-  - "<gray>Mục tiêu: <white>%amount% %task%"
+  - "<gray>Mục tiêu: <white>%type% %amount% %task%"
 time-limit: "20-40"
 rewards:
   - "credits give %player% 400"

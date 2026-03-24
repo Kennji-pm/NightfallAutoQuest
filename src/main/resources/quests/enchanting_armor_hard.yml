@@ -7,7 +7,7 @@ tasks:
 amount: "4-8"
 description:
   - "<gray>Phù phép cho giáp trụ để bảo vệ bản thân."
-  - "<gray>Mục tiêu: <white>%amount% %task%"
+  - "<gray>Mục tiêu: <white>%type% %amount% %task%"
 time-limit: 60
 rewards:
   - "credits give %player% 4500"

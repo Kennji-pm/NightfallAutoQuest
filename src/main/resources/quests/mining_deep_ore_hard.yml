@@ -7,7 +7,7 @@ tasks:
 amount: "64-128"
 description:
   - "<gray>Đào bới những quặng hiếm ở tầng sâu nhất."
-  - "<gray>Mục tiêu: <white>%amount% %task%"
+  - "<gray>Mục tiêu: <white>%type% %amount% %task%"
 time-limit: "60-120"
 rewards:
   - "credits give %player% 3500"

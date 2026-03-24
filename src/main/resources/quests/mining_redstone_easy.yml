@@ -7,7 +7,7 @@ tasks:
 amount: "64-128"
 description:
   - "<gray>Thu thập bột đỏ rực rỡ."
-  - "<gray>Mục tiêu: <white>%amount% %task%"
+  - "<gray>Mục tiêu: <white>%type% %amount% %task%"
 time-limit: 30
 rewards:
   - "credits give %player% 400"

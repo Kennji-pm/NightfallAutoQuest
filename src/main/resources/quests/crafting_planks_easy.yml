@@ -8,7 +8,7 @@ tasks:
 amount: "64-128"
 description:
   - "<gray>Chế tạo ván gỗ cơ bản."
-  - "<gray>Mục tiêu: <white>%amount% %task%"
+  - "<gray>Mục tiêu: <white>%type% %amount% %task%"
 time-limit: 15
 rewards:
   - "credits give %player% 200"

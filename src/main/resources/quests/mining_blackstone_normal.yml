@@ -7,7 +7,7 @@ tasks:
 amount: "128-256"
 description:
   - "<gray>Thu thập đá đen từ tàn tích Bastion."
-  - "<gray>Mục tiêu: <white>%amount% %task%"
+  - "<gray>Mục tiêu: <white>%type% %amount% %task%"
 time-limit: "30-60"
 rewards:
   - "credits give %player% 1200"

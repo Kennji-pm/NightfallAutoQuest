@@ -6,7 +6,7 @@ tasks:
 amount: "64-128"
 description:
   - "<gray>Đào khối đá cứng nhất thế giới."
-  - "<gray>Mục tiêu: <white>%amount% %task%"
+  - "<gray>Mục tiêu: <white>%type% %amount% %task%"
 time-limit: 120
 rewards:
   - "credits give %player% 6000"

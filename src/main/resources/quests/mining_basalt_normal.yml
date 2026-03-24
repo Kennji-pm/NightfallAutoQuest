@@ -6,7 +6,7 @@ tasks:
 amount: "128-256"
 description:
   - "<gray>Thu thập đá bazan từ các cột đá khổng lồ."
-  - "<gray>Mục tiêu: <white>%amount% %task%"
+  - "<gray>Mục tiêu: <white>%type% %amount% %task%"
 time-limit: "30-60"
 rewards:
   - "credits give %player% 1000"

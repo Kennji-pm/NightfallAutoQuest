@@ -6,7 +6,7 @@ tasks:
 amount: "15-30"
 description:
   - "<gray>Săn lùng những con Hoglin hung tợn."
-  - "<gray>Mục tiêu: <white>%amount% %task%"
+  - "<gray>Mục tiêu: <white>%type% %amount% %task%"
 time-limit: "30-60"
 rewards:
   - "credits give %player% 2000"

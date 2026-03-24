@@ -7,7 +7,7 @@ tasks:
 amount: "128-256"
 description:
   - "<gray>Làm sạch và chuẩn bị đất đai."
-  - "<gray>Mục tiêu: <white>%amount% %task%"
+  - "<gray>Mục tiêu: <white>%type% %amount% %task%"
 time-limit: 40
 rewards:
   - "credits give %player% 400"

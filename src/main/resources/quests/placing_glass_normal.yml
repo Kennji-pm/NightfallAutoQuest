@@ -7,7 +7,7 @@ tasks:
 amount: "32-64"
 description:
   - "<gray>Tạo ra những góc nhìn tuyệt đẹp."
-  - "<gray>Mục tiêu: <white>%amount% %task%"
+  - "<gray>Mục tiêu: <white>%type% %amount% %task%"
 time-limit: 30
 rewards:
   - "credits give %player% 1000"

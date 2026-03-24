@@ -119,7 +119,7 @@ public final class DatabaseManager {
         List<PlayerData> top = new ArrayList<>();
         try (Connection conn = getConnection();
                 PreparedStatement stmt = conn.prepareStatement(
-                        "SELECT uuid, completions, failures FROM player_stats ORDER BY completions DESC LIMIT ? OFFSET ?")) {
+                        "SELECT uuid, completions, failures, quest_streak FROM player_stats ORDER BY completions DESC LIMIT ? OFFSET ?")) {
             stmt.setInt(1, size);
             stmt.setInt(2, (page - 1) * size);
             ResultSet rs = stmt.executeQuery();

@@ -29,12 +29,14 @@ public final class MessageUtil {
                 "<gradient:#5e4fa2:#f7941d>Nightfall</gradient> <gray>»</gray> ");
 
         if (value instanceof java.util.List<?> list) {
+            boolean first = true;
             for (Object line : list) {
-                String finalLine = prefix + line.toString();
+                String finalLine = (first ? prefix : "") + line.toString();
                 for (Map.Entry<String, String> entry : placeholders.entrySet()) {
                     finalLine = finalLine.replace(entry.getKey(), entry.getValue());
                 }
                 sender.sendMessage(ColorUtil.parse(finalLine));
+                first = false;
             }
         } else {
             String finalMessage = prefix + value.toString();

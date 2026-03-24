@@ -6,7 +6,7 @@ tasks:
 amount: "10-20"
 description:
   - "<gray>Săn lùng những kẻ dịch chuyển tức thời."
-  - "<gray>Mục tiêu: <white>%amount% %task%"
+  - "<gray>Mục tiêu: <white>%type% %amount% %task%"
 time-limit: 45
 rewards:
   - "credits give %player% 2500"

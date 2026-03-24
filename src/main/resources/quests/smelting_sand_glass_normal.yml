@@ -6,7 +6,7 @@ tasks:
 amount: "128-256"
 description:
   - "<gray>Nung cát thành thủy tinh trong suốt."
-  - "<gray>Mục tiêu: <white>%amount% %task%"
+  - "<gray>Mục tiêu: <white>%type% %amount% %task%"
 time-limit: "30-60"
 rewards:
   - "credits give %player% 1200"

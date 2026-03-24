@@ -7,7 +7,7 @@ tasks:
 amount: "4-8"
 description:
   - "<gray>Chế tạo các bộ giáp sắt kiên cố."
-  - "<gray>Mục tiêu: <white>%amount% %task%"
+  - "<gray>Mục tiêu: <white>%type% %amount% %task%"
 time-limit: "30-50"
 rewards:
   - "credits give %player% 2000"

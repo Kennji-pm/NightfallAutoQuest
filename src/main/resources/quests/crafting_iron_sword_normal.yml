@@ -6,7 +6,7 @@ tasks:
 amount: "8-16"
 description:
   - "<gray>Trang bị vũ khí cho binh đoàn."
-  - "<gray>Mục tiêu: <white>%amount% %task%"
+  - "<gray>Mục tiêu: <white>%type% %amount% %task%"
 time-limit: 30
 rewards:
   - "credits give %player% 1800"

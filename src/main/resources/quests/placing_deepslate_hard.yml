@@ -7,7 +7,7 @@ tasks:
 amount: "256-512"
 description:
   - "<gray>Xây dựng căn cứ vững chắc tại tầng sâu."
-  - "<gray>Mục tiêu: <white>%amount% %task%"
+  - "<gray>Mục tiêu: <white>%type% %amount% %task%"
 time-limit: 120
 rewards:
   - "credits give %player% 4000"

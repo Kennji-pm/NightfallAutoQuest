@@ -6,7 +6,7 @@ tasks:
 amount: "32-64"
 description:
   - "<gray>Thu hoạch quả mọng phát sáng trong hang động Lush."
-  - "<gray>Mục tiêu: <white>%amount% %task%"
+  - "<gray>Mục tiêu: <white>%type% %amount% %task%"
 time-limit: "60-120"
 rewards:
   - "credits give %player% 4000"

@@ -6,7 +6,7 @@ tasks:
 amount: "8-16"
 description:
   - "<gray>Chế tạo những chiếc nỏ có lực bắn mạnh."
-  - "<gray>Mục tiêu: <white>%amount% %task%"
+  - "<gray>Mục tiêu: <white>%type% %amount% %task%"
 time-limit: "60-120"
 rewards:
   - "credits give %player% 4000"

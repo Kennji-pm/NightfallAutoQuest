@@ -7,7 +7,7 @@ tasks:
 amount: "64-128"
 description:
   - "<gray>Xây dựng những bức tường vững chãi."
-  - "<gray>Mục tiêu: <white>%amount% %task%"
+  - "<gray>Mục tiêu: <white>%type% %amount% %task%"
 time-limit: 45
 rewards:
   - "credits give %player% 1200"
