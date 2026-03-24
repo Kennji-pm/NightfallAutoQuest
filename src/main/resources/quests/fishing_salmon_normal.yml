@@ -1,0 +1,13 @@
+id: "fishing_salmon_normal"
+display-name: "Ngư Thủ: Cá Hồi"
+type: "fishing"
+tasks:
+  - "SALMON"
+amount: "15-30"
+description:
+  - "<gray>Câu những chú cá hồi đỏ rực."
+  - "<gray>Mục tiêu: <white>%amount% %task%"
+time-limit: 45
+rewards:
+  - "credits give %player% 1500"
+  - "give %player% cooked_salmon 16"

@@ -1,0 +1,15 @@
+id: "mob_piglin_normal"
+display-name: "Kẻ Bảo Vệ Bastion"
+type: "mobkilling"
+tasks:
+  - "PIGLIN"
+  - "PIGLIN_BRUTE"
+amount: "15-30"
+description:
+  - "<gray>Tiêu diệt những kẻ bảo vệ kho báu."
+  - "<gray>Mục tiêu: <white>%amount% %task%"
+time-limit: "30-60"
+rewards:
+  - "credits give %player% 2500"
+  - "give %player% gold_block 1"
+  - "give %player% crossbow 1"

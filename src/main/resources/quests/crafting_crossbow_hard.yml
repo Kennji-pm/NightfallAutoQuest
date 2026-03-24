@@ -1,0 +1,14 @@
+id: "crafting_crossbow_hard"
+display-name: "Kỹ Nghệ Nỏ Thần"
+type: "crafting"
+tasks:
+  - "CROSSBOW"
+amount: "8-16"
+description:
+  - "<gray>Chế tạo những chiếc nỏ có lực bắn mạnh."
+  - "<gray>Mục tiêu: <white>%amount% %task%"
+time-limit: "60-120"
+rewards:
+  - "credits give %player% 4000"
+  - "give %player% arrow 64"
+  - "give %player% firework_rocket 16"

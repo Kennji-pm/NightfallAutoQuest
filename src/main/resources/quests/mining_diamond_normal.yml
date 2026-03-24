@@ -1,0 +1,15 @@
+id: "mining_diamond_normal"
+display-name: "Truy Tìm Kim Cương"
+type: "mining"
+tasks:
+  - "DIAMOND_ORE"
+  - "DEEPSLATE_DIAMOND_ORE"
+amount: "16-32"
+description:
+  - "<gray>Những viên đá xanh lấp lánh đang chờ."
+  - "<gray>Mục tiêu: <white>%amount% %task%"
+time-limit: 60
+rewards:
+  - "credits give %player% 2500"
+  - "give %player% diamond 2"
+  - "give %player% Experience_Bottle 16"

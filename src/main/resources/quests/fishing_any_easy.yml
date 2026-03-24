@@ -1,0 +1,13 @@
+id: "fishing_any_easy"
+display-name: "Ngư Thủ Tập Sự"
+type: "fishing"
+tasks:
+  - "ANY"
+amount: "5-10"
+description:
+  - "<gray>Thả cần và chờ đợi điều bất ngờ."
+  - "<gray>Mục tiêu: <white>%amount% %task%"
+time-limit: 20
+rewards:
+  - "credits give %player% 400"
+  - "give %player% fishing_rod 1"

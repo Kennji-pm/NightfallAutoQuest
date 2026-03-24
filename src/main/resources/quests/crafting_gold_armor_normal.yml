@@ -1,0 +1,14 @@
+id: "crafting_gold_armor_normal"
+display-name: "Giáp Vàng Hào Nhoáng"
+type: "crafting"
+tasks:
+  - "GOLDEN_CHESTPLATE"
+  - "GOLDEN_LEGGINGS"
+amount: "4-8"
+description:
+  - "<gray>Chế tạo giáp vàng để giao tiếp với Piglin."
+  - "<gray>Mục tiêu: <white>%amount% %task%"
+time-limit: "30-50"
+rewards:
+  - "credits give %player% 1800"
+  - "give %player% gold_block 2"

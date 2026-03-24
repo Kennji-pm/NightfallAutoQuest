@@ -18,6 +18,6 @@ public final class GiveUpCommand extends AbstractCommand {
             return;
         }
 
-        plugin.getQuestService().failQuest(player);
+        plugin.getQuestService().failQuest(player, true);
     }
 }

@@ -1,0 +1,13 @@
+id: "farming_cocoa_hard"
+display-name: "Hương Vị Rừng Già: Ca Cao"
+type: "farming"
+tasks:
+  - "COCOA"
+amount: "128-256"
+description:
+  - "<gray>Thu hoạch hạt ca cao từ những cây cổ thụ."
+  - "<gray>Mục tiêu: <white>%amount% %task%"
+time-limit: 60
+rewards:
+  - "credits give %player% 3500"
+  - "give %player% cookie 64"

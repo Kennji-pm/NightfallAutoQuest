@@ -1,0 +1,15 @@
+id: "mining_deep_ore_hard"
+display-name: "Khoáng Sản Tầng Phôi"
+type: "mining"
+tasks:
+  - "DEEPSLATE_IRON_ORE"
+  - "DEEPSLATE_GOLD_ORE"
+amount: "64-128"
+description:
+  - "<gray>Đào bới những quặng hiếm ở tầng sâu nhất."
+  - "<gray>Mục tiêu: <white>%amount% %task%"
+time-limit: "60-120"
+rewards:
+  - "credits give %player% 3500"
+  - "give %player% iron_block 2"
+  - "give %player% gold_block 1"

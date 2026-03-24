@@ -1,0 +1,14 @@
+id: "enchanting_basic_normal"
+display-name: "Phép Thuật Cơ Bản"
+type: "enchanting"
+tasks:
+  - "ANY"
+amount: "5-10"
+description:
+  - "<gray>Phù phép cho trang bị của bạn."
+  - "<gray>Mục tiêu: <white>%amount% lần phù phép"
+time-limit: 30
+rewards:
+  - "credits give %player% 1200"
+  - "give %player% lapis_lazuli 32"
+  - "give %player% experience_bottle 16"

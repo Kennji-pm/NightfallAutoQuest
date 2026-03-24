@@ -21,15 +21,12 @@ public final class StatsCommand extends AbstractCommand {
 
         PlayerData data = plugin.getPlayerManager().getPlayerData(player.getUniqueId());
         
-        plugin.getMessageUtil().sendRawMessage(sender, plugin.getConfigManager().getMessages().getString("stats.header", ""));
-        
-        for (String line : plugin.getConfigManager().getMessages().getStringList("stats.format")) {
+        for (String line : plugin.getConfigManager().getMessages().getStringList("stats")) {
             plugin.getMessageUtil().sendRawMessage(sender, line
-                    .replace("%completed%", String.valueOf(data.completions()))
-                    .replace("%failed%", String.valueOf(data.failures()))
+                    .replace("%completions%", String.valueOf(data.completions()))
+                    .replace("%failures%", String.valueOf(data.failures()))
+                    .replace("%streak%", String.valueOf(data.questStreak()))
                     .replace("%rate%", data.completionRate()));
         }
-
-        plugin.getMessageUtil().sendRawMessage(sender, plugin.getConfigManager().getMessages().getString("stats.footer", ""));
     }
 }

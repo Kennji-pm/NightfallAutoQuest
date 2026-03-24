@@ -1,0 +1,13 @@
+id: "placing_netherrack_easy"
+display-name: "Xây Dựng Nether"
+type: "placing"
+tasks:
+  - "NETHERRACK"
+amount: "256-512"
+description:
+  - "<gray>Phủ kín bề mặt bằng đá địa ngục."
+  - "<gray>Mục tiêu: <white>%amount% %task%"
+time-limit: "20-40"
+rewards:
+  - "credits give %player% 500"
+  - "give %player% flint_and_steel 1"

@@ -1,0 +1,13 @@
+id: "crafting_shield_normal"
+display-name: "Lá Chắn Vững Chắc"
+type: "crafting"
+tasks:
+  - "SHIELD"
+amount: "4-8"
+description:
+  - "<gray>Chế tạo những chiếc khiên bảo vệ."
+  - "<gray>Mục tiêu: <white>%amount% %task%"
+time-limit: "20-40"
+rewards:
+  - "credits give %player% 1200"
+  - "give %player% iron_ingot 8"

@@ -1,0 +1,13 @@
+id: "farming_glow_berry_hard"
+display-name: "Ánh Sáng Từ Hang Động"
+type: "farming"
+tasks:
+  - "CAVE_VINES"
+amount: "32-64"
+description:
+  - "<gray>Thu hoạch quả mọng phát sáng trong hang động Lush."
+  - "<gray>Mục tiêu: <white>%amount% %task%"
+time-limit: "60-120"
+rewards:
+  - "credits give %player% 4000"
+  - "give %player% glow_berries 32"

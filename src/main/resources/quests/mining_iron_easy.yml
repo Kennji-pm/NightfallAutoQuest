@@ -1,0 +1,15 @@
+id: "mining_iron_easy"
+display-name: "Thợ Mỏ Tập Sự: Sắt"
+type: "mining"
+tasks:
+  - "IRON_ORE"
+  - "DEEPSLATE_IRON_ORE"
+amount: "12-24"
+description:
+  - "<gray>Tìm kiếm quặng sắt quý giá."
+  - "<gray>Mục tiêu: <white>%amount% %task%"
+time-limit: 25
+rewards:
+  - "credits give %player% 500"
+  - "give %player% iron_ingot 4"
+  - "give %player% bread 6"

@@ -1,0 +1,14 @@
+id: "placing_torch_easy"
+display-name: "Thắp Sáng Hầm Mỏ"
+type: "placing"
+tasks:
+  - "TORCH"
+  - "SOUL_TORCH"
+amount: "32-64"
+description:
+  - "<gray>Đừng để bóng tối bao trùm."
+  - "<gray>Mục tiêu: <white>%amount% %task%"
+time-limit: 15
+rewards:
+  - "credits give %player% 250"
+  - "give %player% coal 16"

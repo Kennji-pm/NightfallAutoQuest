@@ -1,0 +1,14 @@
+id: "mob_hoglin_normal"
+display-name: "Thăng Trầm Crimson"
+type: "mobkilling"
+tasks:
+  - "HOGLIN"
+amount: "15-30"
+description:
+  - "<gray>Săn lùng những con Hoglin hung tợn."
+  - "<gray>Mục tiêu: <white>%amount% %task%"
+time-limit: "30-60"
+rewards:
+  - "credits give %player% 2000"
+  - "give %player% cooked_porkchop 32"
+  - "give %player% leather 16"

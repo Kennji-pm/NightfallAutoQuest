@@ -8,8 +8,6 @@ softdepend: [PlaceholderAPI]
 
 libraries:
   - "com.zaxxer:HikariCP:6.2.1"
-  - "net.kyori:adventure-text-minimessage:4.24.0"
-  - "net.kyori:adventure-text-serializer-plain:4.24.0"
 
 commands:
   nightfallautoquest:
@@ -18,12 +16,12 @@ commands:
       - nq
       - naq
       - autoquest
-    usage: /<command> [help|reload|stats|top|giveup|module]
+    usage: /<command> [help|reload|stats|top|giveup]
 
 permissions:
   naq.use:
     description: Allows use of basic quest commands (quest, stats, top, giveup, help)
     default: true
   naq.admin:
-    description: Allows use of admin commands (reload, module, getdata, purge)
+    description: Allows use of admin commands (reload, getdata)
     default: op

@@ -1,0 +1,15 @@
+id: "crafting_planks_easy"
+display-name: "Thợ Mộc Tập Sự"
+type: "crafting"
+tasks:
+  - "OAK_PLANKS"
+  - "SPRUCE_PLANKS"
+  - "BIRCH_PLANKS"
+amount: "64-128"
+description:
+  - "<gray>Chế tạo ván gỗ cơ bản."
+  - "<gray>Mục tiêu: <white>%amount% %task%"
+time-limit: 15
+rewards:
+  - "credits give %player% 200"
+  - "give %player% oak_log 16"

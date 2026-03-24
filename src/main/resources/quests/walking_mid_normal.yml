@@ -1,0 +1,14 @@
+id: "walking_mid_normal"
+display-name: "Nhà Thám Hiểm Trẻ"
+type: "walking"
+tasks:
+  - "ANY"
+amount: "5000-10000"
+description:
+  - "<gray>Khám phá những vùng đất mới."
+  - "<gray>Mục tiêu: <white>%amount% khối"
+time-limit: 45
+rewards:
+  - "credits give %player% 1500"
+  - "give %player% compass 1"
+  - "give %player% map 1"

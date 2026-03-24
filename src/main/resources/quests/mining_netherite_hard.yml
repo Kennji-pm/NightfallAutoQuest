@@ -1,0 +1,14 @@
+id: "mining_netherite_hard"
+display-name: "Cổ Vật Nether"
+type: "mining"
+tasks:
+  - "ANCIENT_DEBRIS"
+amount: "16-24"
+description:
+  - "<gray>Đào sâu vào lòng hỏa ngục."
+  - "<gray>Mục tiêu: <white>%amount% %task%"
+time-limit: 120
+rewards:
+  - "credits give %player% 8000"
+  - "give %player% netherite_scrap 1"
+  - "give %player% enchanted_golden_apple 1"

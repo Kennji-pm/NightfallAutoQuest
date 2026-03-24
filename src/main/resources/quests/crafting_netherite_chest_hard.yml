@@ -1,0 +1,14 @@
+id: "crafting_netherite_chest_hard"
+display-name: "Giáp Trụ Bất Diệt"
+type: "crafting"
+tasks:
+  - "NETHERITE_CHESTPLATE"
+amount: "1-2"
+description:
+  - "<gray>Rèn nên bộ giáp mạnh mẽ nhất."
+  - "<gray>Mục tiêu: <white>%amount% %task%"
+time-limit: 180
+rewards:
+  - "credits give %player% 15000"
+  - "give %player% netherite_ingot 1"
+  - "give %player% enchanted_book 1"

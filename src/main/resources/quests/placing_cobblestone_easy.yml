@@ -1,0 +1,14 @@
+id: "placing_cobblestone_easy"
+display-name: "Xây Dựng Cơ Bản: Đá Cuội"
+type: "placing"
+tasks:
+  - "COBBLESTONE"
+  - "MOSSY_COBBLESTONE"
+amount: "64-128"
+description:
+  - "<gray>Nền móng của mọi công trình."
+  - "<gray>Mục tiêu: <white>%amount% %task%"
+time-limit: 30
+rewards:
+  - "credits give %player% 300"
+  - "give %player% stone_pickaxe 1"

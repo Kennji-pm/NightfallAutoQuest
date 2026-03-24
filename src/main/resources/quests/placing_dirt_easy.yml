@@ -1,0 +1,14 @@
+id: "placing_dirt_easy"
+display-name: "San Lấp Mặt Bằng"
+type: "placing"
+tasks:
+  - "DIRT"
+  - "GRASS_BLOCK"
+amount: "128-256"
+description:
+  - "<gray>Làm sạch và chuẩn bị đất đai."
+  - "<gray>Mục tiêu: <white>%amount% %task%"
+time-limit: 40
+rewards:
+  - "credits give %player% 400"
+  - "give %player% iron_shovel 1"

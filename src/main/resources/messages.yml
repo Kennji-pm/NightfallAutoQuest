@@ -20,6 +20,8 @@ quest-completed: "<green><bold>HOÀN THÀNH!</bold> <white>Bạn đã hoàn thà
 quest-failed: "<red><bold>THẤT BẠI!</bold> <gray>Nhiệm vụ <white>%name% <gray>đã kết thúc."
 quest-giveup: "<yellow>Bạn đã từ bỏ nhiệm vụ hiện tại."
 quest-warning: "<red><bold>CẢNH BÁO!</bold> <gray>Nhiệm vụ sắp hết hạn trong <yellow>%time%<gray>."
+quest-streak-lost: "<red><bold>PHÁ VỠ CHUỖI!</bold> <gray>Bạn đã mất chuỗi <yellow>%streak% <gray>nhiệm vụ liên tiếp."
+quest-streak-milestone: "<gradient:#f7941d:#5e4fa2><bold>CHUỖI NHIỆM VỤ!</bold></gradient> <gray>Bạn đã đạt chuỗi <aqua>%streak% <gray>nhiệm vụ. Thưởng thêm: <green>+%bonus%%"
 quest:
   info:
     header: "<gradient:#5e4fa2:#f7941d><bold>THÔNG TIN NHIỆM VỤ</bold></gradient>"
@@ -27,6 +29,7 @@ quest:
       - "<gray>Tên: <white>%name%"
       - "%description%"
       - "<gray>Tiến trình: <green>%progress%/%amount% <dark_gray>(<white>%task%<dark_gray>)"
+      - "<gray>Chuỗi hiện tại: <yellow>%streak%"
       - "<gray>Thời gian còn lại: <red>%time%"
     footer: "<gradient:#f7941d:#5e4fa2>──────────────────────────</gradient>"
   no-active: "<gray>Bạn hiện không có nhiệm vụ nào đang hoạt động."
@@ -45,6 +48,7 @@ stats:
   - "<gradient:#5e4fa2:#f7941d><bold>THÔNG TIN CỦA BẠN</bold></gradient>"
   - "<gray>Hoàn thành: <green>%completions%"
   - "<gray>Thất bại: <red>%failures%"
+  - "<gray>Chuỗi hiện tại: <yellow>%streak%"
   - "<gray>Tỷ lệ: <aqua>%rate%"
 top:
   header: "<gradient:#5e4fa2:#f7941d><bold>BẢNG XẾP HẠNG</bold></gradient> <gray>(Trang %page%/%total%)"

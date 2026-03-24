@@ -1,0 +1,13 @@
+id: "farming_berry_normal"
+display-name: "Quả Mọng Ngọt Ngào"
+type: "farming"
+tasks:
+  - "SWEET_BERRY_BUSH"
+amount: "64-128"
+description:
+  - "<gray>Thu hoạch quả mọng từ bụi cây."
+  - "<gray>Mục tiêu: <white>%amount% %task%"
+time-limit: "30-50"
+rewards:
+  - "credits give %player% 1000"
+  - "give %player% sweet_berries 64"

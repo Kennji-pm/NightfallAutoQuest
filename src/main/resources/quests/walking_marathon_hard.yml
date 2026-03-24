@@ -1,0 +1,13 @@
+id: "walking_marathon_hard"
+display-name: "Vận Động Viên Marathon"
+type: "walking"
+tasks:
+  - "ANY"
+amount: "100000-200000"
+description:
+  - "<gray>Bạn có đủ sức bền để hoàn thành?"
+  - "<gray>Mục tiêu: <white>%amount% khối"
+time-limit: 240
+rewards:
+  - "credits give %player% 12000"
+  - "give %player% elytrra 1"

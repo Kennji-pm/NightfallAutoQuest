@@ -1,0 +1,13 @@
+id: "farming_kelp_easy"
+display-name: "Tảo Biển Xanh"
+type: "farming"
+tasks:
+  - "KELP"
+amount: "128-256"
+description:
+  - "<gray>Thu hoạch tảo biển từ đại dương."
+  - "<gray>Mục tiêu: <white>%amount% %task%"
+time-limit: "20-40"
+rewards:
+  - "credits give %player% 400"
+  - "give %player% dried_kelp 32"

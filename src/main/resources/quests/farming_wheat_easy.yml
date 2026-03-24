@@ -1,0 +1,13 @@
+id: "farming_wheat_easy"
+display-name: "Nông Dân Tập Sự: Lúa Mì"
+type: "farming"
+tasks:
+  - "WHEAT"
+amount: "32-64"
+description:
+  - "<gray>Thu hoạch những bó lúa vàng óng."
+  - "<gray>Mục tiêu: <white>%amount% %task%"
+time-limit: 30
+rewards:
+  - "credits give %player% 400"
+  - "give %player% bread 16"

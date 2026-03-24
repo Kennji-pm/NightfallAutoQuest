@@ -1,0 +1,14 @@
+id: "placing_stone_brick_normal"
+display-name: "Kiến Trúc Kiên Cố"
+type: "placing"
+tasks:
+  - "STONE_BRICKS"
+  - "CRACKED_STONE_BRICKS"
+amount: "64-128"
+description:
+  - "<gray>Xây dựng những bức tường vững chãi."
+  - "<gray>Mục tiêu: <white>%amount% %task%"
+time-limit: 45
+rewards:
+  - "credits give %player% 1200"
+  - "give %player% stone 64"

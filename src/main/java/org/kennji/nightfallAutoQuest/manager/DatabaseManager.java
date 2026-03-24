@@ -72,7 +72,8 @@ public final class DatabaseManager {
             stmt.execute("CREATE TABLE IF NOT EXISTS player_stats (" +
                     "uuid VARCHAR(36) PRIMARY KEY, " +
                     "completions INT DEFAULT 0, " +
-                    "failures INT DEFAULT 0)");
+                    "failures INT DEFAULT 0, " +
+                    "quest_streak INT DEFAULT 0)");
 
             stmt.execute("CREATE TABLE IF NOT EXISTS player_quests (" +
                     "uuid VARCHAR(36) PRIMARY KEY, " +
@@ -127,6 +128,7 @@ public final class DatabaseManager {
                         UUID.fromString(rs.getString("uuid")),
                         rs.getInt("completions"),
                         rs.getInt("failures"),
+                        rs.getInt("quest_streak"),
                         null, null, 0, 0, 0, 0));
             }
         } catch (SQLException e) {
@@ -149,7 +151,7 @@ public final class DatabaseManager {
             while (rs.next()) {
                 UUID uuid = UUID.fromString(rs.getString("uuid"));
                 players.add(
-                        new PlayerData(uuid, rs.getInt("completions"), rs.getInt("failures"), null, null, 0, 0, 0, 0));
+                        new PlayerData(uuid, rs.getInt("completions"), rs.getInt("failures"), rs.getInt("quest_streak"), null, null, 0, 0, 0, 0));
             }
         } catch (SQLException e) {
             plugin.getPluginLogger().error("Failed to fetch top rate players", e);

@@ -1,0 +1,14 @@
+id: "mining_gilded_blackstone_hard"
+display-name: "Vàng Trong Đá Đen"
+type: "mining"
+tasks:
+  - "GILDED_BLACKSTONE"
+amount: "32-64"
+description:
+  - "<gray>Tìm kiếm những khối đá đen dát vàng quý giá."
+  - "<gray>Mục tiêu: <white>%amount% %task%"
+time-limit: "90-180"
+rewards:
+  - "credits give %player% 6000"
+  - "give %player% gold_ingot 32"
+  - "give %player% piglin_step_disc 1"

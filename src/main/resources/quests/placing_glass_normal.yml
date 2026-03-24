@@ -1,0 +1,14 @@
+id: "placing_glass_normal"
+display-name: "Xây Dựng Nhà Kính"
+type: "placing"
+tasks:
+  - "GLASS"
+  - "WHITE_STAINED_GLASS"
+amount: "32-64"
+description:
+  - "<gray>Tạo ra những góc nhìn tuyệt đẹp."
+  - "<gray>Mục tiêu: <white>%amount% %task%"
+time-limit: 30
+rewards:
+  - "credits give %player% 1000"
+  - "give %player% sand 64"

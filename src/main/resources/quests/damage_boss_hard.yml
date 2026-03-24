@@ -1,0 +1,13 @@
+id: "damage_boss_hard"
+display-name: "Kẻ Hủy Diệt"
+type: "dealdamage"
+tasks:
+  - "ANY"
+amount: "50000-100000"
+description:
+  - "<gray>Kỹ năng chiến đấu đạt đến đỉnh cao."
+  - "<gray>Mục tiêu: <white>%amount% sát thương"
+time-limit: 240
+rewards:
+  - "credits give %player% 15000"
+  - "give %player% netherite_ingot 1"

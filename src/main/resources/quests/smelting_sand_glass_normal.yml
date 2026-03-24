@@ -1,0 +1,13 @@
+id: "smelting_sand_glass_normal"
+display-name: "Nấu Thủy Tinh"
+type: "smelting"
+tasks:
+  - "GLASS"
+amount: "128-256"
+description:
+  - "<gray>Nung cát thành thủy tinh trong suốt."
+  - "<gray>Mục tiêu: <white>%amount% %task%"
+time-limit: "30-60"
+rewards:
+  - "credits give %player% 1200"
+  - "give %player% sand 128"

@@ -1,0 +1,15 @@
+id: "mining_lapis_normal"
+display-name: "Sắc Xanh Huyền Bí"
+type: "mining"
+tasks:
+  - "LAPIS_ORE"
+  - "DEEPSLATE_LAPIS_ORE"
+amount: "32-64"
+description:
+  - "<gray>Lapis dùng cho phép thuật."
+  - "<gray>Mục tiêu: <white>%amount% %task%"
+time-limit: 40
+rewards:
+  - "credits give %player% 1200"
+  - "give %player% lapis_lazuli 64"
+  - "give %player% enchanting_table 1"

@@ -1,0 +1,14 @@
+id: "placing_lantern_normal"
+display-name: "Ánh Sáng Đèn Lồng"
+type: "placing"
+tasks:
+  - "LANTERN"
+  - "SOUL_LANTERN"
+amount: "16-32"
+description:
+  - "<gray>Thắp sáng căn cứ bằng đèn lồng."
+  - "<gray>Mục tiêu: <white>%amount% %task%"
+time-limit: "20-40"
+rewards:
+  - "credits give %player% 1500"
+  - "give %player% iron_ingot 16"

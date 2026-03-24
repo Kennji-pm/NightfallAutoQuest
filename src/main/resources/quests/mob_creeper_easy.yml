@@ -1,0 +1,13 @@
+id: "mob_creeper_easy"
+display-name: "Kẻ Đánh Bom: Creeper"
+type: "mobkilling"
+tasks:
+  - "CREEPER"
+amount: "5-10"
+description:
+  - "<gray>Hãy cẩn thận! Đừng để chúng nổ tung."
+  - "<gray>Mục tiêu: <white>%amount% %task%"
+time-limit: 20
+rewards:
+  - "credits give %player% 700"
+  - "give %player% gunpowder 16"

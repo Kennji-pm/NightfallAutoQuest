@@ -1,0 +1,13 @@
+id: "damage_high_hard"
+display-name: "Chiến Thần"
+type: "dealdamage"
+tasks:
+  - "ANY"
+amount: "10000-20000"
+description:
+  - "<gray>Một cuộc tàn sát thực sự."
+  - "<gray>Mục tiêu: <white>%amount% sát thương"
+time-limit: 120
+rewards:
+  - "credits give %player% 6000"
+  - "give %player% diamond_block 1"

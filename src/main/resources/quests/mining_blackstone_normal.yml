@@ -1,0 +1,14 @@
+id: "mining_blackstone_normal"
+display-name: "Khoáng Sản Bóng Đêm"
+type: "mining"
+tasks:
+  - "BLACKSTONE"
+  - "POLISHED_BLACKSTONE"
+amount: "128-256"
+description:
+  - "<gray>Thu thập đá đen từ tàn tích Bastion."
+  - "<gray>Mục tiêu: <white>%amount% %task%"
+time-limit: "30-60"
+rewards:
+  - "credits give %player% 1200"
+  - "give %player% gold_ingot 8"

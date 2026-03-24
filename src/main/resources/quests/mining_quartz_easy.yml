@@ -1,0 +1,14 @@
+id: "mining_quartz_easy"
+display-name: "Thợ Mỏ Nether"
+type: "mining"
+tasks:
+  - "NETHER_QUARTZ_ORE"
+amount: "64-128"
+description:
+  - "<gray>Thu thập thạch anh trắng."
+  - "<gray>Mục tiêu: <white>%amount% %task%"
+time-limit: 30
+rewards:
+  - "credits give %player% 600"
+  - "give %player% quartz 32"
+  - "give %player% quartz_block 8"

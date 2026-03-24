@@ -1,0 +1,14 @@
+id: "mining_basalt_normal"
+display-name: "Đá Núi Lửa"
+type: "mining"
+tasks:
+  - "BASALT"
+  - "POLISHED_BASALT"
+amount: "128-256"
+description:
+  - "<gray>Thu thập đá bazan từ các cột đá khổng lồ."
+  - "<gray>Mục tiêu: <white>%amount% %task%"
+time-limit: "30-60"
+rewards:
+  - "credits give %player% 1000"
+  - "give %player% coal 32"

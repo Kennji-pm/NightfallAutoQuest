@@ -1,0 +1,13 @@
+id: "mob_wither_skeleton_hard"
+display-name: "Bóng Ma Nether"
+type: "mobkilling"
+tasks:
+  - "WITHER_SKELETON"
+amount: "20-40"
+description:
+  - "<gray>Thử thách kỹ năng chiến đấu trong bóng tối."
+  - "<gray>Mục tiêu: <white>%amount% %task%"
+time-limit: 60
+rewards:
+  - "credits give %player% 5000"
+  - "give %player% wither_skeleton_skull 1"

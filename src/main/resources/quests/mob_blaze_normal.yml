@@ -1,0 +1,13 @@
+id: "mob_blaze_normal"
+display-name: "Lửa Thiêng Nether"
+type: "mobkilling"
+tasks:
+  - "BLAZE"
+amount: "15-30"
+description:
+  - "<gray>Tiêu diệt quỷ lửa trong pháo đài."
+  - "<gray>Mục tiêu: <white>%amount% %task%"
+time-limit: 45
+rewards:
+  - "credits give %player% 2800"
+  - "give %player% blaze_rod 16"

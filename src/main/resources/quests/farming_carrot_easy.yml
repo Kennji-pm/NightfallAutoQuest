@@ -1,0 +1,13 @@
+id: "farming_carrot_easy"
+display-name: "Vụ Mùa Cà Rốt"
+type: "farming"
+tasks:
+  - "CARROTS"
+amount: "32-64"
+description:
+  - "<gray>Thu hoạch cà rốt tươi ngon."
+  - "<gray>Mục tiêu: <white>%amount% %task%"
+time-limit: 30
+rewards:
+  - "credits give %player% 450"
+  - "give %player% golden_carrot 8"

@@ -1,0 +1,16 @@
+id: "smelting_food_normal"
+display-name: "Đầu Bếp Tài Ba"
+type: "smelting"
+tasks:
+  - "COOKED_BEEF"
+  - "COOKED_PORKCHOP"
+  - "COOKED_CHICKEN"
+amount: "64-128"
+description:
+  - "<gray>Nấu chín thức ăn cho mọi người."
+  - "<gray>Mục tiêu: <white>%amount% thức ăn chín"
+time-limit: 40
+rewards:
+  - "credits give %player% 1500"
+  - "give %player% smoker 1"
+  - "give %player% coal_block 2"

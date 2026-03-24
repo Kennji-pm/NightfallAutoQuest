@@ -50,6 +50,7 @@ public final class QuestCommand extends AbstractCommand {
                     .replace("%progress%", String.valueOf(data.questProgress()))
                     .replace("%amount%", String.valueOf(data.targetAmount()))
                     .replace("%task%", formattedTask)
+                    .replace("%streak%", String.valueOf(data.questStreak()))
                     .replace("%time%", timeLeft));
         }
         plugin.getMessageUtil().sendRawMessage(player, plugin.getConfigManager().getMessages().getString("quest.info.footer", ""));

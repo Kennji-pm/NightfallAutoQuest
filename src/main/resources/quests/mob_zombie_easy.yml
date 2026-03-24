@@ -1,0 +1,13 @@
+id: "mob_zombie_easy"
+display-name: "Săn Xác Sống: Zombie"
+type: "mobkilling"
+tasks:
+  - "ZOMBIE"
+amount: "10-20"
+description:
+  - "<gray>Tiêu diệt những thây ma đang đe dọa ngôi làng."
+  - "<gray>Mục tiêu: <white>%amount% %task%"
+time-limit: 15
+rewards:
+  - "credits give %player% 500"
+  - "give %player% rotten_flesh 16"

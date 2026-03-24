@@ -25,12 +25,14 @@ public final class PlayerRepository implements Repository<UUID, PlayerData> {
             try (Connection conn = plugin.getDatabaseManager().getConnection()) {
                 int completions = 0;
                 int failures = 0;
+                int streak = 0;
                 try (PreparedStatement stmt = conn.prepareStatement("SELECT * FROM player_stats WHERE uuid = ?")) {
                     stmt.setString(1, uuid.toString());
                     ResultSet rs = stmt.executeQuery();
                     if (rs.next()) {
                         completions = rs.getInt("completions");
                         failures = rs.getInt("failures");
+                        streak = rs.getInt("quest_streak");
                     }
                 }
 
@@ -53,10 +55,10 @@ public final class PlayerRepository implements Repository<UUID, PlayerData> {
                     }
                 }
 
-                return new PlayerData(uuid, completions, failures, questId, activeTask, progress, expiration, startValue, targetAmount);
+                return new PlayerData(uuid, completions, failures, streak, questId, activeTask, progress, expiration, startValue, targetAmount);
             } catch (SQLException e) {
                 plugin.getPluginLogger().error("Failed to load player data for " + uuid, e);
-                return new PlayerData(uuid, 0, 0, null, null, 0, 0, 0, 0);
+                return new PlayerData(uuid, 0, 0, 0, null, null, 0, 0, 0, 0);
             }
         });
     }
@@ -69,13 +71,15 @@ public final class PlayerRepository implements Repository<UUID, PlayerData> {
                 try {
                     // Save stats
                     try (PreparedStatement stmt = conn.prepareStatement(
-                            "INSERT INTO player_stats (uuid, completions, failures) VALUES (?, ?, ?) " +
-                                    "ON CONFLICT(uuid) DO UPDATE SET completions = ?, failures = ?")) {
+                            "INSERT INTO player_stats (uuid, completions, failures, quest_streak) VALUES (?, ?, ?, ?) " +
+                                    "ON CONFLICT(uuid) DO UPDATE SET completions = ?, failures = ?, quest_streak = ?")) {
                         stmt.setString(1, data.uuid().toString());
                         stmt.setInt(2, data.completions());
                         stmt.setInt(3, data.failures());
-                        stmt.setInt(4, data.completions());
-                        stmt.setInt(5, data.failures());
+                        stmt.setInt(4, data.questStreak());
+                        stmt.setInt(5, data.completions());
+                        stmt.setInt(6, data.failures());
+                        stmt.setInt(7, data.questStreak());
                         stmt.executeUpdate();
                     }
 

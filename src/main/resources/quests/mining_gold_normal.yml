@@ -1,0 +1,16 @@
+id: "mining_gold_normal"
+display-name: "Cơn Sốt Vàng"
+type: "mining"
+tasks:
+  - "GOLD_ORE"
+  - "DEEPSLATE_GOLD_ORE"
+  - "NETHER_GOLD_ORE"
+amount: "48-64"
+description:
+  - "<gray>Vàng ở khắp mọi nơi!"
+  - "<gray>Mục tiêu: <white>%amount% %task%"
+time-limit: 45
+rewards:
+  - "credits give %player% 1500"
+  - "give %player% gold_ingot 16"
+  - "give %player% golden_apple 1"

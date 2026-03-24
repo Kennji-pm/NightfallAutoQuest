@@ -67,7 +67,7 @@ public final class QuestService {
         
         // Check expiration
         if (System.currentTimeMillis() > data.questExpiration()) {
-            failQuest(player);
+            failQuest(player, false);
             return;
         }
 
@@ -94,29 +94,75 @@ public final class QuestService {
     }
 
     private void completeQuest(@NotNull Player player, @NotNull Quest quest, @NotNull PlayerData data) {
-        plugin.getPlayerManager().updatePlayerData(player.getUniqueId(), data.withCompletion());
+        int oldStreak = data.questStreak();
+        PlayerData newData = data.withCompletion();
+        plugin.getPlayerManager().updatePlayerData(player.getUniqueId(), newData);
         plugin.getBossBarManager().remove(player);
-        
+
+        double multiplier = plugin.getConfigManager().getStreakMultiplier(newData.questStreak());
+
         plugin.getMessageUtil().sendMessage(player, "quest.completed", java.util.Map.of(
-            "%name%", quest.displayName(),
-            "%amount%", String.valueOf(data.targetAmount())
+                "%name%", quest.displayName(),
+                "%amount%", String.valueOf(data.targetAmount()),
+                "%streak%", String.valueOf(newData.questStreak())
         ));
+
+        if (multiplier > 1.0 && newData.questStreak() > oldStreak) {
+            plugin.getMessageUtil().sendMessage(player, "quest.streak.milestone", java.util.Map.of(
+                    "%streak%", String.valueOf(newData.questStreak()),
+                    "%bonus%", String.valueOf((int) ((multiplier - 1.0) * 100))
+            ));
+        }
+
         plugin.getSoundUtil().playSound(player, "complete");
-        
+
         // Rewards
         for (String reward : quest.rewards()) {
-            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), reward.replace("%player%", player.getName()));
+            String finalReward = multiplyReward(reward, multiplier);
+            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), finalReward.replace("%player%", player.getName()));
         }
     }
 
-    public void failQuest(@NotNull Player player) {
+    private String multiplyReward(String reward, double multiplier) {
+        if (multiplier <= 1.0) return reward;
+        String[] parts = reward.split(" ");
+        for (int i = 0; i < parts.length; i++) {
+            try {
+                // Check if it looks like a number and not a material/ID
+                if (parts[i].matches("\\d+")) {
+                    int val = Integer.parseInt(parts[i]);
+                    if (val > 0) {
+                        parts[i] = String.valueOf((int) (val * multiplier));
+                    }
+                }
+            } catch (NumberFormatException ignored) {
+            }
+        }
+        return String.join(" ", parts);
+    }
+
+    public void failQuest(@NotNull Player player, boolean isGiveUp) {
         UUID uuid = player.getUniqueId();
         PlayerData data = plugin.getPlayerManager().getPlayerData(uuid);
-        
+
         if (data.activeQuestId() != null) {
-            plugin.getPlayerManager().updatePlayerData(uuid, data.withFailure());
+            int oldStreak = data.questStreak();
+            boolean reset = isGiveUp ? plugin.getConfigManager().streakResetOnGiveup() : plugin.getConfigManager().streakResetOnFail();
+            
+            PlayerData newData = reset ? data.withFailure() : data.withFailureStatsOnly();
+            plugin.getPlayerManager().updatePlayerData(uuid, newData);
             plugin.getBossBarManager().remove(player);
-            plugin.getMessageUtil().sendMessage(player, "quest.failed");
+            
+            plugin.getMessageUtil().sendMessage(player, isGiveUp ? "quest.giveup" : "quest.failed", java.util.Map.of(
+                "%name%", plugin.getQuestManager().getQuest(data.activeQuestId()).map(Quest::displayName).orElse("Unknown")
+            ));
+            
+            if (reset && oldStreak > 0) {
+                plugin.getMessageUtil().sendMessage(player, "quest.streak.lost", java.util.Map.of(
+                    "%streak%", String.valueOf(oldStreak)
+                ));
+            }
+            
             plugin.getSoundUtil().playSound(player, "fail");
         }
     }

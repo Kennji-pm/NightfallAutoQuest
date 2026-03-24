@@ -21,7 +21,7 @@ public final class PlayerManager {
     }
 
     public @NotNull PlayerData getPlayerData(@NotNull UUID uuid) {
-        return cache.getOrDefault(uuid, new PlayerData(uuid, 0, 0, null, null, 0, 0, 0, 0));
+        return cache.getOrDefault(uuid, new PlayerData(uuid, 0, 0, 0, null, null, 0, 0, 0, 0));
     }
 
     public void updatePlayerData(@NotNull UUID uuid, @NotNull PlayerData data) {

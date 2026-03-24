@@ -1,0 +1,15 @@
+id: "mining_redstone_easy"
+display-name: "Năng Lượng Đỏ"
+type: "mining"
+tasks:
+  - "REDSTONE_ORE"
+  - "DEEPSLATE_REDSTONE_ORE"
+amount: "64-128"
+description:
+  - "<gray>Thu thập bột đỏ rực rỡ."
+  - "<gray>Mục tiêu: <white>%amount% %task%"
+time-limit: 30
+rewards:
+  - "credits give %player% 400"
+  - "give %player% redstone 32"
+  - "give %player% repeater 4"

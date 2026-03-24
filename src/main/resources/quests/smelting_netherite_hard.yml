@@ -1,0 +1,14 @@
+id: "smelting_netherite_hard"
+display-name: "Luyện Kim Siêu Cấp"
+type: "smelting"
+tasks:
+  - "NETHERITE_SCRAP"
+amount: "8-16"
+description:
+  - "<gray>Smelt ancient debris into netherite scrap."
+  - "<gray>Mục tiêu: <white>%amount% %task%"
+time-limit: 120
+rewards:
+  - "credits give %player% 10000"
+  - "give %player% blast_furnace 1"
+  - "give %player% netherite_upgrade_smithing_template 1"

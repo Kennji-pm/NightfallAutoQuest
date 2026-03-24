@@ -1,5 +1,6 @@
 package org.kennji.nightfallAutoQuest.manager;
 
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.jetbrains.annotations.NotNull;
@@ -51,6 +52,30 @@ public final class ConfigManager {
 
     public boolean isModuleEnabled(@NotNull String type) {
         return config.getBoolean("modules." + type.toLowerCase(), true);
+    }
+
+    public boolean streakResetOnFail() {
+        return config.getBoolean("streaks.reset-on-fail", true);
+    }
+
+    public boolean streakResetOnGiveup() {
+        return config.getBoolean("streaks.reset-on-giveup", true);
+    }
+
+    public double getStreakMultiplier(int streak) {
+        ConfigurationSection milestones = config.getConfigurationSection("streaks.milestones");
+        if (milestones == null) return 1.0;
+
+        double multiplier = 1.0;
+        for (String key : milestones.getKeys(false)) {
+            try {
+                int threshold = Integer.parseInt(key);
+                if (streak >= threshold) {
+                    multiplier = Math.max(multiplier, milestones.getDouble(key));
+                }
+            } catch (NumberFormatException ignored) {}
+        }
+        return multiplier;
     }
 
     public @NotNull FileConfiguration getConfig() {

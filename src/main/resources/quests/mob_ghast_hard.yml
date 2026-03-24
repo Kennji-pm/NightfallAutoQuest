@@ -1,0 +1,13 @@
+id: "mob_ghast_hard"
+display-name: "Tiếng Khóc Tầng Địa Ngục"
+type: "mobkilling"
+tasks:
+  - "GHAST"
+amount: "5-10"
+description:
+  - "<gray>Bắn hạ những bóng ma khổng lồ."
+  - "<gray>Mục tiêu: <white>%amount% %task%"
+time-limit: 60
+rewards:
+  - "credits give %player% 4500"
+  - "give %player% ghast_tear 4"

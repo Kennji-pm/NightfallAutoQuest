@@ -1,0 +1,15 @@
+id: "mob_guardian_hard"
+display-name: "Bảo Vệ Đền Thờ Biển"
+type: "mobkilling"
+tasks:
+  - "GUARDIAN"
+  - "ELDER_GUARDIAN"
+amount: "10-20"
+description:
+  - "<gray>Tiêu diệt những kẻ canh giữ đền thờ dưới nước."
+  - "<gray>Mục tiêu: <white>%amount% %task%"
+time-limit: "60-120"
+rewards:
+  - "credits give %player% 5000"
+  - "give %player% prismarine_shard 32"
+  - "give %player% sponge 1"

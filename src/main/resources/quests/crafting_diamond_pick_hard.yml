@@ -1,0 +1,13 @@
+id: "crafting_diamond_pick_hard"
+display-name: "Công Cụ Tối Thượng"
+type: "crafting"
+tasks:
+  - "DIAMOND_PICKAXE"
+amount: "4-8"
+description:
+  - "<gray>Chế tạo những chiếc cúp kim cương quý giá."
+  - "<gray>Mục tiêu: <white>%amount% %task%"
+time-limit: 60
+rewards:
+  - "credits give %player% 4500"
+  - "give %player% diamond_block 1"

@@ -1,0 +1,14 @@
+id: "placing_soul_sand_normal"
+display-name: "Vùng Đất Linh Hồn"
+type: "placing"
+tasks:
+  - "SOUL_SAND"
+  - "SOUL_SOIL"
+amount: "64-128"
+description:
+  - "<gray>Tạo ra những con đường linh hồn."
+  - "<gray>Mục tiêu: <white>%amount% %task%"
+time-limit: "30-60"
+rewards:
+  - "credits give %player% 1200"
+  - "give %player% soul_torch 16"

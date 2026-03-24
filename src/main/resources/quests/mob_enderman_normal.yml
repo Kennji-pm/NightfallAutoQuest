@@ -1,0 +1,13 @@
+id: "mob_enderman_normal"
+display-name: "Kẻ Du Hành End"
+type: "mobkilling"
+tasks:
+  - "ENDERMAN"
+amount: "10-20"
+description:
+  - "<gray>Săn lùng những kẻ dịch chuyển tức thời."
+  - "<gray>Mục tiêu: <white>%amount% %task%"
+time-limit: 45
+rewards:
+  - "credits give %player% 2500"
+  - "give %player% ender_pearl 8"

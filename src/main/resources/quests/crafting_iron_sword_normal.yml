@@ -1,0 +1,13 @@
+id: "crafting_iron_sword_normal"
+display-name: "Rèn Kiếm Sắt"
+type: "crafting"
+tasks:
+  - "IRON_SWORD"
+amount: "8-16"
+description:
+  - "<gray>Trang bị vũ khí cho binh đoàn."
+  - "<gray>Mục tiêu: <white>%amount% %task%"
+time-limit: 30
+rewards:
+  - "credits give %player% 1800"
+  - "give %player% iron_block 1"

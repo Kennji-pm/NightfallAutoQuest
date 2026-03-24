@@ -1,0 +1,15 @@
+id: "mining_coal_easy"
+display-name: "Thợ Mỏ Tập Sự: Than Đá"
+type: "mining"
+tasks:
+  - "COAL_ORE"
+  - "DEEPSLATE_COAL_ORE"
+amount: "16-32"
+description:
+  - "<gray>Chào mừng bạn đến với hầm mỏ!"
+  - "<gray>Mục tiêu: <white>%amount% %task%"
+time-limit: 20
+rewards:
+  - "credits give %player% 300"
+  - "give %player% coal 8"
+  - "give %player% cookie 4"

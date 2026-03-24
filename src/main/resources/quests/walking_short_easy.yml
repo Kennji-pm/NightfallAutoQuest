@@ -1,0 +1,13 @@
+id: "walking_short_easy"
+display-name: "Đi Dạo Buổi Sáng"
+type: "walking"
+tasks:
+  - "ANY"
+amount: "500-1000"
+description:
+  - "<gray>Hãy đi dạo một chút để hít thở không khí trong lành."
+  - "<gray>Mục tiêu: <white>%amount% khối"
+time-limit: 15
+rewards:
+  - "credits give %player% 200"
+  - "give %player% apple 4"

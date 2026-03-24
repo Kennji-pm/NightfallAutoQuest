@@ -1,0 +1,15 @@
+id: "mob_spider_normal"
+display-name: "Hang Nhện Độc"
+type: "mobkilling"
+tasks:
+  - "SPIDER"
+  - "CAVE_SPIDER"
+amount: "20-40"
+description:
+  - "<gray>Quét sạch hang nhện."
+  - "<gray>Mục tiêu: <white>%amount% %task%"
+time-limit: 30
+rewards:
+  - "credits give %player% 1500"
+  - "give %player% string 64"
+  - "give %player% spider_eye 16"

@@ -1,0 +1,13 @@
+id: "smelting_iron_easy"
+display-name: "Lò Rèn: Sắt"
+type: "smelting"
+tasks:
+  - "IRON_INGOT"
+amount: "32-64"
+description:
+  - "<gray>Luyện quặng sắt thành thỏi."
+  - "<gray>Mục tiêu: <white>%amount% %task%"
+time-limit: 20
+rewards:
+  - "credits give %player% 500"
+  - "give %player% coal 32"

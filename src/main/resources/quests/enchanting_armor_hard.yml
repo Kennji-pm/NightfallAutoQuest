@@ -1,0 +1,14 @@
+id: "enchanting_armor_hard"
+display-name: "Giáp Trụ Thần Thánh"
+type: "enchanting"
+tasks:
+  - "DIAMOND_CHESTPLATE"
+  - "NETHERITE_CHESTPLATE"
+amount: "4-8"
+description:
+  - "<gray>Phù phép cho giáp trụ để bảo vệ bản thân."
+  - "<gray>Mục tiêu: <white>%amount% %task%"
+time-limit: 60
+rewards:
+  - "credits give %player% 4500"
+  - "give %player% diamond_block 1"

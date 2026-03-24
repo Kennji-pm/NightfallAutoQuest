@@ -1,0 +1,13 @@
+id: "damage_mid_normal"
+display-name: "Cơn Cuồng Nộ"
+type: "dealdamage"
+tasks:
+  - "ANY"
+amount: "2000-5000"
+description:
+  - "<gray>Chứng tỏ sức mạnh vượt trội."
+  - "<gray>Mục tiêu: <white>%amount% sát thương"
+time-limit: 60
+rewards:
+  - "credits give %player% 2500"
+  - "give %player% iron_block 2"

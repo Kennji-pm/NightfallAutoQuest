@@ -1,0 +1,14 @@
+id: "placing_deepslate_hard"
+display-name: "Công Trình Dưới Lòng Đất"
+type: "placing"
+tasks:
+  - "POLISHED_DEEPSLATE"
+  - "DEEPSLATE_BRICKS"
+amount: "256-512"
+description:
+  - "<gray>Xây dựng căn cứ vững chắc tại tầng sâu."
+  - "<gray>Mục tiêu: <white>%amount% %task%"
+time-limit: 120
+rewards:
+  - "credits give %player% 4000"
+  - "give %player% deepslate 128"

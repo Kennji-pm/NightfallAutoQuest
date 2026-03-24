@@ -1,0 +1,13 @@
+id: "farming_beetroot_normal"
+display-name: "Cánh Đồng Củ Dền"
+type: "farming"
+tasks:
+  - "BEETROOTS"
+amount: "64-128"
+description:
+  - "<gray>Thu hoạch củ dền đỏ rực."
+  - "<gray>Mục tiêu: <white>%amount% %task%"
+time-limit: 45
+rewards:
+  - "credits give %player% 1200"
+  - "give %player% beetroot_soup 4"

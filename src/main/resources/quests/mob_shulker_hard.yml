@@ -1,0 +1,13 @@
+id: "mob_shulker_hard"
+display-name: "Kẻ Canh Giữ Thành Phố End"
+type: "mobkilling"
+tasks:
+  - "SHULKER"
+amount: "10-20"
+description:
+  - "<gray>Săn lùng Shulker để thu thập vỏ."
+  - "<gray>Mục tiêu: <white>%amount% %task%"
+time-limit: "60-120"
+rewards:
+  - "credits give %player% 6000"
+  - "give %player% shulker_shell 2"

@@ -1,0 +1,14 @@
+id: "farming_nether_wart_normal"
+display-name: "Vườn Phù Thủy: Bướu Nether"
+type: "farming"
+tasks:
+  - "NETHER_WART"
+amount: "64-128"
+description:
+  - "<gray>Thu hoạch nguyên liệu pha thuốc quý giá."
+  - "<gray>Mục tiêu: <white>%amount% %task%"
+time-limit: 45
+rewards:
+  - "credits give %player% 1500"
+  - "give %player% soul_sand 32"
+  - "give %player% glass_bottle 16"

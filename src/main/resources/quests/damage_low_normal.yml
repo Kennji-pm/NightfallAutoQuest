@@ -1,0 +1,13 @@
+id: "damage_low_normal"
+display-name: "Chiến Binh Tập Sự"
+type: "dealdamage"
+tasks:
+  - "ANY"
+amount: "500-1000"
+description:
+  - "<gray>Gây sát thương lên kẻ thù."
+  - "<gray>Mục tiêu: <white>%amount% sát thương"
+time-limit: 30
+rewards:
+  - "credits give %player% 1200"
+  - "give %player% cooked_beef 16"

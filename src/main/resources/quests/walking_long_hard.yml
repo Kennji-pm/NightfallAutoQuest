@@ -1,0 +1,14 @@
+id: "walking_long_hard"
+display-name: "Hành Trình Vạn Dặm"
+type: "walking"
+tasks:
+  - "ANY"
+amount: "25000-50000"
+description:
+  - "<gray>Một cuộc hành trình đầy thử thách."
+  - "<gray>Mục tiêu: <white>%amount% khối"
+time-limit: 120
+rewards:
+  - "credits give %player% 5000"
+  - "give %player% saddle 1"
+  - "give %player% diamond_horse_armor 1"

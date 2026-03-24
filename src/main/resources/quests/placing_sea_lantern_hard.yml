@@ -1,0 +1,13 @@
+id: "placing_sea_lantern_hard"
+display-name: "Ánh Sáng Đại Dương"
+type: "placing"
+tasks:
+  - "SEA_LANTERN"
+amount: "32-64"
+description:
+  - "<gray>Trang trí căn cứ bằng ánh sáng từ biển cả."
+  - "<gray>Mục tiêu: <white>%amount% %task%"
+time-limit: "60-120"
+rewards:
+  - "credits give %player% 4000"
+  - "give %player% prismarine_crystals 32"

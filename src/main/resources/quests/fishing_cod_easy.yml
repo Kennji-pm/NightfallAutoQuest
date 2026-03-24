@@ -1,0 +1,13 @@
+id: "fishing_cod_easy"
+display-name: "Săn Cá Tuyết"
+type: "fishing"
+tasks:
+  - "COD"
+amount: "10-20"
+description:
+  - "<gray>Câu những chú cá tuyết ngon lành."
+  - "<gray>Mục tiêu: <white>%amount% %task%"
+time-limit: 30
+rewards:
+  - "credits give %player% 600"
+  - "give %player% cooked_cod 16"

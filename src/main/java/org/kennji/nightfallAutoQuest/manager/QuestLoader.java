@@ -1,14 +1,19 @@
 package org.kennji.nightfallAutoQuest.manager;
 
+import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.EntityType;
 import org.jetbrains.annotations.NotNull;
 import org.kennji.nightfallAutoQuest.NightfallAutoQuest;
 import org.kennji.nightfallAutoQuest.model.Quest;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.util.Collections;
 import java.util.List;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
 
 public final class QuestLoader {
     private final NightfallAutoQuest plugin;
@@ -21,18 +26,13 @@ public final class QuestLoader {
         File folder = new File(plugin.getDataFolder(), "quests");
         if (!folder.exists()) {
             folder.mkdirs();
-            // Save default quests from jar
-            plugin.saveResource("quests/ke_diet_nhen.yml", false);
-            plugin.saveResource("quests/kien_truc_su_tre.yml", false);
-            plugin.saveResource("quests/ngu_phu_cham_chi.yml", false);
-            plugin.saveResource("quests/nha_tham_hiem.yml", false);
-            plugin.saveResource("quests/nong_dan_thanh_thi.yml", false);
-            plugin.saveResource("quests/tho_dao_tap_su.yml", false);
+            saveQuestsFromJar();
         }
 
         plugin.getQuestManager().clearQuests();
         File[] files = folder.listFiles((dir, name) -> name.endsWith(".yml"));
-        if (files == null) return;
+        if (files == null)
+            return;
 
         for (File file : files) {
             YamlConfiguration yaml = YamlConfiguration.loadConfiguration(file);
@@ -49,7 +49,8 @@ public final class QuestLoader {
     }
 
     private void loadQuest(ConfigurationSection section, String id) {
-        if (section == null) return;
+        if (section == null)
+            return;
 
         String type = section.getString("type", "mining");
         if (!plugin.getConfigManager().isModuleEnabled(type)) {
@@ -58,6 +59,7 @@ public final class QuestLoader {
         }
 
         List<String> tasks;
+        // Support both multiple quests per file or single quest (id at root)
         if (section.isList("tasks")) {
             tasks = section.getStringList("tasks");
         } else if (section.isList("task")) {
@@ -65,6 +67,10 @@ public final class QuestLoader {
         } else {
             tasks = Collections.singletonList(section.getString("task", "ANY"));
         }
+
+        // --- NEW SAFETY VALIDATION ---
+        if (!validateQuest(id, type, tasks)) return;
+        // -----------------------------
 
         Quest quest = new Quest(
                 id,
@@ -74,8 +80,53 @@ public final class QuestLoader {
                 tasks,
                 section.getString("amount", "10"),
                 section.getString("time-limit", "60"),
-                section.getStringList("rewards")
-        );
+                section.getStringList("rewards"));
         plugin.getQuestManager().registerQuest(quest);
+    }
+
+    private boolean validateQuest(String id, String type, List<String> tasks) {
+        if (tasks.isEmpty()) {
+            plugin.getPluginLogger().error("Quest '" + id + "' has no tasks defined. Skipping.");
+            return false;
+        }
+
+        for (String task : tasks) {
+            if (task.equalsIgnoreCase("ANY")) continue;
+
+            if (type.equalsIgnoreCase("mobkilling")) {
+                try {
+                    EntityType.valueOf(task.toUpperCase());
+                } catch (IllegalArgumentException e) {
+                    plugin.getPluginLogger().error("Quest '" + id + "' has invalid EntityType: " + task + ". Skipping.");
+                    return false;
+                }
+            } else if (!type.equalsIgnoreCase("placeholder") && !type.equalsIgnoreCase("dealdamage") && !type.equalsIgnoreCase("walking")) {
+                // Material-based modules
+                if (Material.getMaterial(task.toUpperCase()) == null) {
+                    plugin.getPluginLogger().error("Quest '" + id + "' has invalid Material: " + task + ". Skipping.");
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    private void saveQuestsFromJar() {
+        try {
+            File jarFile = new File(plugin.getClass().getProtectionDomain().getCodeSource().getLocation().toURI());
+            if (jarFile.isFile()) {
+                try (ZipInputStream zip = new ZipInputStream(new FileInputStream(jarFile))) {
+                    ZipEntry entry;
+                    while ((entry = zip.getNextEntry()) != null) {
+                        String name = entry.getName();
+                        if (name.startsWith("quests/") && name.endsWith(".yml") && !name.equals("quests/")) {
+                            plugin.saveResource(name, false);
+                        }
+                    }
+                }
+            }
+        } catch (Exception e) {
+            plugin.getPluginLogger().error("Failed to auto-detect quests from JAR: " + e.getMessage());
+        }
     }
 }
